@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.controller</a> &gt; <span class="el_source">BrandApiController.java</span></div><h1>BrandApiController.java</h1><pre class="source lang-java linenums">package com.akshit.sale.controller;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.akshit.sale.model.BrandForm;
+import com.akshit.sale.pojo.BrandDetail;
+import com.akshit.sale.service.ApiException;
+import com.akshit.sale.service.BrandService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api
+@RestController
+<span class="nc" id="L24">public class BrandApiController {</span>
+
+	@Autowired
+	private BrandService service;
+
+	@ApiOperation(value = &quot;Adds a brand&quot;)
+	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.POST)
+	public void add(@RequestBody BrandForm form) throws ApiException {
+<span class="nc" id="L32">		BrandDetail p = convert(form);</span>
+<span class="nc" id="L33">		service.add(p);</span>
+<span class="nc" id="L34">	}</span>
+//BrandController
+	
+	/*
+	 * @ApiOperation(value = &quot;Deletes a brand&quot;)
+	 * 
+	 * @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.DELETE) //
+	 * /api/1 public void delete(@PathVariable int id) { service.delete(id); }
+	 */
+	/*
+	 * @ApiOperation(value = &quot;Gets an employee by ID&quot;)
+	 * 
+	 * @RequestMapping(path = &quot;/api/employee/{id}&quot;, method = RequestMethod.GET)
+	 * public EmployeeData get(@PathVariable int id) throws ApiException {
+	 * EmployeePojo p = service.get(id); return convert(p); }
+	 */
+// use brand data for returning database values
+	@ApiOperation(value = &quot;Gets list of all brands&quot;)
+	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.GET)
+	public List&lt;BrandForm&gt; getAll() {
+<span class="nc" id="L54">		List&lt;BrandDetail&gt; list = service.getAll();</span>
+<span class="nc" id="L55">		List&lt;BrandForm&gt; list2 = new ArrayList&lt;BrandForm&gt;();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		for (BrandDetail p : list) {</span>
+<span class="nc" id="L57">			list2.add(convert(p));</span>
+<span class="nc" id="L58">		}</span>
+<span class="nc" id="L59">		return list2;</span>
+	}
+
+	/*
+	 * @ApiOperation(value = &quot;Updates an employee&quot;)
+	 * 
+	 * @RequestMapping(path = &quot;/api/employee/{id}&quot;, method = RequestMethod.PUT)
+	 * public void update(@PathVariable int id, @RequestBody EmployeeForm f) throws
+	 * ApiException { EmployeePojo p = convert(f); service.update(id, p); }
+	 */
+	
+//Add dto
+//normalization and lowercase - dto
+	private static BrandForm convert(BrandDetail p) {
+<span class="nc" id="L73">		BrandForm d = new BrandForm();</span>
+<span class="nc" id="L74">		d.setBrand(p.getBrand());</span>
+<span class="nc" id="L75">		d.setCategory(p.getCategory());</span>
+<span class="nc" id="L76">		return d;</span>
+	}
+
+	private static BrandDetail convert(BrandForm f) {
+<span class="nc" id="L80">		BrandDetail p = new BrandDetail();</span>
+<span class="nc" id="L81">		p.setBrand(f.getBrand());</span>
+<span class="nc" id="L82">		p.setCategory(f.getCategory());</span>
+<span class="nc" id="L83">		return p;</span>
+	}
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
