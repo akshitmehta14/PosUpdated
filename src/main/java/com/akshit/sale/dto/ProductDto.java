@@ -8,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.akshit.sale.model.ProductForm;
-import com.akshit.sale.pojo.Product;
 import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.ProductService;
-import com.akshit.sale.model.ProductData;
-
 import com.akshit.sale.model.ProductData;
 @Service
 public class ProductDto {

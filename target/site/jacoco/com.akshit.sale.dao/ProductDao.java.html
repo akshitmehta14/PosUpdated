@@ -8,26 +8,29 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
-
 import com.akshit.sale.pojo.Product;
 
 @Repository
-<span class="nc" id="L15">public class ProductDao extends AbstractDao {</span>
+<span class="nc" id="L14">public class ProductDao extends AbstractDao {</span>
 	
-<span class="nc" id="L17">	private static String select_all = &quot;select p from Product p&quot;;</span>
-	
+<span class="nc" id="L16">	private static String select_all = &quot;select p from Product p&quot;;</span>
+<span class="nc" id="L17">	private static String select_id = &quot;select p from Product p where barcode=:barcode&quot;;</span>
 	@PersistenceContext
 	private EntityManager em;
 
 	
 	public List&lt;Product&gt; getall() {
-<span class="nc" id="L24">		TypedQuery&lt;Product&gt; query = getQuery(select_all, Product.class);</span>
-<span class="nc" id="L25">		return query.getResultList();</span>
+<span class="nc" id="L23">		TypedQuery&lt;Product&gt; query = getQuery(select_all, Product.class);</span>
+<span class="nc" id="L24">		return query.getResultList();</span>
 	}
 	@Transactional
 	public void add(Product x) {
-<span class="nc" id="L29">		em.persist(x);</span>
-<span class="nc" id="L30">	}</span>
-
+<span class="nc" id="L28">		em.persist(x);</span>
+<span class="nc" id="L29">	}</span>
+	public Product select(String barcode) { 
+<span class="nc" id="L31">		 TypedQuery&lt;Product&gt; query = getQuery(select_id, Product.class); </span>
+<span class="nc" id="L32">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
+<span class="nc" id="L33">		 return getSingle(query); </span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

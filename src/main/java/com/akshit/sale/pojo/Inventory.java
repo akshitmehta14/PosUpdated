@@ -1,15 +1,12 @@
 package com.akshit.sale.pojo;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
 @Entity
 public class Inventory {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	private int quantity;
 	public int getProduct_id() {

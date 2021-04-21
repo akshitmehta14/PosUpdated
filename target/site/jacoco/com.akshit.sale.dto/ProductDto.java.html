@@ -8,24 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.akshit.sale.model.ProductForm;
-import com.akshit.sale.pojo.Product;
 import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.ProductService;
 import com.akshit.sale.model.ProductData;
-
-import com.akshit.sale.model.ProductData;
 @Service
-<span class="nc" id="L18">public class ProductDto {</span>
+<span class="nc" id="L15">public class ProductDto {</span>
 	@Autowired
 	private ProductService service;
 	
 	@Transactional
 	public void add(ProductForm form) throws ApiException {
-<span class="nc" id="L24">		service.add(form);</span>
-<span class="nc" id="L25">	}</span>
+<span class="nc" id="L21">		service.add(form);</span>
+<span class="nc" id="L22">	}</span>
 	@Transactional
 	public List&lt;ProductData&gt; getall() {
-<span class="nc" id="L28">		return service.getall();</span>
+<span class="nc" id="L25">		return service.getall();</span>
 	}
 	
 	

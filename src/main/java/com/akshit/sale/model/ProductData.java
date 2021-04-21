@@ -1,19 +1,11 @@
 package com.akshit.sale.model;
 
-
 public class ProductData {
-	private int product_id;
 	private String barcode;
 	private String brand;
 	private String category;
 	private String name;
 	private double mrp;
-	public int getProduct_id() {
-		return product_id;
-	}
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
-	}
 	public String getBarcode() {
 		return barcode;
 	}

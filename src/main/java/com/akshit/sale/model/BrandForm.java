@@ -15,5 +15,4 @@ public class BrandForm {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
 }

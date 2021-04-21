@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api
 @RestController
-<span class="nc" id="L24">public class BrandApiController {</span>
+<span class="nc" id="L23">public class BrandApiController {</span>
 
 	@Autowired
 	private BrandService service;
@@ -29,9 +28,9 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value = &quot;Adds a brand&quot;)
 	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.POST)
 	public void add(@RequestBody BrandForm form) throws ApiException {
-<span class="nc" id="L32">		BrandDetail p = convert(form);</span>
-<span class="nc" id="L33">		service.add(p);</span>
-<span class="nc" id="L34">	}</span>
+<span class="nc" id="L31">		BrandDetail p = convert(form);</span>
+<span class="nc" id="L32">		service.add(p);</span>
+<span class="nc" id="L33">	}</span>
 //BrandController
 	
 	/*
@@ -51,12 +50,12 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value = &quot;Gets list of all brands&quot;)
 	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.GET)
 	public List&lt;BrandForm&gt; getAll() {
-<span class="nc" id="L54">		List&lt;BrandDetail&gt; list = service.getAll();</span>
-<span class="nc" id="L55">		List&lt;BrandForm&gt; list2 = new ArrayList&lt;BrandForm&gt;();</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">		for (BrandDetail p : list) {</span>
-<span class="nc" id="L57">			list2.add(convert(p));</span>
-<span class="nc" id="L58">		}</span>
-<span class="nc" id="L59">		return list2;</span>
+<span class="nc" id="L53">		List&lt;BrandDetail&gt; list = service.getAll();</span>
+<span class="nc" id="L54">		List&lt;BrandForm&gt; list2 = new ArrayList&lt;BrandForm&gt;();</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		for (BrandDetail p : list) {</span>
+<span class="nc" id="L56">			list2.add(convert(p));</span>
+<span class="nc" id="L57">		}</span>
+<span class="nc" id="L58">		return list2;</span>
 	}
 
 	/*
@@ -70,17 +69,17 @@ import io.swagger.annotations.ApiOperation;
 //Add dto
 //normalization and lowercase - dto
 	private static BrandForm convert(BrandDetail p) {
-<span class="nc" id="L73">		BrandForm d = new BrandForm();</span>
-<span class="nc" id="L74">		d.setBrand(p.getBrand());</span>
-<span class="nc" id="L75">		d.setCategory(p.getCategory());</span>
-<span class="nc" id="L76">		return d;</span>
+<span class="nc" id="L72">		BrandForm d = new BrandForm();</span>
+<span class="nc" id="L73">		d.setBrand(p.getBrand());</span>
+<span class="nc" id="L74">		d.setCategory(p.getCategory());</span>
+<span class="nc" id="L75">		return d;</span>
 	}
 
 	private static BrandDetail convert(BrandForm f) {
-<span class="nc" id="L80">		BrandDetail p = new BrandDetail();</span>
-<span class="nc" id="L81">		p.setBrand(f.getBrand());</span>
-<span class="nc" id="L82">		p.setCategory(f.getCategory());</span>
-<span class="nc" id="L83">		return p;</span>
+<span class="nc" id="L79">		BrandDetail p = new BrandDetail();</span>
+<span class="nc" id="L80">		p.setBrand(f.getBrand());</span>
+<span class="nc" id="L81">		p.setCategory(f.getCategory());</span>
+<span class="nc" id="L82">		return p;</span>
 	}
 
 }

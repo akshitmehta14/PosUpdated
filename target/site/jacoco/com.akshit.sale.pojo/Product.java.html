@@ -4,44 +4,50 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.sun.istack.NotNull;
 @Entity
-<span class="nc" id="L8">public class Product {</span>
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={&quot;barcode&quot;})})
+<span class="nc" id="L13">public class Product {</span>
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
+	@NotNull
 	private String barcode;
 	private int brand_id;
 	private String name;
 	private double mrp;
 	public int getProduct_id() {
-<span class="nc" id="L17">		return product_id;</span>
+<span class="nc" id="L23">		return product_id;</span>
 	}
 	public void setProduct_id(int product_id) {
-<span class="nc" id="L20">		this.product_id = product_id;</span>
-<span class="nc" id="L21">	}</span>
+<span class="nc" id="L26">		this.product_id = product_id;</span>
+<span class="nc" id="L27">	}</span>
 	public String getBarcode() {
-<span class="nc" id="L23">		return barcode;</span>
+<span class="nc" id="L29">		return barcode;</span>
 	}
 	public void setBarcode(String barcode) {
-<span class="nc" id="L26">		this.barcode = barcode;</span>
-<span class="nc" id="L27">	}</span>
+<span class="nc" id="L32">		this.barcode = barcode;</span>
+<span class="nc" id="L33">	}</span>
 	public int getBrand_id() {
-<span class="nc" id="L29">		return brand_id;</span>
+<span class="nc" id="L35">		return brand_id;</span>
 	}
 	public void setBrand_id(int brand_id) {
-<span class="nc" id="L32">		this.brand_id = brand_id;</span>
-<span class="nc" id="L33">	}</span>
+<span class="nc" id="L38">		this.brand_id = brand_id;</span>
+<span class="nc" id="L39">	}</span>
 	public String getName() {
-<span class="nc" id="L35">		return name;</span>
+<span class="nc" id="L41">		return name;</span>
 	}
 	public void setName(String name) {
-<span class="nc" id="L38">		this.name = name;</span>
-<span class="nc" id="L39">	}</span>
+<span class="nc" id="L44">		this.name = name;</span>
+<span class="nc" id="L45">	}</span>
 	public double getMrp() {
-<span class="nc" id="L41">		return mrp;</span>
+<span class="nc" id="L47">		return mrp;</span>
 	}
 	public void setMrp(double mrp) {
-<span class="nc" id="L44">		this.mrp = mrp;</span>
-<span class="nc" id="L45">	}</span>
+<span class="nc" id="L50">		this.mrp = mrp;</span>
+<span class="nc" id="L51">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
