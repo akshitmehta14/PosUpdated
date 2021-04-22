@@ -16,7 +16,7 @@ import com.akshit.sale.pojo.BrandDetail;
 public class BrandDao extends AbstractDao{
 
 	//private static String delete_id = "delete from EmployeePojo p where id=:id";
-	private static String select_id = "select p from BrandDetail p where id=:id ";
+	private static String select_id = "select p from BrandDetail p where p.brand=:brand AND p.category=:category";
 	private static String select_all = "select p from BrandDetail p";
 
 	@PersistenceContext
@@ -34,9 +34,8 @@ public class BrandDao extends AbstractDao{
 
 	//Forms and data classes should not go beyond dto/service layer
 	 public BrandDetail select(BrandForm f) { 
-		 TypedQuery<BrandDetail> query = getQuery(select_id, BrandDetail.class); 
-		 int id = 1;
-		 query.setParameter("id", id); 
+		 TypedQuery<BrandDetail> query = getQuery(select_id, BrandDetail.class);
+		 query.setParameter("brand", f.getBrand()).setParameter("category",f.getCategory());
 		 return getSingle(query); 
 		 }
 	 

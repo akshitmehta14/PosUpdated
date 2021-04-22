@@ -8,8 +8,8 @@ com\akshit\sale\dto\InventoryDto.class
 com\akshit\sale\dto\StringUtil.class
 com\akshit\sale\model\ProductForm.class
 com\akshit\sale\spring\DbConfig.class
-com\akshit\sale\pojo\Order.class
 com\akshit\sale\dto\OrderDto.class
+com\akshit\sale\pojo\OrderItem.class
 com\akshit\sale\spring\ControllerConfig.class
 com\akshit\sale\controller\SiteUIController.class
 com\akshit\sale\model\InventoryData.class

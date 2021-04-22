@@ -8,13 +8,13 @@ sale,com.akshit.sale.service,InventoryService,97,0,8,0,23,0,8,0,4,0
 sale,com.akshit.sale.service,BrandService,36,0,2,0,10,0,4,0,3,0
 sale,com.akshit.sale.service,ApiException,4,0,0,0,2,0,1,0,1,0
 sale,com.akshit.sale.service,ProductService,134,0,8,0,32,0,10,0,6,0
-sale,com.akshit.sale.service,OrderService,122,0,10,0,32,0,10,0,5,0
+sale,com.akshit.sale.service,OrderService,140,0,10,0,34,0,10,0,5,0
 sale,com.akshit.sale.dao,AbstractDao,19,0,0,0,4,0,4,0,4,0
-sale,com.akshit.sale.dao,InventoryDao,37,0,0,0,10,0,5,0,5,0
+sale,com.akshit.sale.dao,InventoryDao,59,0,0,0,15,0,6,0,6,0
 sale,com.akshit.sale.dao,OrderDao,8,0,0,0,3,0,2,0,2,0
-sale,com.akshit.sale.dao,OrderHistoryDao,10,0,0,0,3,0,2,0,2,0
+sale,com.akshit.sale.dao,OrderHistoryDao,21,0,0,0,6,0,4,0,4,0
 sale,com.akshit.sale.dao,ProductDao,36,0,0,0,10,0,5,0,5,0
-sale,com.akshit.sale.dao,BrandDao,39,0,0,0,11,0,5,0,5,0
+sale,com.akshit.sale.dao,BrandDao,41,0,0,0,10,0,5,0,5,0
 sale,com.akshit.sale.dto,ProductDto,12,0,0,0,4,0,3,0,3,0
 sale,com.akshit.sale.dto,StringUtil,27,0,8,0,6,0,8,0,4,0
 sale,com.akshit.sale.dto,OrderDto,12,0,0,0,4,0,3,0,3,0
@@ -27,8 +27,8 @@ sale,com.akshit.sale.spring,ControllerConfig,116,0,0,0,27,0,8,0,8,0
 sale,com.akshit.sale.pojo,BrandDetail,24,0,0,0,10,0,7,0,7,0
 sale,com.akshit.sale.pojo,Inventory,17,0,0,0,7,0,5,0,5,0
 sale,com.akshit.sale.pojo,OrderHistory,17,0,0,0,7,0,5,0,5,0
-sale,com.akshit.sale.pojo,Order,31,0,0,0,13,0,9,0,9,0
 sale,com.akshit.sale.pojo,Product,38,0,0,0,16,0,11,0,11,0
+sale,com.akshit.sale.pojo,OrderItem,31,0,0,0,13,0,9,0,9,0
 sale,com.akshit.sale.model,BrandForm,17,0,0,0,7,0,5,0,5,0
 sale,com.akshit.sale.model,InfoData,13,0,0,0,6,0,3,0,3,0
 sale,com.akshit.sale.model,InventoryForm,17,0,0,0,7,0,5,0,5,0

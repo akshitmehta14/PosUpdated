@@ -16,7 +16,7 @@ import com.akshit.sale.pojo.BrandDetail;
 <span class="nc" id="L16">public class BrandDao extends AbstractDao{</span>
 
 	//private static String delete_id = &quot;delete from EmployeePojo p where id=:id&quot;;
-<span class="nc" id="L19">	private static String select_id = &quot;select p from BrandDetail p where id=:id &quot;;</span>
+<span class="nc" id="L19">	private static String select_id = &quot;select p from BrandDetail p where p.brand=:brand AND p.category=:category&quot;;</span>
 <span class="nc" id="L20">	private static String select_all = &quot;select p from BrandDetail p&quot;;</span>
 
 	@PersistenceContext
@@ -34,16 +34,15 @@ import com.akshit.sale.pojo.BrandDetail;
 
 	//Forms and data classes should not go beyond dto/service layer
 	 public BrandDetail select(BrandForm f) { 
-<span class="nc" id="L37">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class); </span>
-<span class="nc" id="L38">		 int id = 1;</span>
-<span class="nc" id="L39">		 query.setParameter(&quot;id&quot;, id); </span>
-<span class="nc" id="L40">		 return getSingle(query); </span>
+<span class="nc" id="L37">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class);</span>
+<span class="nc" id="L38">		 query.setParameter(&quot;brand&quot;, f.getBrand()).setParameter(&quot;category&quot;,f.getCategory());</span>
+<span class="nc" id="L39">		 return getSingle(query); </span>
 		 }
 	 
 
 	public List&lt;BrandDetail&gt; selectAll() {
-<span class="nc" id="L45">		TypedQuery&lt;BrandDetail&gt; query = getQuery(select_all, BrandDetail.class);</span>
-<span class="nc" id="L46">		return query.getResultList();</span>
+<span class="nc" id="L44">		TypedQuery&lt;BrandDetail&gt; query = getQuery(select_all, BrandDetail.class);</span>
+<span class="nc" id="L45">		return query.getResultList();</span>
 	}
 
 	/*
