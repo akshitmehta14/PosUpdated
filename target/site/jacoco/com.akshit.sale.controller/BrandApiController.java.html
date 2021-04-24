@@ -3,7 +3,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,13 +39,13 @@ import io.swagger.annotations.ApiOperation;
 	 * @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.DELETE) //
 	 * /api/1 public void delete(@PathVariable int id) { service.delete(id); }
 	 */
-	/*
-	 * @ApiOperation(value = &quot;Gets an employee by ID&quot;)
-	 * 
-	 * @RequestMapping(path = &quot;/api/employee/{id}&quot;, method = RequestMethod.GET)
-	 * public EmployeeData get(@PathVariable int id) throws ApiException {
-	 * EmployeePojo p = service.get(id); return convert(p); }
-	 */
+
+	 @ApiOperation(value = &quot;Updates a brand by ID&quot;)
+	 @RequestMapping(path = &quot;/api/brand/{id}&quot;, method = RequestMethod.PUT)
+	  	public void update(@PathVariable int id,@RequestBody BrandForm f) {
+<span class="nc" id="L46">	 	service.update(id,f);</span>
+<span class="nc" id="L47">	 }</span>
+
 // use brand data for returning database values
 	@ApiOperation(value = &quot;Gets list of all brands&quot;)
 	@RequestMapping(path = &quot;/api/brand&quot;, method = RequestMethod.GET)

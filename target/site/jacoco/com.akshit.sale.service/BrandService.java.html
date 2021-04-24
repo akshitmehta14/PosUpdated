@@ -32,10 +32,13 @@ import com.akshit.sale.model.BrandForm;
 	 * @Transactional(rollbackOn = ApiException.class) public EmployeePojo get(int
 	 * id) throws ApiException { return getCheck(id); }
 	 */
-
+	@Transactional
+	public void update(int id,BrandForm f){
+<span class="nc" id="L37">		dao.update(id,f);</span>
+<span class="nc" id="L38">	}</span>
 	@Transactional
 	public List&lt;BrandDetail&gt; getAll() {
-<span class="nc" id="L38">		return dao.selectAll();</span>
+<span class="nc" id="L41">		return dao.selectAll();</span>
 	}
 
 	/*

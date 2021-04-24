@@ -26,6 +26,7 @@ public class InventoryApiController {
 	public void add(@RequestBody InventoryForm form) throws ApiException {
 		inventorydto.add(form);
 	}
+
 	@ApiOperation(value = "Shows all inventory")
 	@RequestMapping(path = "/api/inventory", method = RequestMethod.GET)
 	public List<InventoryData> add() {

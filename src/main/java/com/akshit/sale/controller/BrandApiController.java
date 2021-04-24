@@ -3,7 +3,7 @@ package com.akshit.sale.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,13 +39,13 @@ public class BrandApiController {
 	 * @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE) //
 	 * /api/1 public void delete(@PathVariable int id) { service.delete(id); }
 	 */
-	/*
-	 * @ApiOperation(value = "Gets an employee by ID")
-	 * 
-	 * @RequestMapping(path = "/api/employee/{id}", method = RequestMethod.GET)
-	 * public EmployeeData get(@PathVariable int id) throws ApiException {
-	 * EmployeePojo p = service.get(id); return convert(p); }
-	 */
+
+	 @ApiOperation(value = "Updates a brand by ID")
+	 @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
+	  	public void update(@PathVariable int id,@RequestBody BrandForm f) {
+	 	service.update(id,f);
+	 }
+
 // use brand data for returning database values
 	@ApiOperation(value = "Gets list of all brands")
 	@RequestMapping(path = "/api/brand", method = RequestMethod.GET)

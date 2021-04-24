@@ -26,51 +26,65 @@ import javax.transaction.Transactional;
 	private OrderHistoryDao orderhistory; 
 	@Autowired 
 	private OrderDao orderdao;
+	@Autowired
+	private InventoryDao inventorydao;
 
+//	public void add(List&lt;OrderForm&gt; f) throws ApiException {
+//		//List&lt;OrderItem&gt; ans = check(f);
+//		OrderHistory x = convert();
+//		orderhistory.add(x);
+//		for(OrderItem r:ans) {
+//
+//			orderdao.add(r);
+//			//InventoryDao v = new InventoryDao();
+//			//v.updateinventory(r.getProduct_id(),r.getQuantity());
+//		}
+//	}
 	public void add(List&lt;OrderForm&gt; f) throws ApiException {
-<span class="nc" id="L31">		List&lt;OrderItem&gt; ans = check(f);</span>
-<span class="nc" id="L32">		OrderHistory x = convert();</span>
-<span class="nc" id="L33">		int a = orderhistory.add(x);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">		for(OrderItem r:ans) {</span>
-<span class="nc" id="L35">			r.setOrder_id(a);</span>
-<span class="nc" id="L36">			orderdao.add(r);</span>
-<span class="nc" id="L37">			InventoryDao v = new InventoryDao();</span>
-<span class="nc" id="L38">			v.updateinventory(r.getProduct_id(),v.select(r.getProduct_id()).getQuantity() - r.getQuantity());</span>
-<span class="nc" id="L39">		}</span>
-<span class="nc" id="L40">	}</span>
+<span class="nc" id="L44">		List&lt;OrderItem&gt; ans = check(f);</span>
+<span class="nc" id="L45">		OrderHistory x = convert();</span>
+<span class="nc" id="L46">		orderhistory.add(x);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		for(OrderItem r:ans) {</span>
+//			i.setOrder_id(1);
+//			i.setQuantity(r.getQuantity());
+//			i.setProduct_id(4);
+<span class="nc" id="L51">			orderdao.add(r);</span>
+<span class="nc" id="L52">			inventorydao.updateinventory(r.getProduct_id(),r.getQuantity());</span>
+<span class="nc" id="L53">		}</span>
+<span class="nc" id="L54">	}</span>
 
 	public List&lt;OrderHistory&gt; getall() {
-<span class="nc" id="L43">		return orderhistory.getall();</span>
+<span class="nc" id="L57">		return orderhistory.getall();</span>
 	}
 	
 	private List&lt;OrderItem&gt; check(List&lt;OrderForm&gt; f) throws ApiException {
-<span class="nc" id="L47">		List&lt;OrderItem&gt; ans = new ArrayList&lt;OrderItem&gt;();</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">		for(OrderForm p:f) {</span>
-<span class="nc" id="L49">			OrderItem q = new OrderItem();</span>
-<span class="nc" id="L50">			ProductDao y = new ProductDao();</span>
-<span class="nc" id="L51">			Product z = y.select(p.getBarcode());</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">			if(z==null) {</span>
-<span class="nc" id="L53">				throw new ApiException(&quot;No such product exists.&quot;);</span>
+<span class="nc" id="L61">		List&lt;OrderItem&gt; ans = new ArrayList&lt;OrderItem&gt;();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">		for(OrderForm p:f) {</span>
+<span class="nc" id="L63">			OrderItem q = new OrderItem();</span>
+<span class="nc" id="L64">			ProductDao y = new ProductDao();</span>
+<span class="nc" id="L65">			Product z = y.select(p.getBarcode());</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">			if(z==null) {</span>
+<span class="nc" id="L67">				throw new ApiException(&quot;No such product exists.&quot;);</span>
 			}
-<span class="nc" id="L55">			q.setProduct_id(z.getProduct_id());</span>
-<span class="nc" id="L56">			InventoryDao m =new InventoryDao();</span>
-<span class="nc" id="L57">			Inventory i = m.select(z.getProduct_id());</span>
-<span class="nc" id="L58">			q.setQuantity(p.getQuantity());</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">			if(i==null) {</span>
-<span class="nc" id="L60">				throw new ApiException(&quot;No inventory exists for this product.&quot;);</span>
+<span class="nc" id="L69">			q.setProduct_id(z.getProduct_id());</span>
+<span class="nc" id="L70">			InventoryDao m =new InventoryDao();</span>
+<span class="nc" id="L71">			Inventory i = m.select(z.getProduct_id());</span>
+<span class="nc" id="L72">			q.setQuantity(p.getQuantity());</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">			if(i==null) {</span>
+<span class="nc" id="L74">				throw new ApiException(&quot;No inventory exists for this product.&quot;);</span>
 			}
-<span class="nc bnc" id="L62" title="All 2 branches missed.">			if(p.getQuantity() &gt; i.getQuantity()) {</span>
-<span class="nc" id="L63">				throw new ApiException(&quot;Selected quantity cannot be greater than Inventory&quot;);</span>
-			}
-<span class="nc" id="L65">			ans.add(q);</span>
-<span class="nc" id="L66">		}</span>
-<span class="nc" id="L67">		return ans;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">			if(p.getQuantity() &gt; i.getQuantity()) {</span>
+<span class="nc" id="L77">				throw new ApiException(&quot;Selected quantity cannot be greater than Inventory&quot;);</span>
+<span class="nc" id="L78">			}q.setOrder_id(1);</span>
+<span class="nc" id="L79">			ans.add(q);</span>
+<span class="nc" id="L80">		}</span>
+<span class="nc" id="L81">		return ans;</span>
 	}
 	private OrderHistory convert() {
-<span class="nc" id="L70">		OrderHistory h = new OrderHistory();</span>
-<span class="nc" id="L71">		LocalDateTime now = LocalDateTime.now();</span>
-<span class="nc" id="L72">		h.setDate(now);</span>
-<span class="nc" id="L73">		return h;</span>
+<span class="nc" id="L84">		OrderHistory h = new OrderHistory();</span>
+<span class="nc" id="L85">		LocalDateTime now = LocalDateTime.now();</span>
+<span class="nc" id="L86">		h.setDate(now);</span>
+<span class="nc" id="L87">		return h;</span>
 	}
 
 }

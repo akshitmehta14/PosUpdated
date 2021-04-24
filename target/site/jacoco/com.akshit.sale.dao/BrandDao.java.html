@@ -18,7 +18,7 @@ import com.akshit.sale.pojo.BrandDetail;
 	//private static String delete_id = &quot;delete from EmployeePojo p where id=:id&quot;;
 <span class="nc" id="L19">	private static String select_id = &quot;select p from BrandDetail p where p.brand=:brand AND p.category=:category&quot;;</span>
 <span class="nc" id="L20">	private static String select_all = &quot;select p from BrandDetail p&quot;;</span>
-
+<span class="nc" id="L21">	private static String updatebyid = &quot;update BrandDetail set brand=:brand , category=:category where brandId=:id&quot;;</span>
 	@PersistenceContext
 	private EntityManager em;
 
@@ -27,22 +27,39 @@ import com.akshit.sale.pojo.BrandDetail;
 <span class="nc" id="L27">		em.persist(p);</span>
 <span class="nc" id="L28">	}</span>
 
+//	@Transactional
+//	public void update(int id, BrandForm f){
+//		BrandDetail p = select(id);
+//		p.setBrand(f.getBrand());
+//		p.setCategory(f.getCategory());
+//	}
+	@Transactional
+	public void update(int id, BrandForm f){
+<span class="nc" id="L38">		em.createQuery(updatebyid).setParameter(&quot;id&quot;,id).setParameter(&quot;brand&quot;,f.getBrand()).setParameter(&quot;category&quot;,f.getCategory()).executeUpdate();</span>
+
+<span class="nc" id="L40">	}</span>
 	/*
 	 * public int delete(int id) { Query query = em.createQuery(delete_id);
 	 * query.setParameter(&quot;id&quot;, id); return query.executeUpdate(); }
 	 */
 
 	//Forms and data classes should not go beyond dto/service layer
+	@Transactional
+	public BrandDetail select(int id){
+<span class="nc" id="L49">		TypedQuery&lt;BrandDetail&gt; query = getQuery(&quot;select p from brand detail p where brandId=:id&quot;,BrandDetail.class);</span>
+<span class="nc" id="L50">		query.setParameter(&quot;brandId&quot;,id);</span>
+<span class="nc" id="L51">		return getSingle(query);</span>
+	}
 	 public BrandDetail select(BrandForm f) { 
-<span class="nc" id="L37">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class);</span>
-<span class="nc" id="L38">		 query.setParameter(&quot;brand&quot;, f.getBrand()).setParameter(&quot;category&quot;,f.getCategory());</span>
-<span class="nc" id="L39">		 return getSingle(query); </span>
+<span class="nc" id="L54">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class);</span>
+<span class="nc" id="L55">		 query.setParameter(&quot;brand&quot;, f.getBrand()).setParameter(&quot;category&quot;,f.getCategory());</span>
+<span class="nc" id="L56">		 return getSingle(query); </span>
 		 }
 	 
 
 	public List&lt;BrandDetail&gt; selectAll() {
-<span class="nc" id="L44">		TypedQuery&lt;BrandDetail&gt; query = getQuery(select_all, BrandDetail.class);</span>
-<span class="nc" id="L45">		return query.getResultList();</span>
+<span class="nc" id="L61">		TypedQuery&lt;BrandDetail&gt; query = getQuery(select_all, BrandDetail.class);</span>
+<span class="nc" id="L62">		return query.getResultList();</span>
 	}
 
 	/*

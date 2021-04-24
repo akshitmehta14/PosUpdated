@@ -26,10 +26,11 @@ import io.swagger.annotations.ApiOperation;
 	public void add(@RequestBody InventoryForm form) throws ApiException {
 <span class="nc" id="L27">		inventorydto.add(form);</span>
 <span class="nc" id="L28">	}</span>
+
 	@ApiOperation(value = &quot;Shows all inventory&quot;)
 	@RequestMapping(path = &quot;/api/inventory&quot;, method = RequestMethod.GET)
 	public List&lt;InventoryData&gt; add() {
-<span class="nc" id="L32">		return inventorydto.getall();</span>
+<span class="nc" id="L33">		return inventorydto.getall();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

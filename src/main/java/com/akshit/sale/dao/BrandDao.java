@@ -18,7 +18,7 @@ public class BrandDao extends AbstractDao{
 	//private static String delete_id = "delete from EmployeePojo p where id=:id";
 	private static String select_id = "select p from BrandDetail p where p.brand=:brand AND p.category=:category";
 	private static String select_all = "select p from BrandDetail p";
-
+	private static String updatebyid = "update BrandDetail set brand=:brand , category=:category where brandId=:id";
 	@PersistenceContext
 	private EntityManager em;
 
@@ -27,12 +27,29 @@ public class BrandDao extends AbstractDao{
 		em.persist(p);
 	}
 
+//	@Transactional
+//	public void update(int id, BrandForm f){
+//		BrandDetail p = select(id);
+//		p.setBrand(f.getBrand());
+//		p.setCategory(f.getCategory());
+//	}
+	@Transactional
+	public void update(int id, BrandForm f){
+		em.createQuery(updatebyid).setParameter("id",id).setParameter("brand",f.getBrand()).setParameter("category",f.getCategory()).executeUpdate();
+
+	}
 	/*
 	 * public int delete(int id) { Query query = em.createQuery(delete_id);
 	 * query.setParameter("id", id); return query.executeUpdate(); }
 	 */
 
 	//Forms and data classes should not go beyond dto/service layer
+	@Transactional
+	public BrandDetail select(int id){
+		TypedQuery<BrandDetail> query = getQuery("select p from brand detail p where brandId=:id",BrandDetail.class);
+		query.setParameter("brandId",id);
+		return getSingle(query);
+	}
 	 public BrandDetail select(BrandForm f) { 
 		 TypedQuery<BrandDetail> query = getQuery(select_id, BrandDetail.class);
 		 query.setParameter("brand", f.getBrand()).setParameter("category",f.getCategory());

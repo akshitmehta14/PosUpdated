@@ -65,5 +65,18 @@ import com.akshit.sale.model.ProductData;
 <span class="nc" id="L65">		return list3;</span>
 	}
 
+    public void update(int id, ProductForm f) {
+<span class="nc" id="L69">		Product p = new Product();</span>
+<span class="nc" id="L70">		BrandForm x = new BrandForm();</span>
+<span class="nc" id="L71">		x.setBrand(f.getBrand());</span>
+<span class="nc" id="L72">		x.setCategory(f.getCategory());</span>
+<span class="nc" id="L73">		BrandDetail b = branddao.select(x);</span>
+<span class="nc" id="L74">		p.setProduct_id(id);</span>
+<span class="nc" id="L75">		p.setBrand_id(b.getBrand_id());</span>
+<span class="nc" id="L76">		p.setMrp(f.getMrp());</span>
+<span class="nc" id="L77">		p.setBarcode(f.getBarcode());</span>
+<span class="nc" id="L78">		p.setName(f.getName());</span>
+<span class="nc" id="L79">		productdao.update(p);</span>
+<span class="nc" id="L80">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

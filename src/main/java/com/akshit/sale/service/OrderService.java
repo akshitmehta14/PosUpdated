@@ -26,16 +26,32 @@ public class OrderService {
 	private OrderHistoryDao orderhistory; 
 	@Autowired 
 	private OrderDao orderdao;
+	@Autowired
+	private InventoryDao inventorydao;
+	@Autowired
+	private ProductDao productdao;
 
+//	public void add(List<OrderForm> f) throws ApiException {
+//		//List<OrderItem> ans = check(f);
+//		OrderHistory x = convert();
+//		orderhistory.add(x);
+//		for(OrderItem r:ans) {
+//
+//			orderdao.add(r);
+//			//InventoryDao v = new InventoryDao();
+//			//v.updateinventory(r.getProduct_id(),r.getQuantity());
+//		}
+//	}
 	public void add(List<OrderForm> f) throws ApiException {
 		List<OrderItem> ans = check(f);
 		OrderHistory x = convert();
 		int a = orderhistory.add(x);
 		for(OrderItem r:ans) {
 			r.setOrder_id(a);
+//			i.setQuantity(r.getQuantity());
+//			i.setProduct_id(4);
 			orderdao.add(r);
-			InventoryDao v = new InventoryDao();
-			v.updateinventory(r.getProduct_id(),v.select(r.getProduct_id()).getQuantity() - r.getQuantity());
+			inventorydao.updateinventory(r.getProduct_id(),r.getQuantity());
 		}
 	}
 
@@ -47,21 +63,19 @@ public class OrderService {
 		List<OrderItem> ans = new ArrayList<OrderItem>();
 		for(OrderForm p:f) {
 			OrderItem q = new OrderItem();
-			ProductDao y = new ProductDao();
-			Product z = y.select(p.getBarcode());
+			Product z = productdao.select(p.getBarcode());
 			if(z==null) {
 				throw new ApiException("No such product exists.");
 			}
 			q.setProduct_id(z.getProduct_id());
-			InventoryDao m =new InventoryDao();
-			Inventory i = m.select(z.getProduct_id());
+			Inventory i = inventorydao.select(z.getProduct_id());
 			q.setQuantity(p.getQuantity());
 			if(i==null) {
 				throw new ApiException("No inventory exists for this product.");
 			}
 			if(p.getQuantity() > i.getQuantity()) {
 				throw new ApiException("Selected quantity cannot be greater than Inventory");
-			}
+			}q.setOrder_id(1);
 			ans.add(q);
 		}
 		return ans;

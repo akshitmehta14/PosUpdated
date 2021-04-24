@@ -1,2 +1,17 @@
-package com.akshit.sale.dto;public class ReportDto {
+package com.akshit.sale.dto;
+import com.akshit.sale.model.FilterForm
+import com.akshit.sale.model.SalesData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ReportDto {
+    @Autowired
+    private ReportService reportservice;
+
+    public List<SalesData> salesgeneration(FilterForm filter){
+
+    }
 }

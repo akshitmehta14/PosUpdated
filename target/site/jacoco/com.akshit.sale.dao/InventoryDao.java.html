@@ -17,7 +17,7 @@ import com.akshit.sale.pojo.Inventory;
 	
 <span class="nc" id="L18">	private static String select_all = &quot;select p from Inventory p&quot;;</span>
 <span class="nc" id="L19">	private static String select_id = &quot;select p from Inventory p where product_id=:id&quot;;</span>
-<span class="nc" id="L20">	private static String update = &quot;update p from Inventory p set quantity=:quantity where product_id=:id&quot;;</span>
+<span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quant where product_id=:id&quot;;</span>
 	@PersistenceContext
 	private EntityManager em;
 
@@ -36,9 +36,7 @@ import com.akshit.sale.pojo.Inventory;
 <span class="nc" id="L36">		 return getSingle(query); </span>
 	}
 	public void updateinventory(int id,int quantity){
-<span class="nc" id="L39">		TypedQuery&lt;Inventory&gt; query = em.createQuery(update,Inventory.class);</span>
-<span class="nc" id="L40">		query.setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id);</span>
-<span class="nc" id="L41">		query.executeUpdate();</span>
-<span class="nc" id="L42">	}</span>
+<span class="nc" id="L39">		em.createQuery(updatebyid).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
+<span class="nc" id="L40">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

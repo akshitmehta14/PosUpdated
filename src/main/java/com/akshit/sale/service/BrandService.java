@@ -32,7 +32,10 @@ public class BrandService {
 	 * @Transactional(rollbackOn = ApiException.class) public EmployeePojo get(int
 	 * id) throws ApiException { return getCheck(id); }
 	 */
-
+	@Transactional
+	public void update(int id,BrandForm f){
+		dao.update(id,f);
+	}
 	@Transactional
 	public List<BrandDetail> getAll() {
 		return dao.selectAll();

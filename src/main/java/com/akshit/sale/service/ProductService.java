@@ -65,4 +65,17 @@ public class ProductService {
 		return list3;
 	}
 
+    public void update(int id, ProductForm f) {
+		Product p = new Product();
+		BrandForm x = new BrandForm();
+		x.setBrand(f.getBrand());
+		x.setCategory(f.getCategory());
+		BrandDetail b = branddao.select(x);
+		p.setProduct_id(id);
+		p.setBrand_id(b.getBrand_id());
+		p.setMrp(f.getMrp());
+		p.setBarcode(f.getBarcode());
+		p.setName(f.getName());
+		productdao.update(p);
+    }
 }

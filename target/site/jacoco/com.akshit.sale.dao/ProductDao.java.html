@@ -24,13 +24,23 @@ import com.akshit.sale.pojo.Product;
 <span class="nc" id="L24">		return query.getResultList();</span>
 	}
 	@Transactional
+	public void update(Product p){
+<span class="nc" id="L28">		String update_query =&quot;update Product set brand_id = :brand_id, name=:name , mrp=:mrp,barcode =:barcode,name=:name  where id = :id&quot;;</span>
+<span class="nc" id="L29">		em.createQuery(update_query).setParameter(&quot;id&quot;, p.getProduct_id())</span>
+<span class="nc" id="L30">				.setParameter(&quot;brand_id&quot;,p.getBrand_id())</span>
+<span class="nc" id="L31">				.setParameter(&quot;name&quot;, p.getName())</span>
+<span class="nc" id="L32">				.setParameter(&quot;mrp&quot;, p.getMrp())</span>
+<span class="nc" id="L33">				.setParameter(&quot;barcode&quot;, p.getBarcode())</span>
+<span class="nc" id="L34">				.executeUpdate();</span>
+<span class="nc" id="L35">	}</span>
+	@Transactional
 	public void add(Product x) {
-<span class="nc" id="L28">		em.persist(x);</span>
-<span class="nc" id="L29">	}</span>
+<span class="nc" id="L38">		em.persist(x);</span>
+<span class="nc" id="L39">	}</span>
 	public Product select(String barcode) { 
-<span class="nc" id="L31">		 TypedQuery&lt;Product&gt; query = getQuery(select_id, Product.class); </span>
-<span class="nc" id="L32">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
-<span class="nc" id="L33">		 return getSingle(query); </span>
+<span class="nc" id="L41">		 TypedQuery&lt;Product&gt; query = getQuery(select_id, Product.class); </span>
+<span class="nc" id="L42">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
+<span class="nc" id="L43">		 return getSingle(query); </span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

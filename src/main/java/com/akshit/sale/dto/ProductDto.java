@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.akshit.sale.model.BrandForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class ProductDto {
 	public List<ProductData> getall() {
 		return service.getall();
 	}
-	
-	
+
+	@Transactional
+    public void update(int id, ProductForm f) {
+		service.update(id,f);
+    }
 }

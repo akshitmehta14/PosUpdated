@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.akshit.sale.model.BrandForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,19 +13,22 @@ import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.ProductService;
 import com.akshit.sale.model.ProductData;
 @Service
-<span class="nc" id="L15">public class ProductDto {</span>
+<span class="nc" id="L16">public class ProductDto {</span>
 	@Autowired
 	private ProductService service;
 	
 	@Transactional
 	public void add(ProductForm form) throws ApiException {
-<span class="nc" id="L21">		service.add(form);</span>
-<span class="nc" id="L22">	}</span>
+<span class="nc" id="L22">		service.add(form);</span>
+<span class="nc" id="L23">	}</span>
 	@Transactional
 	public List&lt;ProductData&gt; getall() {
-<span class="nc" id="L25">		return service.getall();</span>
+<span class="nc" id="L26">		return service.getall();</span>
 	}
-	
-	
+
+	@Transactional
+    public void update(int id, ProductForm f) {
+<span class="nc" id="L31">		service.update(id,f);</span>
+<span class="nc" id="L32">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
