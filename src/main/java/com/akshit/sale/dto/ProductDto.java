@@ -19,6 +19,15 @@ public class ProductDto {
 	
 	@Transactional
 	public void add(ProductForm form) throws ApiException {
+		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){
+			throw new ApiException("One or more fields are empty.");
+		}
+		if(StringUtil.negative(form.getMrp())){
+			throw new ApiException("MRP cannot be negative");
+		}
+		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
+		form.setBrand(StringUtil.toLowerCase(form.getBrand()));
+		form.setCategory(StringUtil.toLowerCase(form.getCategory()));
 		service.add(form);
 	}
 	@Transactional
@@ -27,7 +36,17 @@ public class ProductDto {
 	}
 
 	@Transactional
-    public void update(int id, ProductForm f) {
-		service.update(id,f);
+    public void update(int id, ProductForm form) throws ApiException {
+		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){
+			throw new ApiException("One or more fields are empty.");
+		}
+		if(StringUtil.negative(form.getMrp())){
+			throw new ApiException("MRP cannot be negative");
+		}
+		service.update(id,form);
+    }
+
+    public ProductData select(int id) {
+		return service.select(id);
     }
 }

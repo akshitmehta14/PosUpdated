@@ -15,4 +15,10 @@ public class StringUtil {
 		}
 		return false;
 	}
+	public static boolean negative(double x) {
+		if(x<0) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -18,8 +18,7 @@ public class InventoryDao extends AbstractDao {
 	private static String select_all = "select p from Inventory p";
 	private static String select_id = "select p from Inventory p where product_id=:id";
 	private static String updatebyid = "update Inventory set quantity = quantity - :quant where product_id=:id";
-	@PersistenceContext
-	private EntityManager em;
+	private static String updateinv = "update Inventory set quantity = quantity + :quant where product_id=:id";
 
 	
 	public List<Inventory> getall() {
@@ -28,14 +27,17 @@ public class InventoryDao extends AbstractDao {
 	}
 	
 	public void add(Inventory x) {
-		em.persist(x);
+		em().persist(x);
 	}
 	public Inventory select(int Id) { 
 		 TypedQuery<Inventory> query = getQuery(select_id, Inventory.class); 
 		 query.setParameter("id", Id); 
 		 return getSingle(query); 
 	}
+	public void update(int id,int quantity){
+		em().createQuery(updateinv).setParameter("quant",quantity).setParameter("id",id).executeUpdate();
+	}
 	public void updateinventory(int id,int quantity){
-		em.createQuery(updatebyid).setParameter("quant",quantity).setParameter("id",id).executeUpdate();
+		em().createQuery(updatebyid).setParameter("quant",quantity).setParameter("id",id).executeUpdate();
 	}
 }

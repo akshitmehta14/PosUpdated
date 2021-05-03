@@ -1,17 +1,23 @@
 package com.akshit.sale.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.akshit.sale.model.InvoiceModel;
+import com.akshit.sale.model.OrderData;
+import com.akshit.sale.service.ApiException;
+import com.akshit.sale.service.OrderService;
+import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
+import javax.xml.transform.TransformerException;
 
 import com.akshit.sale.dto.OrderDto;
 import com.akshit.sale.model.OrderForm;
 import com.akshit.sale.pojo.OrderHistory;
-import com.akshit.sale.service.ApiException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,14 +26,34 @@ import io.swagger.annotations.ApiOperation;
 public class OrderApiController {
 	@Autowired
 	private OrderDto orderdto;
+	@Autowired
+	private OrderService orderservice;
+
+
 	@ApiOperation(value = "Shows all order")
 	@RequestMapping(path = "/api/order", method = RequestMethod.GET)
 	public List<OrderHistory> add() {
 		return orderdto.getall();
 	}
+
+	@ApiOperation(value = "Shows details about an order")
+	@RequestMapping(path = "/api/order/{id}",method = RequestMethod.GET)
+	public List<OrderData> select(@PathVariable int id) throws ApiException{
+		return orderdto.select(id);
+	}
 	@ApiOperation(value="Creates an order")
 	@RequestMapping(path = "/api/order", method = RequestMethod.POST)
-	public void add(@RequestBody List<OrderForm> f) throws ApiException {
-		orderdto.add(f);
+	public void add(@RequestBody List<OrderForm> f,HttpServletResponse response) throws FOPException, JAXBException, IOException, TransformerException, ApiException {
+		orderdto.add(f,response);
+//		byte[] bytes = orderservice.generatePdfResponse();
+//		createPdfResponse(bytes, response);
 	}
+
+//	public void createPdfResponse(byte[] bytes, HttpServletResponse response) throws IOException {
+//		response.setContentType("application/pdf");
+//		response.setContentLength(bytes.length);
+//
+//		response.getOutputStream().write(bytes);
+//		response.getOutputStream().flush();
+//	}
 }

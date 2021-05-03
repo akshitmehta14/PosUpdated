@@ -18,25 +18,27 @@ import com.akshit.sale.pojo.Inventory;
 <span class="nc" id="L18">	private static String select_all = &quot;select p from Inventory p&quot;;</span>
 <span class="nc" id="L19">	private static String select_id = &quot;select p from Inventory p where product_id=:id&quot;;</span>
 <span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quant where product_id=:id&quot;;</span>
-	@PersistenceContext
-	private EntityManager em;
+<span class="nc" id="L21">	private static String updateinv = &quot;update Inventory set quantity = quantity + :quant where product_id=:id&quot;;</span>
 
 	
 	public List&lt;Inventory&gt; getall() {
-<span class="nc" id="L26">		TypedQuery&lt;Inventory&gt; query = getQuery(select_all, Inventory.class);</span>
-<span class="nc" id="L27">		return query.getResultList();</span>
+<span class="nc" id="L25">		TypedQuery&lt;Inventory&gt; query = getQuery(select_all, Inventory.class);</span>
+<span class="nc" id="L26">		return query.getResultList();</span>
 	}
 	
 	public void add(Inventory x) {
-<span class="nc" id="L31">		em.persist(x);</span>
-<span class="nc" id="L32">	}</span>
+<span class="nc" id="L30">		em().persist(x);</span>
+<span class="nc" id="L31">	}</span>
 	public Inventory select(int Id) { 
-<span class="nc" id="L34">		 TypedQuery&lt;Inventory&gt; query = getQuery(select_id, Inventory.class); </span>
-<span class="nc" id="L35">		 query.setParameter(&quot;id&quot;, Id); </span>
-<span class="nc" id="L36">		 return getSingle(query); </span>
+<span class="nc" id="L33">		 TypedQuery&lt;Inventory&gt; query = getQuery(select_id, Inventory.class); </span>
+<span class="nc" id="L34">		 query.setParameter(&quot;id&quot;, Id); </span>
+<span class="nc" id="L35">		 return getSingle(query); </span>
 	}
+	public void update(int id,int quantity){
+<span class="nc" id="L38">		em().createQuery(updateinv).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
+<span class="nc" id="L39">	}</span>
 	public void updateinventory(int id,int quantity){
-<span class="nc" id="L39">		em.createQuery(updatebyid).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
-<span class="nc" id="L40">	}</span>
+<span class="nc" id="L41">		em().createQuery(updatebyid).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
+<span class="nc" id="L42">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

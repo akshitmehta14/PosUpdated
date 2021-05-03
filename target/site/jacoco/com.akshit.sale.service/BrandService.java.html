@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.service</a> &gt; <span class="el_source">BrandService.java</span></div><h1>BrandService.java</h1><pre class="source lang-java linenums">package com.akshit.sale.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.akshit.sale.dto.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +13,24 @@ import com.akshit.sale.dao.BrandDao;
 import com.akshit.sale.pojo.BrandDetail;
 import com.akshit.sale.model.BrandForm;
 @Service
-<span class="nc" id="L14">public class BrandService {</span>
+<span class="nc" id="L16">public class BrandService&lt;list&gt; {</span>
 
 	@Autowired
 	private BrandDao dao;
 
 	@Transactional(rollbackOn = ApiException.class)
 	public void add(BrandDetail p) throws ApiException {
-<span class="nc" id="L21">		BrandForm f= new BrandForm();</span>
-<span class="nc" id="L22">		f.setBrand(p.getBrand());</span>
-<span class="nc" id="L23">		f.setCategory(p.getCategory());</span>
-<span class="nc" id="L24">		BrandDetail b = dao.select(f);</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">		if(b!=null) {</span>
-<span class="nc" id="L26">			throw new ApiException(&quot;Brand and Category combination already exists&quot;);</span>
+<span class="nc" id="L23">		BrandForm f= new BrandForm();</span>
+<span class="nc" id="L24">		f.setBrand(StringUtil.toLowerCase(p.getBrand()));</span>
+<span class="nc" id="L25">		f.setCategory(StringUtil.toLowerCase(p.getCategory()));</span>
+
+
+<span class="nc" id="L28">		BrandDetail b = dao.select(f);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		if(b!=null) {</span>
+<span class="nc" id="L30">			throw new ApiException(&quot;Brand and Category combination already exists&quot;);</span>
 		}
-<span class="nc" id="L28">		dao.insert(p);</span>
-<span class="nc" id="L29">	}</span>
+<span class="nc" id="L32">		dao.insert(p);</span>
+<span class="nc" id="L33">	}</span>
 
 	/*
 	 * @Transactional(rollbackOn = ApiException.class) public EmployeePojo get(int
@@ -34,11 +38,19 @@ import com.akshit.sale.model.BrandForm;
 	 */
 	@Transactional
 	public void update(int id,BrandForm f){
-<span class="nc" id="L37">		dao.update(id,f);</span>
-<span class="nc" id="L38">	}</span>
+<span class="nc" id="L41">		f.setBrand(StringUtil.toLowerCase(f.getBrand()));</span>
+<span class="nc" id="L42">		f.setCategory(StringUtil.toLowerCase(f.getCategory()));</span>
+<span class="nc" id="L43">		dao.update(id,f);</span>
+<span class="nc" id="L44">	}</span>
 	@Transactional
 	public List&lt;BrandDetail&gt; getAll() {
-<span class="nc" id="L41">		return dao.selectAll();</span>
+<span class="nc" id="L47">		List&lt;BrandDetail&gt; list = dao.selectAll();</span>
+<span class="nc bnc" id="L48" title="All 4 branches missed.">		Collections.sort(list , (o1, o2) -&gt; (o1.getBrand_id() &gt; o2.getBrand_id()) ? 1 : (o1.getBrand_id() &lt; o2.getBrand_id()) ? -1 : 0);</span>
+<span class="nc" id="L49">		return list;</span>
+	}
+
+	public BrandDetail select(int id) {
+<span class="nc" id="L53">		return dao.select(id);</span>
 	}
 
 	/*

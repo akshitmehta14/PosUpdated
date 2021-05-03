@@ -18,8 +18,8 @@ public class ReportApiController {
     @Autowired
     private ReportDto reportdto;
     @ApiOperation(value = "Sales report")
-    @RequestMapping("/api/report/sales")
-    public List<SalesData> salesgeneration(@RequestBody FilterForm filters){
-        return reportdto.salesgeneration(filters);
+    @RequestMapping(value = "/api/report/sales", method = RequestMethod.POST)
+    public List<SalesData> salesgeneration(@RequestBody FilterForm form){
+        return reportdto.salesgeneration(form);
     }
 }

@@ -42,5 +42,10 @@ import com.akshit.sale.pojo.Product;
 <span class="nc" id="L42">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
 <span class="nc" id="L43">		 return getSingle(query); </span>
 	}
+	public Product select(int id) {
+<span class="nc" id="L46">		TypedQuery&lt;Product&gt; query = getQuery(&quot;select p from Product p where product_id=:product_id&quot;, Product.class);</span>
+<span class="nc" id="L47">		query.setParameter(&quot;product_id&quot;, id);</span>
+<span class="nc" id="L48">		return getSingle(query);</span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

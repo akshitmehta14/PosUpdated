@@ -2,19 +2,35 @@
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Repository;
-
 import com.akshit.sale.pojo.OrderItem;
+
+import java.util.List;
+
 @Repository
-<span class="nc" id="L11">public class OrderDao {</span>
+<span class="nc" id="L13">public class OrderDao extends AbstractDao{</span>
+<span class="nc" id="L14">	private static String select_all = &quot;select p from OrderItem p&quot;;</span>
+<span class="nc" id="L15">	private static String selectbyid  = &quot;Select p from OrderItem p where orderpojoid = :id&quot;;</span>
+
 	@PersistenceContext
 	private EntityManager em;
 	@Transactional
 	public void add(OrderItem x) {
-<span class="nc" id="L16">		em.persist(x);</span>
-<span class="nc" id="L17">	}</span>
+<span class="nc" id="L21">		em.persist(x);</span>
+<span class="nc" id="L22">	}</span>
+	public List&lt;OrderItem&gt; select(int id){
+<span class="nc" id="L24">		TypedQuery&lt;OrderItem&gt; query = getQuery(selectbyid,OrderItem.class);</span>
+<span class="nc" id="L25">		query.setParameter(&quot;id&quot;,id);</span>
+<span class="nc" id="L26">		return query.getResultList();</span>
+	}
+//	@Transactional
+	public List&lt;OrderItem&gt; selectAll() {
+<span class="nc" id="L30">		TypedQuery&lt;OrderItem&gt; query = getQuery(select_all, OrderItem.class);</span>
+<span class="nc" id="L31">		return query.getResultList();</span>
+	}
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

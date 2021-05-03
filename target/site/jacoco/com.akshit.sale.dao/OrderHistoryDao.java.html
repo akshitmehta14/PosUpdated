@@ -15,16 +15,21 @@ import com.akshit.sale.pojo.OrderHistory;
 <span class="nc" id="L15">public class OrderHistoryDao extends AbstractDao {</span>
 	@PersistenceContext
 	private EntityManager em;
-<span class="nc" id="L18">	private static String select_all = &quot;select p from OrderHistory p&quot;;</span>
+<span class="nc" id="L18">	private static String selectid = &quot;select p from OrderHistory p where order_id=:id&quot;;</span>
+<span class="nc" id="L19">	private static String select_all = &quot;select p from OrderHistory p&quot;;</span>
 	@Transactional
 	public int add(OrderHistory x) {
-<span class="nc" id="L21">		em.persist(x);</span>
-<span class="nc" id="L22">		return x.getOrder_id();</span>
+<span class="nc" id="L22">		em.persist(x);</span>
+<span class="nc" id="L23">		return x.getOrder_id();</span>
 	}
 	public List&lt;OrderHistory&gt; getall() {
-<span class="nc" id="L25">		TypedQuery&lt;OrderHistory&gt; query = getQuery(select_all, OrderHistory.class);</span>
-<span class="nc" id="L26">		return query.getResultList();</span>
+<span class="nc" id="L26">		TypedQuery&lt;OrderHistory&gt; query = getQuery(select_all, OrderHistory.class);</span>
+<span class="nc" id="L27">		return query.getResultList();</span>
 	}
-	
+	public OrderHistory select(int id){
+<span class="nc" id="L30">		TypedQuery&lt;OrderHistory&gt; query = getQuery(selectid,OrderHistory.class);</span>
+<span class="nc" id="L31">		query.setParameter(&quot;id&quot;,id);</span>
+<span class="nc" id="L32">		return getSingle(query);</span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

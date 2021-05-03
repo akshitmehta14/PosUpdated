@@ -15,48 +15,67 @@
  <!-- Top row with form-->
  <div class="row">
 	 <div class="col-12">
-			<form class="form-inline" id="product-form">
-
-			  <div class="form-group">
-			    <label for="inputBarcode" class="col-sm-2 col-form-label">Barcode</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="barcode" id="inputbarcode" placeholder="enter barcode">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="brand" id="inputbrand" placeholder="enter brand">
-			    </div>
-			  </div>
-				<div class="form-group">
-					<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="category" id="inputcategory" placeholder="enter category">
-					</div>
-				</div>
-			  <div class="form-group">
-			    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="name" id="inputname" placeholder="enter name">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="inputmrp" class="col-sm-2 col-form-label">MRP</label>
-			    <div class="col-sm-10">
-			      <input type="number" class="form-control" name="mrp" id="inputmrp" placeholder="enter mrp">
-			    </div>
-			  </div>
-			  
-			  <button type="button" class="btn btn-primary" id="add-product">Add</button>
+			  <button type="button" class="btn btn-outline-success" id="add-product">Add</button>
 			  &nbsp;
-			  <button type="button" class="btn btn-primary" id="refresh-data">Refresh</button>
+			  <button type="button" class="btn btn-outline-primary" id="refresh-data">Refresh</button>
 			  &nbsp;
-			  <button type="button" class="btn btn-primary" id="upload-data">Upload</button>
-			</form>
+			  <button type="button" class="btn btn-outline-danger" id="upload-data">Upload</button>
 	 </div>	
-</div> 
+</div>
 
+
+	<!--Product add modal-->
+	<div class="modal" tabindex="-1" role="dialog" id="add-product-modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Product</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="product-form">
+
+						<div class="form-group row">
+							<label for="inputBarcode" class="col-sm-2 col-form-label">Barcode</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="barcode" id="inputBarcode" placeholder="enter barcode">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="brand" id="inputBrand" placeholder="enter brand">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="category" id="inputCategory" placeholder="enter category">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputName" class="col-sm-2 col-form-label">Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" id="inputName" placeholder="enter name">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputMrp" class="col-sm-2 col-form-label">MRP</label>
+							<div class="col-sm-10">
+								<input type="number" class="form-control" name="mrp" id="inputMrp" placeholder="enter mrp">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success" id="adds-product">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <!-- Blank Row -->
 <div class="row">
@@ -69,6 +88,7 @@
 	<table class="table table-striped" id="product-table">
 	  <thead>
 	    <tr>
+			<th scope="col">ID</th>
 	      <th scope="col">Barcode</th>
 	      <th scope="col">Brand</th>
 			<th scope="col">Category</th>
@@ -78,14 +98,6 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <td>1</td>
-	      <td>bcru3cbub</td>
-	      <td>5</td>
-	      <td>Nestle Chocolate 200gm</td>
-	      <td>919.75</td>
-	      <td>Edit </td>
-	    </tr>
 	    
 	  </tbody>
 	</table>
@@ -104,32 +116,32 @@
         </button>
       </div>
       <div class="modal-body">
-			<form class="form-inline" id="product-edit-form">
-			  <div class="form-group">
-			    <label for="inputID" class="col-sm-2 col-form-label">ID</label>
-			    <div class="col-sm-10">
-			      <input type="number" class="form-control" name="ID" id="inputID" placeholder="enter ID">
-			    </div>
-			  </div>
-			  <div class="form-group">
+			<form id="product-edit-form">
+			  <div class="form-group row">
 			    <label for="inputBarcode" class="col-sm-2 col-form-label">Barcode</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="barcode" id="inputbarcode" placeholder="enter barcode">
+			      <input type="text" class="form-control" name="barcode" id="inputBarcode" placeholder="enter barcode">
 			    </div>
 			  </div>
-			  <div class="form-group">
-			    <label for="inputBrand" class="col-sm-2 col-form-label">Brand-Category</label>
+			  <div class="form-group row">
+			    <label for="inputBrand" class="col-sm-2 col-form-label">Brand</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="brand-category" id="inputBrandCategory" placeholder="enter brand-category">
+			      <input type="text" class="form-control" name="brand" id="inputBrand" placeholder="enter brand">
 			    </div>
 			  </div>
-			  <div class="form-group">
+				<div class="form-group row">
+					<label for="inputCategory" class="col-sm-2 col-form-label">Category</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="category" id="inputCategory" placeholder="enter category">
+					</div>
+				</div>
+			  <div class="form-group row">
 			    <label for="inputName" class="col-sm-2 col-form-label">Name</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" name="Name" id="inputname" placeholder="enter name">
+			      <input type="text" class="form-control" name="name" id="inputName" placeholder="enter name">
 			    </div>
 			  </div>
-			  <div class="form-group">
+			  <div class="form-group row">
 			    <label for="inputmrp" class="col-sm-2 col-form-label">MRP</label>
 			    <div class="col-sm-10">
 			      <input type="number" class="form-control" name="mrp" id="inputmrp" placeholder="enter mrp">
@@ -140,7 +152,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="update-product">Update</button>
+        <button type="button" class="btn btn-success" id="update-product">Update</button>
       </div>
     </div>
   </div>

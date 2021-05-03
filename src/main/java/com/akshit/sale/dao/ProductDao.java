@@ -42,4 +42,9 @@ public class ProductDao extends AbstractDao {
 		 query.setParameter("barcode", barcode); 
 		 return getSingle(query); 
 	}
+	public Product select(int id) {
+		TypedQuery<Product> query = getQuery("select p from Product p where product_id=:product_id", Product.class);
+		query.setParameter("product_id", id);
+		return getSingle(query);
+	}
 }

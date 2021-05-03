@@ -1,22 +1,24 @@
 package com.akshit.sale.pojo;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import org.springframework.stereotype.Repository;
+import com.sun.istack.NotNull;
+
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames =
+				{ "brand", "category" }) })
 public class BrandDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int brandId;
+	private int brand_id;
+	@NotNull
 	private String brand;
+	@NotNull
 	private String category;
 	public int getBrand_id() {
-		return brandId;
+		return brand_id;
 	}
 	public void setBrand_id(int brand_id) {
-		this.brandId = brand_id;
+		this.brand_id = brand_id;
 	}
 	public String getBrand() {
 		return brand;

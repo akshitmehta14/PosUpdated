@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import com.akshit.sale.model.ProductData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,29 +14,39 @@ import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.InventoryService;
 @Service
 @Transactional
-<span class="nc" id="L16">public class InventoryDto {</span>
+<span class="nc" id="L17">public class InventoryDto {</span>
 	@Autowired
 	private InventoryService service;
 	public void add(InventoryForm form) throws ApiException {
-<span class="nc" id="L20">		normalize(form);</span>
-<span class="nc" id="L21">		service.add(form);</span>
-<span class="nc" id="L22">	}</span>
-	
-	
+<span class="nc" id="L21">		normalize(form);</span>
+<span class="nc" id="L22">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
+<span class="nc" id="L23">		service.add(form);</span>
+<span class="nc" id="L24">	}</span>
+	public void update(String barcode, int quantity) throws ApiException {
+<span class="nc" id="L26">		barcode = StringUtil.toLowerCase(barcode);</span>
+<span class="nc" id="L27">		service.update(barcode,quantity);</span>
+<span class="nc" id="L28">	}</span>
+	public InventoryData select(String barcode) throws ApiException {
+<span class="nc" id="L30">		barcode = StringUtil.toLowerCase(barcode);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">		if(StringUtil.isEmpty(barcode)){</span>
+<span class="nc" id="L32">			throw new ApiException(&quot;Barcode cannot be empty&quot;);</span>
+		}
+<span class="nc" id="L34">		return service.select(barcode);</span>
+	}
 	public List&lt;InventoryData&gt; getall() {
-<span class="nc" id="L26">		return service.getall();</span>
+<span class="nc" id="L37">		return service.getall();</span>
 	}
 	
 	private void normalize(InventoryForm p) throws ApiException{
-<span class="nc bnc" id="L30" title="All 2 branches missed.">		if(StringUtil.negative(p.getQuantity())==true) {</span>
-<span class="nc" id="L31">			throw new ApiException(&quot;quantity cannot be negative&quot;);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(StringUtil.negative(p.getQuantity())==true) {</span>
+<span class="nc" id="L42">			throw new ApiException(&quot;quantity cannot be negative&quot;);</span>
 		}
 		
-<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(StringUtil.isEmpty(p.getBarcode())==true) {</span>
-<span class="nc" id="L35">			throw new ApiException(&quot;barcode cannot be empty&quot;);</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		if(StringUtil.isEmpty(p.getBarcode())==true) {</span>
+<span class="nc" id="L46">			throw new ApiException(&quot;barcode cannot be empty&quot;);</span>
 		}
-<span class="nc" id="L37">		StringUtil.toLowerCase(p.getBarcode());</span>
-<span class="nc" id="L38">		return;</span>
+<span class="nc" id="L48">		StringUtil.toLowerCase(p.getBarcode());</span>
+<span class="nc" id="L49">		return;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

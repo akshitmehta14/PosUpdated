@@ -5,27 +5,7 @@ function getProductUrl(){
 }
 
 //BUTTON ACTIONS
-function addProduct(event){
-	//Set the values to update
-	var $form = $("#product-form");
-	var json = toJson($form);
-	var url = getProductUrl();
 
-	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
-	});
-
-	return false;
-}
 
 function updateProduct(event){
 	$('#edit-product-modal').modal('toggle');
@@ -130,8 +110,9 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button onclick="displayEditProduct(' + e.product_id + ')">edit</button>'
+		var buttonHtml = ' <button type="button" class="btn btn-group btn-sm btn-outline-primary" onclick="displayEditProduct(' + e.product_id + ')"><span class="material-icons">edit</span></button>'
 		var row = '<tr>'
+		+ '<td>' + e.product_id + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
@@ -184,8 +165,30 @@ function displayUploadData(){
  	resetUploadDialog();
 	$('#upload-product-modal').modal('toggle');
 }
+function addProduct(event){
+	//Set the values to update
+	$('#add-product-modal').modal('toggle');
+	var $form = $("#product-form");
+	var json = toJson($form);
+	var url = getProductUrl();
 
+	$.ajax({
+	   url: url,
+	   type: 'POST',
+	   data: json,
+	   headers: {
+       	'Content-Type': 'application/json'
+       },
+	   success: function(response) {
+	   		getProductList();
+	   },
+	   error: handleAjaxError
+	});
+
+	return false;
+}
 function displayProduct(data){
+    $("#product-edit-form input[name=id]").val(data.product_id);
 	$("#product-edit-form input[name=barcode]").val(data.barcode);
 	$("#product-edit-form input[name=brand]").val(data.brand);
 	$("#product-edit-form input[name=category]").val(data.category);
@@ -193,11 +196,14 @@ function displayProduct(data){
 	$("#product-edit-form input[name=mrp]").val(data.mrp);
 	$('#edit-product-modal').modal('toggle');
 }
-
+function addProductForm(){
+    $('#add-product-modal').modal('toggle');
+}
 
 //INITIALIZATION CODE
 function init(){
-	$('#add-product').click(addProduct);
+	$('#add-product').click(addProductForm);
+	$('#adds-product').click(addProduct);
 	$('#update-product').click(updateProduct);
 	$('#refresh-data').click(getProductList);
 	$('#upload-data').click(displayUploadData);

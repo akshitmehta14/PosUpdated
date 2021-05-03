@@ -1,5 +1,7 @@
 package com.akshit.sale.pojo;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +12,23 @@ public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int item;
+	@NotNull
 	private int orderpojoid;
+	@NotNull
 	private int productpojoid;
+	@NotNull
 	private int quantity;
+	@NotNull
+	private double mrp;
+
+	public double getMrp() {
+		return mrp;
+	}
+
+	public void setMrp(double mrp) {
+		this.mrp = mrp;
+	}
+
 	public int getItem() {
 		return item;
 	}

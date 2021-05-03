@@ -27,13 +27,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 <span class="nc" id="L27">	}</span>
 	@ApiOperation(value = &quot;Updates a product by ID&quot;)
 	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.PUT)
-	public void add(@PathVariable int id, @RequestBody ProductForm f) {
+	public void add(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
 <span class="nc" id="L31">		productdto.update(id,f);</span>
 <span class="nc" id="L32">	}</span>
+	@ApiOperation(value = &quot;Selects a product by ID&quot;)
+	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.GET)
+	public ProductData select(@PathVariable int id) throws ApiException {
+<span class="nc" id="L36">		return productdto.select(id);</span>
+	}
 	@ApiOperation(value = &quot;Shows all products&quot;)
 	@RequestMapping(path = &quot;/api/product&quot;, method = RequestMethod.GET)
 	public List&lt;ProductData&gt; add() {
-<span class="nc" id="L36">		return productdto.getall();</span>
+<span class="nc" id="L41">		return productdto.getall();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -26,8 +26,11 @@ public class ProductService {
 		f.setBrand(form.getBrand());
 		f.setCategory(form.getCategory());
 		BrandDetail p = branddao.select(f);
+		if(productdao.select(form.getBarcode())!=null){
+			throw new ApiException("Product already exists.");
+		}
 		if(p==null) {
-			throw new ApiException("Brand and Category combination does not exists");
+			throw new ApiException("Brand and Category combination does not exists.");
 		}
 		Product x = convert(form,p);
 		productdao.add(x);
@@ -44,8 +47,14 @@ public class ProductService {
 		x.setName(f.getName());
 		return x;
 	}
+	public ProductData select(int id){
+		Product p = productdao.select(id);
+		BrandDetail b = branddao.select(p.getBrand_id());
+		return convert(p,b);
+	}
 	private ProductData convert(Product f, BrandDetail p) {
 		ProductData x = new ProductData();
+		x.setProduct_id(f.getProduct_id());
 		x.setBarcode(f.getBarcode());
 		x.setBrand(p.getBrand());
 		x.setCategory(p.getCategory());
@@ -65,12 +74,15 @@ public class ProductService {
 		return list3;
 	}
 
-    public void update(int id, ProductForm f) {
+    public void update(int id, ProductForm f) throws ApiException {
 		Product p = new Product();
 		BrandForm x = new BrandForm();
 		x.setBrand(f.getBrand());
 		x.setCategory(f.getCategory());
 		BrandDetail b = branddao.select(x);
+		if(b==null){
+			throw new ApiException("Failed to update as brand and category does not exists");
+		}
 		p.setProduct_id(id);
 		p.setBrand_id(b.getBrand_id());
 		p.setMrp(f.getMrp());

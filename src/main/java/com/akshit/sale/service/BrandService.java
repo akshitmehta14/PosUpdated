@@ -1,9 +1,11 @@
 package com.akshit.sale.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.akshit.sale.dto.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import com.akshit.sale.dao.BrandDao;
 import com.akshit.sale.pojo.BrandDetail;
 import com.akshit.sale.model.BrandForm;
 @Service
-public class BrandService {
+public class BrandService<list> {
 
 	@Autowired
 	private BrandDao dao;
@@ -19,8 +21,10 @@ public class BrandService {
 	@Transactional(rollbackOn = ApiException.class)
 	public void add(BrandDetail p) throws ApiException {
 		BrandForm f= new BrandForm();
-		f.setBrand(p.getBrand());
-		f.setCategory(p.getCategory());
+		f.setBrand(StringUtil.toLowerCase(p.getBrand()));
+		f.setCategory(StringUtil.toLowerCase(p.getCategory()));
+
+
 		BrandDetail b = dao.select(f);
 		if(b!=null) {
 			throw new ApiException("Brand and Category combination already exists");
@@ -34,11 +38,19 @@ public class BrandService {
 	 */
 	@Transactional
 	public void update(int id,BrandForm f){
+		f.setBrand(StringUtil.toLowerCase(f.getBrand()));
+		f.setCategory(StringUtil.toLowerCase(f.getCategory()));
 		dao.update(id,f);
 	}
 	@Transactional
 	public List<BrandDetail> getAll() {
-		return dao.selectAll();
+		List<BrandDetail> list = dao.selectAll();
+		Collections.sort(list , (o1, o2) -> (o1.getBrand_id() > o2.getBrand_id()) ? 1 : (o1.getBrand_id() < o2.getBrand_id()) ? -1 : 0);
+		return list;
+	}
+
+	public BrandDetail select(int id) {
+		return dao.select(id);
 	}
 
 	/*

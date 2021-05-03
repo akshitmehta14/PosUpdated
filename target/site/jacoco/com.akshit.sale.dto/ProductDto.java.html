@@ -19,16 +19,35 @@ import com.akshit.sale.model.ProductData;
 	
 	@Transactional
 	public void add(ProductForm form) throws ApiException {
-<span class="nc" id="L22">		service.add(form);</span>
-<span class="nc" id="L23">	}</span>
+<span class="nc bnc" id="L22" title="All 8 branches missed.">		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){</span>
+<span class="nc" id="L23">			throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
+		}
+<span class="nc bnc" id="L25" title="All 2 branches missed.">		if(StringUtil.negative(form.getMrp())){</span>
+<span class="nc" id="L26">			throw new ApiException(&quot;MRP cannot be negative&quot;);</span>
+		}
+<span class="nc" id="L28">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
+<span class="nc" id="L29">		form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
+<span class="nc" id="L30">		form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
+<span class="nc" id="L31">		service.add(form);</span>
+<span class="nc" id="L32">	}</span>
 	@Transactional
 	public List&lt;ProductData&gt; getall() {
-<span class="nc" id="L26">		return service.getall();</span>
+<span class="nc" id="L35">		return service.getall();</span>
 	}
 
 	@Transactional
-    public void update(int id, ProductForm f) {
-<span class="nc" id="L31">		service.update(id,f);</span>
-<span class="nc" id="L32">    }</span>
+    public void update(int id, ProductForm form) throws ApiException {
+<span class="nc bnc" id="L40" title="All 8 branches missed.">		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){</span>
+<span class="nc" id="L41">			throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
+		}
+<span class="nc bnc" id="L43" title="All 2 branches missed.">		if(StringUtil.negative(form.getMrp())){</span>
+<span class="nc" id="L44">			throw new ApiException(&quot;MRP cannot be negative&quot;);</span>
+		}
+<span class="nc" id="L46">		service.update(id,form);</span>
+<span class="nc" id="L47">    }</span>
+
+    public ProductData select(int id) {
+<span class="nc" id="L50">		return service.select(id);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

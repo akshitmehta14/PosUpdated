@@ -17,15 +17,16 @@ import com.akshit.sale.pojo.BrandDetail;
 
 	//private static String delete_id = &quot;delete from EmployeePojo p where id=:id&quot;;
 <span class="nc" id="L19">	private static String select_id = &quot;select p from BrandDetail p where p.brand=:brand AND p.category=:category&quot;;</span>
-<span class="nc" id="L20">	private static String select_all = &quot;select p from BrandDetail p&quot;;</span>
-<span class="nc" id="L21">	private static String updatebyid = &quot;update BrandDetail set brand=:brand , category=:category where brandId=:id&quot;;</span>
+<span class="nc" id="L20">	private static String selectbyid = &quot;select p from BrandDetail p where p.brand_id = :id&quot;;</span>
+<span class="nc" id="L21">	private static String select_all = &quot;select p from BrandDetail p&quot;;</span>
+<span class="nc" id="L22">	private static String updatebyid = &quot;update BrandDetail set brand=:brand , category=:category where brand_id=:id&quot;;</span>
 	@PersistenceContext
 	private EntityManager em;
 
 	@Transactional
 	public void insert(BrandDetail p) {
-<span class="nc" id="L27">		em.persist(p);</span>
-<span class="nc" id="L28">	}</span>
+<span class="nc" id="L28">		em.persist(p);</span>
+<span class="nc" id="L29">	}</span>
 
 //	@Transactional
 //	public void update(int id, BrandForm f){
@@ -35,9 +36,9 @@ import com.akshit.sale.pojo.BrandDetail;
 //	}
 	@Transactional
 	public void update(int id, BrandForm f){
-<span class="nc" id="L38">		em.createQuery(updatebyid).setParameter(&quot;id&quot;,id).setParameter(&quot;brand&quot;,f.getBrand()).setParameter(&quot;category&quot;,f.getCategory()).executeUpdate();</span>
+<span class="nc" id="L39">		em.createQuery(updatebyid).setParameter(&quot;id&quot;,id).setParameter(&quot;brand&quot;,f.getBrand()).setParameter(&quot;category&quot;,f.getCategory()).executeUpdate();</span>
 
-<span class="nc" id="L40">	}</span>
+<span class="nc" id="L41">	}</span>
 	/*
 	 * public int delete(int id) { Query query = em.createQuery(delete_id);
 	 * query.setParameter(&quot;id&quot;, id); return query.executeUpdate(); }
@@ -46,16 +47,15 @@ import com.akshit.sale.pojo.BrandDetail;
 	//Forms and data classes should not go beyond dto/service layer
 	@Transactional
 	public BrandDetail select(int id){
-<span class="nc" id="L49">		TypedQuery&lt;BrandDetail&gt; query = getQuery(&quot;select p from brand detail p where brandId=:id&quot;,BrandDetail.class);</span>
-<span class="nc" id="L50">		query.setParameter(&quot;brandId&quot;,id);</span>
-<span class="nc" id="L51">		return getSingle(query);</span>
+<span class="nc" id="L50">		TypedQuery&lt;BrandDetail&gt; query = getQuery(selectbyid,BrandDetail.class);</span>
+<span class="nc" id="L51">		query.setParameter(&quot;id&quot;,id);</span>
+<span class="nc" id="L52">		return getSingle(query);</span>
 	}
 	 public BrandDetail select(BrandForm f) { 
-<span class="nc" id="L54">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class);</span>
-<span class="nc" id="L55">		 query.setParameter(&quot;brand&quot;, f.getBrand()).setParameter(&quot;category&quot;,f.getCategory());</span>
-<span class="nc" id="L56">		 return getSingle(query); </span>
-		 }
-	 
+<span class="nc" id="L55">		 TypedQuery&lt;BrandDetail&gt; query = getQuery(select_id, BrandDetail.class);</span>
+<span class="nc" id="L56">		 query.setParameter(&quot;brand&quot;, f.getBrand()).setParameter(&quot;category&quot;,f.getCategory());</span>
+<span class="nc" id="L57">		 return getSingle(query);</span>
+	}
 
 	public List&lt;BrandDetail&gt; selectAll() {
 <span class="nc" id="L61">		TypedQuery&lt;BrandDetail&gt; query = getQuery(select_all, BrandDetail.class);</span>

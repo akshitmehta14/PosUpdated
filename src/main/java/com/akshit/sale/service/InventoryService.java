@@ -29,31 +29,58 @@ public class InventoryService {
 		List<InventoryData> i = convert(x.getall(),dao.getall());
 		return i;
 	}
-
+	public void update(String barcode,int quantity) throws ApiException {
+		int id = barcodetoid(barcode);
+		if(id<0){
+			throw new ApiException("Quantity cannot be negative");
+		}
+		dao.updateinventory(id,quantity);
+	}
 	public void add(InventoryForm form) throws ApiException {
 		Product p = x.select(form.getBarcode());
 		if(p==null) {
 			throw new ApiException("No such product exists.");
+		}
+		Inventory inv = dao.select(p.getProduct_id());
+		if(inv!=null){
+			if(inv.getQuantity()+ form.getQuantity()<0){
+				throw new ApiException("Quantity cannot be negative");
+			}
+			dao.update(p.getProduct_id(),form.getQuantity());
+			return;
 		}
 		Inventory y = new Inventory();
 		y.setProduct_id(p.getProduct_id());
 		y.setQuantity(form.getQuantity());
 		dao.add(y);
 	}
+	public InventoryData select(String barcode){
+		int id = barcodetoid(barcode);
+		Inventory i = dao.select(id);
+		Product p = x.select(id);
+		return convert(p,i);
+	}
+	private int barcodetoid(String barcode){
+		return x.select(barcode).getProduct_id();
+	}
 	private List<InventoryData> convert(List<Product> list1, List<Inventory> list2){
 		List<InventoryData> ans = new ArrayList<InventoryData>();
 		for(Inventory i:list2) {
 			for(Product p:list1) {
 				if(i.getProduct_id() == p.getProduct_id()) {
-					InventoryData y= new InventoryData();
-					y.setBarcode(p.getBarcode());
-					y.setName(p.getName());
-					y.setQuantity(i.getQuantity());
+					InventoryData y= convert(p,i);
 					ans.add(y);
 				}
 			}
 		}
 		return ans;
 	}
-
+	protected InventoryData convert(Product p,Inventory i){
+		InventoryData y= new InventoryData();
+		y.setProduct_id(i.getProduct_id());
+		y.setBarcode(p.getBarcode());
+		y.setName(p.getName());
+		y.setQuantity(i.getQuantity());
+		return y;
+	}
 }

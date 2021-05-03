@@ -15,6 +15,7 @@ import com.akshit.sale.pojo.OrderHistory;
 public class OrderHistoryDao extends AbstractDao {
 	@PersistenceContext
 	private EntityManager em;
+	private static String selectid = "select p from OrderHistory p where order_id=:id";
 	private static String select_all = "select p from OrderHistory p";
 	@Transactional
 	public int add(OrderHistory x) {
@@ -25,5 +26,9 @@ public class OrderHistoryDao extends AbstractDao {
 		TypedQuery<OrderHistory> query = getQuery(select_all, OrderHistory.class);
 		return query.getResultList();
 	}
-	
+	public OrderHistory select(int id){
+		TypedQuery<OrderHistory> query = getQuery(selectid,OrderHistory.class);
+		query.setParameter("id",id);
+		return getSingle(query);
+	}
 }

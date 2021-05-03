@@ -29,32 +29,59 @@ import com.akshit.sale.pojo.Product;
 <span class="nc" id="L29">		List&lt;InventoryData&gt; i = convert(x.getall(),dao.getall());</span>
 <span class="nc" id="L30">		return i;</span>
 	}
-
-	public void add(InventoryForm form) throws ApiException {
-<span class="nc" id="L34">		Product p = x.select(form.getBarcode());</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">		if(p==null) {</span>
-<span class="nc" id="L36">			throw new ApiException(&quot;No such product exists.&quot;);</span>
+	public void update(String barcode,int quantity) throws ApiException {
+<span class="nc" id="L33">		int id = barcodetoid(barcode);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(id&lt;0){</span>
+<span class="nc" id="L35">			throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
 		}
-<span class="nc" id="L38">		Inventory y = new Inventory();</span>
-<span class="nc" id="L39">		y.setProduct_id(p.getProduct_id());</span>
-<span class="nc" id="L40">		y.setQuantity(form.getQuantity());</span>
-<span class="nc" id="L41">		dao.add(y);</span>
-<span class="nc" id="L42">	}</span>
-	private List&lt;InventoryData&gt; convert(List&lt;Product&gt; list1, List&lt;Inventory&gt; list2){
-<span class="nc" id="L44">		List&lt;InventoryData&gt; ans = new ArrayList&lt;InventoryData&gt;();</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">		for(Inventory i:list2) {</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">			for(Product p:list1) {</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">				if(i.getProduct_id() == p.getProduct_id()) {</span>
-<span class="nc" id="L48">					InventoryData y= new InventoryData();</span>
-<span class="nc" id="L49">					y.setBarcode(p.getBarcode());</span>
-<span class="nc" id="L50">					y.setName(p.getName());</span>
-<span class="nc" id="L51">					y.setQuantity(i.getQuantity());</span>
-<span class="nc" id="L52">					ans.add(y);</span>
-				}
-<span class="nc" id="L54">			}</span>
-<span class="nc" id="L55">		}</span>
-<span class="nc" id="L56">		return ans;</span>
+<span class="nc" id="L37">		dao.updateinventory(id,quantity);</span>
+<span class="nc" id="L38">	}</span>
+	public void add(InventoryForm form) throws ApiException {
+<span class="nc" id="L40">		Product p = x.select(form.getBarcode());</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(p==null) {</span>
+<span class="nc" id="L42">			throw new ApiException(&quot;No such product exists.&quot;);</span>
+		}
+<span class="nc" id="L44">		Inventory inv = dao.select(p.getProduct_id());</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		if(inv!=null){</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">			if(inv.getQuantity()+ form.getQuantity()&lt;0){</span>
+<span class="nc" id="L47">				throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
+			}
+<span class="nc" id="L49">			dao.update(p.getProduct_id(),form.getQuantity());</span>
+<span class="nc" id="L50">			return;</span>
+		}
+<span class="nc" id="L52">		Inventory y = new Inventory();</span>
+<span class="nc" id="L53">		y.setProduct_id(p.getProduct_id());</span>
+<span class="nc" id="L54">		y.setQuantity(form.getQuantity());</span>
+<span class="nc" id="L55">		dao.add(y);</span>
+<span class="nc" id="L56">	}</span>
+	public InventoryData select(String barcode){
+<span class="nc" id="L58">		int id = barcodetoid(barcode);</span>
+<span class="nc" id="L59">		Inventory i = dao.select(id);</span>
+<span class="nc" id="L60">		Product p = x.select(id);</span>
+<span class="nc" id="L61">		return convert(p,i);</span>
 	}
-
+	private int barcodetoid(String barcode){
+<span class="nc" id="L64">		return x.select(barcode).getProduct_id();</span>
+	}
+	private List&lt;InventoryData&gt; convert(List&lt;Product&gt; list1, List&lt;Inventory&gt; list2){
+<span class="nc" id="L67">		List&lt;InventoryData&gt; ans = new ArrayList&lt;InventoryData&gt;();</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">		for(Inventory i:list2) {</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">			for(Product p:list1) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">				if(i.getProduct_id() == p.getProduct_id()) {</span>
+<span class="nc" id="L71">					InventoryData y= convert(p,i);</span>
+<span class="nc" id="L72">					ans.add(y);</span>
+				}
+<span class="nc" id="L74">			}</span>
+<span class="nc" id="L75">		}</span>
+<span class="nc" id="L76">		return ans;</span>
+	}
+	protected InventoryData convert(Product p,Inventory i){
+<span class="nc" id="L79">		InventoryData y= new InventoryData();</span>
+<span class="nc" id="L80">		y.setProduct_id(i.getProduct_id());</span>
+<span class="nc" id="L81">		y.setBarcode(p.getBarcode());</span>
+<span class="nc" id="L82">		y.setName(p.getName());</span>
+<span class="nc" id="L83">		y.setQuantity(i.getQuantity());</span>
+<span class="nc" id="L84">		return y;</span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

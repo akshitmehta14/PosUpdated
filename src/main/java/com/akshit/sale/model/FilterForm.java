@@ -1,27 +1,46 @@
 package com.akshit.sale.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FilterForm {
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private String brand;
     private String category;
 
-    public LocalDate getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
-        this.start = start;
+    public void setStart(String start) {
+        if(start==null || start==""){
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime x= now.minusYears(2);
+            this.start = x;
+        }
+        else {
+            this.start = LocalDateTime.parse(start);
+        }
     }
 
-    public LocalDate getEnd() {
+    public LocalDateTime getEnd() {
+
         return end;
     }
 
-    public void setEnd(LocalDate end) {
-        this.end = end;
+    public void setEnd(String end) {
+        if(end==null || end==""){
+        LocalDateTime now = LocalDateTime.now();
+
+        this.end = now;
+    }
+        else {
+            this.end = LocalDateTime.parse(end);
+        }
     }
 
     public String getBrand() {

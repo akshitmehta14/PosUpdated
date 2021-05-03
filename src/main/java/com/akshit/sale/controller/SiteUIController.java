@@ -12,11 +12,6 @@ import com.akshit.sale.model.InfoData;
 
 		@Value("${app.baseUrl}")
 		private String baseUrl;
-		// WEBSITE PAGES
-		@RequestMapping(value = "")
-		public String index() {
-			return "index.html";
-		}
 		@RequestMapping(value = "/ui/home")
 		public ModelAndView home() {
 			return mav("home.html");

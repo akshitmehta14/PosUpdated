@@ -1,6 +1,7 @@
 package com.akshit.sale.dto;
-import com.akshit.sale.model.FilterForm
+import com.akshit.sale.model.FilterForm;
 import com.akshit.sale.model.SalesData;
+import com.akshit.sale.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public class ReportDto {
     @Autowired
     private ReportService reportservice;
 
-    public List<SalesData> salesgeneration(FilterForm filter){
-
+    public List<SalesData> salesgeneration(FilterForm form){
+        return reportservice.salesgeneration(form);
     }
 }

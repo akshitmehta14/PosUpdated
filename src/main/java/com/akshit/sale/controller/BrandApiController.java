@@ -31,14 +31,6 @@ public class BrandApiController {
 		BrandDetail p = convert(form);
 		service.add(p);
 	}
-//BrandController
-	
-	/*
-	 * @ApiOperation(value = "Deletes a brand")
-	 * 
-	 * @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.DELETE) //
-	 * /api/1 public void delete(@PathVariable int id) { service.delete(id); }
-	 */
 
 	 @ApiOperation(value = "Updates a brand by ID")
 	 @RequestMapping(path = "/api/brand/{id}", method = RequestMethod.PUT)
@@ -46,26 +38,21 @@ public class BrandApiController {
 	 	service.update(id,f);
 	 }
 
+
+	@ApiOperation(value = "Selects a brand by ID")
+	@RequestMapping(path = "/api/brand/{id}", method = RequestMethod.GET)
+	public BrandDetail select(@PathVariable int id) {
+		return service.select(id);
+	}
+
 // use brand data for returning database values
 	@ApiOperation(value = "Gets list of all brands")
 	@RequestMapping(path = "/api/brand", method = RequestMethod.GET)
-	public List<BrandForm> getAll() {
+	public List<BrandDetail> getAll() {
 		List<BrandDetail> list = service.getAll();
-		List<BrandForm> list2 = new ArrayList<BrandForm>();
-		for (BrandDetail p : list) {
-			list2.add(convert(p));
-		}
-		return list2;
+		return list;
 	}
-
-	/*
-	 * @ApiOperation(value = "Updates an employee")
-	 * 
-	 * @RequestMapping(path = "/api/employee/{id}", method = RequestMethod.PUT)
-	 * public void update(@PathVariable int id, @RequestBody EmployeeForm f) throws
-	 * ApiException { EmployeePojo p = convert(f); service.update(id, p); }
-	 */
-	
+//
 //Add dto
 //normalization and lowercase - dto
 	private static BrandForm convert(BrandDetail p) {

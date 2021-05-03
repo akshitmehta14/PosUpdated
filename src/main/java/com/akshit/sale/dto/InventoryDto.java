@@ -2,6 +2,7 @@ package com.akshit.sale.dto;
 
 import java.util.List;
 
+import com.akshit.sale.model.ProductData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,20 @@ public class InventoryDto {
 	private InventoryService service;
 	public void add(InventoryForm form) throws ApiException {
 		normalize(form);
+		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
 		service.add(form);
 	}
-	
-	
+	public void update(String barcode, int quantity) throws ApiException {
+		barcode = StringUtil.toLowerCase(barcode);
+		service.update(barcode,quantity);
+	}
+	public InventoryData select(String barcode) throws ApiException {
+		barcode = StringUtil.toLowerCase(barcode);
+		if(StringUtil.isEmpty(barcode)){
+			throw new ApiException("Barcode cannot be empty");
+		}
+		return service.select(barcode);
+	}
 	public List<InventoryData> getall() {
 		return service.getall();
 	}

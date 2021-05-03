@@ -1,5 +1,7 @@
 package com.akshit.sale.pojo;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 public class Inventory {
 	@Id
 	private int product_id;
+	@NotNull
 	private int quantity;
 	public int getProduct_id() {
 		return product_id;
