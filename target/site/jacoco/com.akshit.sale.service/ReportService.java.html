@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.service</a> &gt; <span class="el_source">ReportService.java</span></div><h1>ReportService.java</h1><pre class="source lang-java linenums">package com.akshit.sale.service;
+
+import com.akshit.sale.dao.BrandDao;
+import com.akshit.sale.dao.OrderDao;
+import com.akshit.sale.dao.OrderHistoryDao;
+import com.akshit.sale.dao.ProductDao;
+import com.akshit.sale.model.FilterForm;
+import com.akshit.sale.model.SalesData;
+import com.akshit.sale.pojo.BrandDetail;
+import com.akshit.sale.pojo.OrderHistory;
+import com.akshit.sale.pojo.OrderItem;
+import com.akshit.sale.pojo.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+<span class="nc" id="L23">public class ReportService {</span>
+    @Autowired
+    private OrderDao orderdao;
+    @Autowired
+    private ProductDao productdao;
+    @Autowired
+    private BrandDao branddao;
+    @Autowired
+    private OrderHistoryDao historyDao;
+
+    public List&lt;SalesData&gt; salesgeneration(FilterForm form){
+<span class="nc" id="L34">        List&lt;OrderItem&gt; item = orderdao.selectAll();</span>
+<span class="nc" id="L35">        List&lt;OrderItem&gt; items = filtering(item,form);</span>
+<span class="nc" id="L36">        List&lt;SalesData&gt; s = convert(items);</span>
+<span class="nc" id="L37">        List&lt;SalesData&gt; g = grouping(s);</span>
+<span class="nc" id="L38">        return g;</span>
+    }
+    public List&lt;OrderItem&gt; filtering(List&lt;OrderItem&gt; list, FilterForm filter){
+//        list.stream().filter(orderItem -&gt; orderItem.getItem()==1).collect(Collectors.toList());
+<span class="nc" id="L42">        List&lt;OrderItem&gt; list2 = new ArrayList&lt;OrderItem&gt;();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        for(OrderItem r:list) {</span>
+<span class="nc" id="L44">            list2.add(r);</span>
+<span class="nc" id="L45">            BrandDetail find = branddao.select(productdao.select(r.getProduct_id()).getBrand_id());</span>
+<span class="nc bnc" id="L46" title="All 6 branches missed.">            if (filter.getCategory()!= null &amp;&amp; !filter.getCategory().equals(find.getCategory()) &amp;&amp; filter.getCategory()!=&quot;&quot;) {</span>
+<span class="nc" id="L47">                list2.remove(r);</span>
+<span class="nc" id="L48">                continue;</span>
+            }
+<span class="nc bnc" id="L50" title="All 6 branches missed.">            else if(filter.getBrand()!=null &amp;&amp; filter.getBrand()!=find.getBrand() &amp;&amp; filter.getBrand()!=&quot;&quot;){</span>
+<span class="nc" id="L51">                list2.remove(r);</span>
+<span class="nc" id="L52">                continue;</span>
+            }
+<span class="nc" id="L54">            OrderHistory his = historyDao.select(r.getOrder_id());</span>
+<span class="nc bnc" id="L55" title="All 4 branches missed.">            if(filter.getStart().isAfter(his.getDate()) || filter.getEnd().isBefore(his.getDate())){</span>
+<span class="nc" id="L56">                list2.remove(r);</span>
+            }
+<span class="nc" id="L58">        }</span>
+
+<span class="nc" id="L60">        return list2;</span>
+    }
+    public List&lt;SalesData&gt; grouping(List&lt;SalesData&gt; s){
+<span class="nc" id="L63">        HashMap&lt;String, SalesData&gt; hm = new HashMap&lt;String,SalesData&gt;();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        for(SalesData r:s){</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if(hm.containsKey(r.getCategory()) == false){</span>
+<span class="nc" id="L66">                hm.put(r.getCategory(),r);</span>
+            }
+            else {
+<span class="nc" id="L69">                SalesData temp = hm.get(r.getCategory());</span>
+<span class="nc" id="L70">                temp.setQuantity(temp.getQuantity() + r.getQuantity());</span>
+<span class="nc" id="L71">                temp.setRevenue(temp.getRevenue() + r.getRevenue());</span>
+<span class="nc" id="L72">                hm.put(r.getCategory(), temp);</span>
+            }
+<span class="nc" id="L74">        }</span>
+<span class="nc" id="L75">        List&lt;SalesData&gt; ans = new ArrayList&lt;SalesData&gt;();</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (Map.Entry&lt;String,SalesData&gt; e : hm.entrySet()){</span>
+<span class="nc" id="L77">            ans.add(e.getValue());</span>
+<span class="nc" id="L78">        }</span>
+<span class="nc" id="L79">        return ans;</span>
+    }
+    protected List&lt;SalesData&gt; convert(List&lt;OrderItem&gt; item){
+<span class="nc" id="L82">        List&lt;SalesData&gt; s = new ArrayList&lt;SalesData&gt;();</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for(OrderItem i:item){</span>
+<span class="nc" id="L84">            SalesData n = new SalesData();</span>
+<span class="nc" id="L85">            n.setQuantity(i.getQuantity());</span>
+<span class="nc" id="L86">            Product p = productdao.select(i.getProduct_id());</span>
+<span class="nc" id="L87">            BrandDetail b = branddao.select(p.getBrand_id());</span>
+<span class="nc" id="L88">            n.setCategory(b.getCategory());</span>
+<span class="nc" id="L89">            n.setRevenue(i.getQuantity()*i.getMrp());</span>
+<span class="nc" id="L90">            s.add(n);</span>
+<span class="nc" id="L91">        }</span>
+<span class="nc" id="L92">        return s;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

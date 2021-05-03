@@ -27,7 +27,9 @@ var processCount = 0;
 
 function processData(event){
 	var file = $('#brandFile')[0].files[0];
+	console.log(file);
 	readFileData(file, readFileDataCallback);
+
 }
 
 function readFileDataCallback(results){

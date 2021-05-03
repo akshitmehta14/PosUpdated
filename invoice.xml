@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<items>
+    <date>2021-04-29 16:53:34</date>
+    <item>
+        <mrp>200.59</mrp>
+        <name>Green Tea</name>
+        <quantity>10</quantity>
+    </item>
+    <item>
+        <mrp>600.58</mrp>
+        <name>Barbeque</name>
+        <quantity>15</quantity>
+    </item>
+    <total>11013.0</total>
+</items>

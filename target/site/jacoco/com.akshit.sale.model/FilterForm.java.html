@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilterForm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.model</a> &gt; <span class="el_source">FilterForm.java</span></div><h1>FilterForm.java</h1><pre class="source lang-java linenums">package com.akshit.sale.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+<span class="nc" id="L9">public class FilterForm {</span>
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private String brand;
+    private String category;
+
+    public LocalDateTime getStart() {
+<span class="nc" id="L16">        return start;</span>
+    }
+
+    public void setStart(String start) {
+<span class="nc bnc" id="L20" title="All 4 branches missed.">        if(start==null || start==&quot;&quot;){</span>
+<span class="nc" id="L21">            LocalDateTime now = LocalDateTime.now();</span>
+<span class="nc" id="L22">            LocalDateTime x= now.minusYears(2);</span>
+<span class="nc" id="L23">            this.start = x;</span>
+<span class="nc" id="L24">        }</span>
+        else {
+<span class="nc" id="L26">            this.start = LocalDateTime.parse(start);</span>
+        }
+<span class="nc" id="L28">    }</span>
+
+    public LocalDateTime getEnd() {
+
+<span class="nc" id="L32">        return end;</span>
+    }
+
+    public void setEnd(String end) {
+<span class="nc bnc" id="L36" title="All 4 branches missed.">        if(end==null || end==&quot;&quot;){</span>
+<span class="nc" id="L37">        LocalDateTime now = LocalDateTime.now();</span>
+
+<span class="nc" id="L39">        this.end = now;</span>
+<span class="nc" id="L40">    }</span>
+        else {
+<span class="nc" id="L42">            this.end = LocalDateTime.parse(end);</span>
+        }
+<span class="nc" id="L44">    }</span>
+
+    public String getBrand() {
+<span class="nc" id="L47">        return brand;</span>
+    }
+
+    public void setBrand(String brand) {
+<span class="nc" id="L51">        this.brand = brand;</span>
+<span class="nc" id="L52">    }</span>
+
+    public String getCategory() {
+<span class="nc" id="L55">        return category;</span>
+    }
+
+    public void setCategory(String category) {
+<span class="nc" id="L59">        this.category = category;</span>
+<span class="nc" id="L60">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
