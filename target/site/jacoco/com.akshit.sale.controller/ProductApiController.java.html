@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 <span class="nc" id="L27">	}</span>
 	@ApiOperation(value = &quot;Updates a product by ID&quot;)
 	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.PUT)
-	public void add(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
+	public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
 <span class="nc" id="L31">		productdto.update(id,f);</span>
 <span class="nc" id="L32">	}</span>
 	@ApiOperation(value = &quot;Selects a product by ID&quot;)
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 	}
 	@ApiOperation(value = &quot;Shows all products&quot;)
 	@RequestMapping(path = &quot;/api/product&quot;, method = RequestMethod.GET)
-	public List&lt;ProductData&gt; add() {
+	public List&lt;ProductData&gt; getAll() {
 <span class="nc" id="L41">		return productdto.getall();</span>
 	}
 }

@@ -15,6 +15,7 @@ public class ProductDao extends AbstractDao {
 	
 	private static String select_all = "select p from Product p";
 	private static String select_id = "select p from Product p where barcode=:barcode";
+	private static String update_query ="update Product set brand_id = :brand_id, name=:name , mrp=:mrp,barcode =:barcode,name=:name  where id = :id";
 	@PersistenceContext
 	private EntityManager em;
 
@@ -25,7 +26,7 @@ public class ProductDao extends AbstractDao {
 	}
 	@Transactional
 	public void update(Product p){
-		String update_query ="update Product set brand_id = :brand_id, name=:name , mrp=:mrp,barcode =:barcode,name=:name  where id = :id";
+
 		em.createQuery(update_query).setParameter("id", p.getProduct_id())
 				.setParameter("brand_id",p.getBrand_id())
 				.setParameter("name", p.getName())

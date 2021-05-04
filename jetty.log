@@ -4824,3 +4824,6 @@ com.akshit.sale.service.ApiException: No inventory exists for this product.
 2021-05-03 15:35:50 WARN  FOUserAgent:94 - Font "Symbol,normal,700" not found. Substituting with "Symbol,normal,400".
 2021-05-03 15:35:50 WARN  FOUserAgent:94 - Font "ZapfDingbats,normal,700" not found. Substituting with "ZapfDingbats,normal,400".
 2021-05-03 15:35:50 INFO  FOUserAgent:83 - Rendered page #1.
+2021-05-04 12:44:09 WARN  FOUserAgent:94 - Font "Symbol,normal,700" not found. Substituting with "Symbol,normal,400".
+2021-05-04 12:44:09 WARN  FOUserAgent:94 - Font "ZapfDingbats,normal,700" not found. Substituting with "ZapfDingbats,normal,400".
+2021-05-04 12:44:09 INFO  FOUserAgent:83 - Rendered page #1.

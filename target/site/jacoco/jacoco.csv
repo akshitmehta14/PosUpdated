@@ -5,7 +5,7 @@ sale,com.akshit.sale.controller,AppRestControllerAdvice,30,0,0,0,7,0,3,0,3,0
 sale,com.akshit.sale.controller,OrderApiController,18,0,0,0,5,0,4,0,4,0
 sale,com.akshit.sale.controller,ReportApiController,8,0,0,0,2,0,2,0,2,0
 sale,com.akshit.sale.controller,ProductApiController,23,0,0,0,7,0,5,0,5,0
-sale,com.akshit.sale.controller,SiteUIController,49,0,0,0,12,0,9,0,9,0
+sale,com.akshit.sale.controller,SiteUIController,47,0,0,0,11,0,8,0,8,0
 sale,com.akshit.sale.controller,BrandApiController,56,0,0,0,17,0,7,0,7,0
 sale,com.akshit.sale.service,InventoryService,177,0,14,0,42,0,15,0,8,0
 sale,com.akshit.sale.service,BrandService,80,0,6,0,17,0,9,0,6,0
@@ -15,7 +15,6 @@ sale,com.akshit.sale.service,OrderService,193,0,14,0,47,0,14,0,7,0
 sale,com.akshit.sale.service,ReportService,239,0,26,0,46,0,18,0,5,0
 sale,com.akshit.sale.dao,AbstractDao,19,0,0,0,4,0,4,0,4,0
 sale,com.akshit.sale.dao,ProductDao,84,0,0,0,21,0,7,0,7,0
-sale,com.akshit.sale.dao,ReportDao,3,0,0,0,1,0,1,0,1,0
 sale,com.akshit.sale.dao,InventoryDao,71,0,0,0,16,0,7,0,7,0
 sale,com.akshit.sale.dao,OrderDao,35,0,0,0,10,0,5,0,5,0
 sale,com.akshit.sale.dao,OrderHistoryDao,39,0,0,0,10,0,5,0,5,0

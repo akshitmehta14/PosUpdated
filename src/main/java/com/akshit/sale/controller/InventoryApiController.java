@@ -37,7 +37,7 @@ public class InventoryApiController {
 	}
 	@ApiOperation(value = "Shows all inventory")
 	@RequestMapping(path = "/api/inventory", method = RequestMethod.GET)
-	public List<InventoryData> add() {
+	public List<InventoryData> getAll() {
 		return inventorydto.getall();
 	}
 }

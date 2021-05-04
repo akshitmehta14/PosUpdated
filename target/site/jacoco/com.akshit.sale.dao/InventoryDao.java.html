@@ -17,8 +17,8 @@ import com.akshit.sale.pojo.Inventory;
 	
 <span class="nc" id="L18">	private static String select_all = &quot;select p from Inventory p&quot;;</span>
 <span class="nc" id="L19">	private static String select_id = &quot;select p from Inventory p where product_id=:id&quot;;</span>
-<span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quant where product_id=:id&quot;;</span>
-<span class="nc" id="L21">	private static String updateinv = &quot;update Inventory set quantity = quantity + :quant where product_id=:id&quot;;</span>
+<span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quantity where product_id=:id&quot;;</span>
+<span class="nc" id="L21">	private static String updateinv = &quot;update Inventory set quantity = quantity + :quantity where product_id=:id&quot;;</span>
 
 	
 	public List&lt;Inventory&gt; getall() {
@@ -35,10 +35,10 @@ import com.akshit.sale.pojo.Inventory;
 <span class="nc" id="L35">		 return getSingle(query); </span>
 	}
 	public void update(int id,int quantity){
-<span class="nc" id="L38">		em().createQuery(updateinv).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
+<span class="nc" id="L38">		em().createQuery(updateinv).setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
 <span class="nc" id="L39">	}</span>
 	public void updateinventory(int id,int quantity){
-<span class="nc" id="L41">		em().createQuery(updatebyid).setParameter(&quot;quant&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
+<span class="nc" id="L41">		em().createQuery(updatebyid).setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
 <span class="nc" id="L42">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

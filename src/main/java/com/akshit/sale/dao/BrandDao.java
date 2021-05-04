@@ -27,24 +27,11 @@ public class BrandDao extends AbstractDao{
 	public void insert(BrandDetail p) {
 		em.persist(p);
 	}
-
-//	@Transactional
-//	public void update(int id, BrandForm f){
-//		BrandDetail p = select(id);
-//		p.setBrand(f.getBrand());
-//		p.setCategory(f.getCategory());
-//	}
 	@Transactional
 	public void update(int id, BrandForm f){
 		em.createQuery(updatebyid).setParameter("id",id).setParameter("brand",f.getBrand()).setParameter("category",f.getCategory()).executeUpdate();
 
 	}
-	/*
-	 * public int delete(int id) { Query query = em.createQuery(delete_id);
-	 * query.setParameter("id", id); return query.executeUpdate(); }
-	 */
-
-	//Forms and data classes should not go beyond dto/service layer
 	@Transactional
 	public BrandDetail select(int id){
 		TypedQuery<BrandDetail> query = getQuery(selectbyid,BrandDetail.class);
@@ -61,11 +48,5 @@ public class BrandDao extends AbstractDao{
 		TypedQuery<BrandDetail> query = getQuery(select_all, BrandDetail.class);
 		return query.getResultList();
 	}
-
-	/*
-	 * public void update(EmployeePojo p) { }
-	 */
-
-
 
 }

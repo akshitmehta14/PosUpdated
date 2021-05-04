@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 
 	@ApiOperation(value = &quot;Shows all order&quot;)
 	@RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.GET)
-	public List&lt;OrderHistory&gt; add() {
+	public List&lt;OrderHistory&gt; getAll() {
 <span class="nc" id="L36">		return orderdto.getall();</span>
 	}
 
@@ -44,17 +44,8 @@ import io.swagger.annotations.ApiOperation;
 	@ApiOperation(value=&quot;Creates an order&quot;)
 	@RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.POST)
 	public void add(@RequestBody List&lt;OrderForm&gt; f,HttpServletResponse response) throws FOPException, JAXBException, IOException, TransformerException, ApiException {
-<span class="nc" id="L47">		orderdto.add(f,response);</span>
-//		byte[] bytes = orderservice.generatePdfResponse();
-//		createPdfResponse(bytes, response);
-<span class="nc" id="L50">	}</span>
+<span class="nc" id="L47">		orderdto.add(f, response);</span>
 
-//	public void createPdfResponse(byte[] bytes, HttpServletResponse response) throws IOException {
-//		response.setContentType(&quot;application/pdf&quot;);
-//		response.setContentLength(bytes.length);
-//
-//		response.getOutputStream().write(bytes);
-//		response.getOutputStream().flush();
-//	}
+<span class="nc" id="L49">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

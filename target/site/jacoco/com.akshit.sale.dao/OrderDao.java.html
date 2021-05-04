@@ -20,15 +20,16 @@ import java.util.List;
 	public void add(OrderItem x) {
 <span class="nc" id="L21">		em.persist(x);</span>
 <span class="nc" id="L22">	}</span>
+
 	public List&lt;OrderItem&gt; select(int id){
-<span class="nc" id="L24">		TypedQuery&lt;OrderItem&gt; query = getQuery(selectbyid,OrderItem.class);</span>
-<span class="nc" id="L25">		query.setParameter(&quot;id&quot;,id);</span>
-<span class="nc" id="L26">		return query.getResultList();</span>
+<span class="nc" id="L25">		TypedQuery&lt;OrderItem&gt; query = getQuery(selectbyid,OrderItem.class);</span>
+<span class="nc" id="L26">		query.setParameter(&quot;id&quot;,id);</span>
+<span class="nc" id="L27">		return query.getResultList();</span>
 	}
-//	@Transactional
+	@Transactional
 	public List&lt;OrderItem&gt; selectAll() {
-<span class="nc" id="L30">		TypedQuery&lt;OrderItem&gt; query = getQuery(select_all, OrderItem.class);</span>
-<span class="nc" id="L31">		return query.getResultList();</span>
+<span class="nc" id="L31">		TypedQuery&lt;OrderItem&gt; query = getQuery(select_all, OrderItem.class);</span>
+<span class="nc" id="L32">		return query.getResultList();</span>
 	}
 
 

@@ -32,7 +32,7 @@ public class OrderApiController {
 
 	@ApiOperation(value = "Shows all order")
 	@RequestMapping(path = "/api/order", method = RequestMethod.GET)
-	public List<OrderHistory> add() {
+	public List<OrderHistory> getAll() {
 		return orderdto.getall();
 	}
 
@@ -44,16 +44,7 @@ public class OrderApiController {
 	@ApiOperation(value="Creates an order")
 	@RequestMapping(path = "/api/order", method = RequestMethod.POST)
 	public void add(@RequestBody List<OrderForm> f,HttpServletResponse response) throws FOPException, JAXBException, IOException, TransformerException, ApiException {
-		orderdto.add(f,response);
-//		byte[] bytes = orderservice.generatePdfResponse();
-//		createPdfResponse(bytes, response);
-	}
+		orderdto.add(f, response);
 
-//	public void createPdfResponse(byte[] bytes, HttpServletResponse response) throws IOException {
-//		response.setContentType("application/pdf");
-//		response.setContentLength(bytes.length);
-//
-//		response.getOutputStream().write(bytes);
-//		response.getOutputStream().flush();
-//	}
+	}
 }

@@ -28,7 +28,6 @@ C:\training\sale\src\main\java\com\akshit\sale\controller\ProductApiController.j
 C:\training\sale\src\main\java\com\akshit\sale\spring\ControllerConfig.java
 C:\training\sale\src\main\java\com\akshit\sale\controller\OrderApiController.java
 C:\training\sale\src\main\java\com\akshit\sale\dao\OrderDao.java
-C:\training\sale\src\main\java\com\akshit\sale\dao\ReportDao.java
 C:\training\sale\src\main\java\com\akshit\sale\dto\StringUtil.java
 C:\training\sale\src\main\java\com\akshit\sale\service\ReportService.java
 C:\training\sale\src\main\java\com\akshit\sale\controller\InventoryApiController.java

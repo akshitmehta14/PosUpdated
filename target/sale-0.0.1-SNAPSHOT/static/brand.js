@@ -129,7 +129,9 @@ function updateUploadDialog(){
 function updateFileName(){
 	var $file = $('#brandFile');
 	var fileName = $file.val();
+	fileName = fileName.substr(12);
 	$('#brandFileName').html(fileName);
+	//console.log($('#brandFileName').html(fileName));
 }
 
 function displayUploadData(){

@@ -17,8 +17,8 @@ public class InventoryDao extends AbstractDao {
 	
 	private static String select_all = "select p from Inventory p";
 	private static String select_id = "select p from Inventory p where product_id=:id";
-	private static String updatebyid = "update Inventory set quantity = quantity - :quant where product_id=:id";
-	private static String updateinv = "update Inventory set quantity = quantity + :quant where product_id=:id";
+	private static String updatebyid = "update Inventory set quantity = quantity - :quantity where product_id=:id";
+	private static String updateinv = "update Inventory set quantity = quantity + :quantity where product_id=:id";
 
 	
 	public List<Inventory> getall() {
@@ -35,9 +35,9 @@ public class InventoryDao extends AbstractDao {
 		 return getSingle(query); 
 	}
 	public void update(int id,int quantity){
-		em().createQuery(updateinv).setParameter("quant",quantity).setParameter("id",id).executeUpdate();
+		em().createQuery(updateinv).setParameter("quantity",quantity).setParameter("id",id).executeUpdate();
 	}
 	public void updateinventory(int id,int quantity){
-		em().createQuery(updatebyid).setParameter("quant",quantity).setParameter("id",id).executeUpdate();
+		em().createQuery(updatebyid).setParameter("quantity",quantity).setParameter("id",id).executeUpdate();
 	}
 }

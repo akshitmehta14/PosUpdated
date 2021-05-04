@@ -15,37 +15,38 @@ import com.akshit.sale.pojo.Product;
 	
 <span class="nc" id="L16">	private static String select_all = &quot;select p from Product p&quot;;</span>
 <span class="nc" id="L17">	private static String select_id = &quot;select p from Product p where barcode=:barcode&quot;;</span>
+<span class="nc" id="L18">	private static String update_query =&quot;update Product set brand_id = :brand_id, name=:name , mrp=:mrp,barcode =:barcode,name=:name  where id = :id&quot;;</span>
 	@PersistenceContext
 	private EntityManager em;
 
 	
 	public List&lt;Product&gt; getall() {
-<span class="nc" id="L23">		TypedQuery&lt;Product&gt; query = getQuery(select_all, Product.class);</span>
-<span class="nc" id="L24">		return query.getResultList();</span>
+<span class="nc" id="L24">		TypedQuery&lt;Product&gt; query = getQuery(select_all, Product.class);</span>
+<span class="nc" id="L25">		return query.getResultList();</span>
 	}
 	@Transactional
 	public void update(Product p){
-<span class="nc" id="L28">		String update_query =&quot;update Product set brand_id = :brand_id, name=:name , mrp=:mrp,barcode =:barcode,name=:name  where id = :id&quot;;</span>
-<span class="nc" id="L29">		em.createQuery(update_query).setParameter(&quot;id&quot;, p.getProduct_id())</span>
-<span class="nc" id="L30">				.setParameter(&quot;brand_id&quot;,p.getBrand_id())</span>
-<span class="nc" id="L31">				.setParameter(&quot;name&quot;, p.getName())</span>
-<span class="nc" id="L32">				.setParameter(&quot;mrp&quot;, p.getMrp())</span>
-<span class="nc" id="L33">				.setParameter(&quot;barcode&quot;, p.getBarcode())</span>
-<span class="nc" id="L34">				.executeUpdate();</span>
-<span class="nc" id="L35">	}</span>
+
+<span class="nc" id="L30">		em.createQuery(update_query).setParameter(&quot;id&quot;, p.getProduct_id())</span>
+<span class="nc" id="L31">				.setParameter(&quot;brand_id&quot;,p.getBrand_id())</span>
+<span class="nc" id="L32">				.setParameter(&quot;name&quot;, p.getName())</span>
+<span class="nc" id="L33">				.setParameter(&quot;mrp&quot;, p.getMrp())</span>
+<span class="nc" id="L34">				.setParameter(&quot;barcode&quot;, p.getBarcode())</span>
+<span class="nc" id="L35">				.executeUpdate();</span>
+<span class="nc" id="L36">	}</span>
 	@Transactional
 	public void add(Product x) {
-<span class="nc" id="L38">		em.persist(x);</span>
-<span class="nc" id="L39">	}</span>
+<span class="nc" id="L39">		em.persist(x);</span>
+<span class="nc" id="L40">	}</span>
 	public Product select(String barcode) { 
-<span class="nc" id="L41">		 TypedQuery&lt;Product&gt; query = getQuery(select_id, Product.class); </span>
-<span class="nc" id="L42">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
-<span class="nc" id="L43">		 return getSingle(query); </span>
+<span class="nc" id="L42">		 TypedQuery&lt;Product&gt; query = getQuery(select_id, Product.class); </span>
+<span class="nc" id="L43">		 query.setParameter(&quot;barcode&quot;, barcode); </span>
+<span class="nc" id="L44">		 return getSingle(query); </span>
 	}
 	public Product select(int id) {
-<span class="nc" id="L46">		TypedQuery&lt;Product&gt; query = getQuery(&quot;select p from Product p where product_id=:product_id&quot;, Product.class);</span>
-<span class="nc" id="L47">		query.setParameter(&quot;product_id&quot;, id);</span>
-<span class="nc" id="L48">		return getSingle(query);</span>
+<span class="nc" id="L47">		TypedQuery&lt;Product&gt; query = getQuery(&quot;select p from Product p where product_id=:product_id&quot;, Product.class);</span>
+<span class="nc" id="L48">		query.setParameter(&quot;product_id&quot;, id);</span>
+<span class="nc" id="L49">		return getSingle(query);</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -12,40 +12,35 @@ import com.akshit.sale.model.InfoData;
 
 		@Value(&quot;${app.baseUrl}&quot;)
 		private String baseUrl;
-		// WEBSITE PAGES
-		@RequestMapping(value = &quot;&quot;)
-		public String index() {
-<span class="nc" id="L18">			return &quot;index.html&quot;;</span>
-		}
 		@RequestMapping(value = &quot;/ui/home&quot;)
 		public ModelAndView home() {
-<span class="nc" id="L22">			return mav(&quot;home.html&quot;);</span>
+<span class="nc" id="L17">			return mav(&quot;home.html&quot;);</span>
 		}
 		@RequestMapping(value = &quot;/ui/product&quot;)
 		public ModelAndView product() {
-<span class="nc" id="L26">			return mav(&quot;product.html&quot;);</span>
+<span class="nc" id="L21">			return mav(&quot;product.html&quot;);</span>
 		}
 		@RequestMapping(value = &quot;/ui/orderHistory&quot;)
 		public ModelAndView orderHistory() {
-<span class="nc" id="L30">			return mav(&quot;orderHistory.html&quot;);</span>
+<span class="nc" id="L25">			return mav(&quot;orderHistory.html&quot;);</span>
 		}
 		@RequestMapping(value = &quot;/ui/inventory&quot;)
 		public ModelAndView inventory() {
-<span class="nc" id="L34">			return mav(&quot;inventory.html&quot;);</span>
+<span class="nc" id="L29">			return mav(&quot;inventory.html&quot;);</span>
 		}
 		@RequestMapping(value = &quot;/ui/report&quot;)
 		public ModelAndView report() {
-<span class="nc" id="L38">			return mav(&quot;report.html&quot;);</span>
+<span class="nc" id="L33">			return mav(&quot;report.html&quot;);</span>
 		}
 		@RequestMapping(value = &quot;/ui/brand&quot;)
 		public ModelAndView brand() {
-<span class="nc" id="L42">			return mav(&quot;brand.html&quot;);</span>
+<span class="nc" id="L37">			return mav(&quot;brand.html&quot;);</span>
 		}
 		private ModelAndView mav(String page) {
-<span class="nc" id="L45">			ModelAndView mav = new ModelAndView(page);</span>
-<span class="nc" id="L46">			mav.addObject(&quot;info&quot;, new InfoData());</span>
-<span class="nc" id="L47">			mav.addObject(&quot;baseUrl&quot;, baseUrl);</span>
-<span class="nc" id="L48">			return mav;</span>
+<span class="nc" id="L40">			ModelAndView mav = new ModelAndView(page);</span>
+<span class="nc" id="L41">			mav.addObject(&quot;info&quot;, new InfoData());</span>
+<span class="nc" id="L42">			mav.addObject(&quot;baseUrl&quot;, baseUrl);</span>
+<span class="nc" id="L43">			return mav;</span>
 		}
 		
 

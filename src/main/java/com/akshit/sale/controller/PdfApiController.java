@@ -4,23 +4,16 @@ import com.akshit.sale.dao.OrderHistoryDao;
 import com.akshit.sale.model.InvoiceModel;
 import com.akshit.sale.model.OrderData;
 import com.akshit.sale.model.OrderInvoiceXmlList;
-import com.akshit.sale.pojo.OrderHistory;
-import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.OrderService;
 import com.akshit.sale.util.PDFConversion;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,11 +43,6 @@ public class PdfApiController{
             invoice.add(m);
         }
         byte[] bytes = generatePdfResponse(invoice,date);
-//        try (FileOutputStream fos = new FileOutputStream("pathname")) {
-//            fos.write(bytes);
-//            //fos.close(); There is no more need for this line since you had created the instance of "fos" inside the try. And this will automatically close the OutputStream
-//        }
-
         createPdfResponse(bytes, response);
     }
     public byte[] generatePdfResponse(List<InvoiceModel> list,String date) throws Exception {

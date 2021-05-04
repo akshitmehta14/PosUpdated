@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
 	}
 	@ApiOperation(value = &quot;Shows all inventory&quot;)
 	@RequestMapping(path = &quot;/api/inventory&quot;, method = RequestMethod.GET)
-	public List&lt;InventoryData&gt; add() {
+	public List&lt;InventoryData&gt; getAll() {
 <span class="nc" id="L41">		return inventorydto.getall();</span>
 	}
 }

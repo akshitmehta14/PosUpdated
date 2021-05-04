@@ -20,12 +20,13 @@ public class OrderDao extends AbstractDao{
 	public void add(OrderItem x) {
 		em.persist(x);
 	}
+
 	public List<OrderItem> select(int id){
 		TypedQuery<OrderItem> query = getQuery(selectbyid,OrderItem.class);
 		query.setParameter("id",id);
 		return query.getResultList();
 	}
-//	@Transactional
+	@Transactional
 	public List<OrderItem> selectAll() {
 		TypedQuery<OrderItem> query = getQuery(select_all, OrderItem.class);
 		return query.getResultList();
