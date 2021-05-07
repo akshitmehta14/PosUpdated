@@ -20,37 +20,36 @@ import com.akshit.sale.model.BrandForm;
 
 	@Transactional(rollbackOn = ApiException.class)
 	public void add(BrandDetail p) throws ApiException {
-<span class="nc" id="L23">		BrandForm f= new BrandForm();</span>
-<span class="nc" id="L24">		f.setBrand(StringUtil.toLowerCase(p.getBrand()));</span>
-<span class="nc" id="L25">		f.setCategory(StringUtil.toLowerCase(p.getCategory()));</span>
 
 
-<span class="nc" id="L28">		BrandDetail b = dao.select(f);</span>
-<span class="nc bnc" id="L29" title="All 2 branches missed.">		if(b!=null) {</span>
-<span class="nc" id="L30">			throw new ApiException(&quot;Brand and Category combination already exists&quot;);</span>
+
+<span class="nc" id="L26">		BrandDetail b = dao.select(p);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if(b!=null) {</span>
+<span class="nc" id="L28">			throw new ApiException(&quot;Brand and Category combination already exists&quot;);</span>
 		}
-<span class="nc" id="L32">		dao.insert(p);</span>
-<span class="nc" id="L33">	}</span>
+<span class="nc" id="L30">		dao.insert(p);</span>
+<span class="nc" id="L31">	}</span>
 
-	/*
-	 * @Transactional(rollbackOn = ApiException.class) public EmployeePojo get(int
-	 * id) throws ApiException { return getCheck(id); }
-	 */
 	@Transactional
-	public void update(int id,BrandForm f){
-<span class="nc" id="L41">		f.setBrand(StringUtil.toLowerCase(f.getBrand()));</span>
-<span class="nc" id="L42">		f.setCategory(StringUtil.toLowerCase(f.getCategory()));</span>
-<span class="nc" id="L43">		dao.update(id,f);</span>
-<span class="nc" id="L44">	}</span>
+	public void update(int id,BrandDetail p){
+<span class="nc" id="L35">		dao.update(id,p);</span>
+<span class="nc" id="L36">	}</span>
 	@Transactional
 	public List&lt;BrandDetail&gt; getAll() {
-<span class="nc" id="L47">		List&lt;BrandDetail&gt; list = dao.selectAll();</span>
-<span class="nc bnc" id="L48" title="All 4 branches missed.">		Collections.sort(list , (o1, o2) -&gt; (o1.getBrand_id() &gt; o2.getBrand_id()) ? 1 : (o1.getBrand_id() &lt; o2.getBrand_id()) ? -1 : 0);</span>
-<span class="nc" id="L49">		return list;</span>
+<span class="nc" id="L39">		List&lt;BrandDetail&gt; list = dao.selectAll();</span>
+<span class="nc bnc" id="L40" title="All 4 branches missed.">		Collections.sort(list , (o1, o2) -&gt; (o1.getBrand_id() &gt; o2.getBrand_id()) ? 1 : (o1.getBrand_id() &lt; o2.getBrand_id()) ? -1 : 0);</span>
+<span class="nc" id="L41">		return list;</span>
 	}
 
 	public BrandDetail select(int id) {
-<span class="nc" id="L53">		return dao.select(id);</span>
+<span class="nc" id="L45">		return dao.select(id);</span>
+	}
+	public int select(BrandDetail b) throws ApiException {
+<span class="nc" id="L48">		BrandDetail selected = dao.select(b);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if(selected==null){</span>
+<span class="nc" id="L50">			throw new ApiException(&quot;Brand Category combination does not exist.&quot;);</span>
+		}
+<span class="nc" id="L52">		return selected.getBrand_id();</span>
 	}
 
 	/*

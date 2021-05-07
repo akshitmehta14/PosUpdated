@@ -25,9 +25,9 @@ public class ProductDao extends AbstractDao {
 		return query.getResultList();
 	}
 	@Transactional
-	public void update(Product p){
+	public void update(int id,Product p){
 
-		em.createQuery(update_query).setParameter("id", p.getProduct_id())
+		em.createQuery(update_query).setParameter("id", id)
 				.setParameter("brand_id",p.getBrand_id())
 				.setParameter("name", p.getName())
 				.setParameter("mrp", p.getMrp())

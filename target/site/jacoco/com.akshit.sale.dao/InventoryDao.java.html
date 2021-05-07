@@ -19,7 +19,7 @@ import com.akshit.sale.pojo.Inventory;
 <span class="nc" id="L19">	private static String select_id = &quot;select p from Inventory p where product_id=:id&quot;;</span>
 <span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quantity where product_id=:id&quot;;</span>
 <span class="nc" id="L21">	private static String updateinv = &quot;update Inventory set quantity = quantity + :quantity where product_id=:id&quot;;</span>
-
+<span class="nc" id="L22">	private static String setInventory = &quot;update Inventory set quantity = :quantity where product_id=:id&quot;;</span>
 	
 	public List&lt;Inventory&gt; getall() {
 <span class="nc" id="L25">		TypedQuery&lt;Inventory&gt; query = getQuery(select_all, Inventory.class);</span>
@@ -40,5 +40,8 @@ import com.akshit.sale.pojo.Inventory;
 	public void updateinventory(int id,int quantity){
 <span class="nc" id="L41">		em().createQuery(updatebyid).setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
 <span class="nc" id="L42">	}</span>
+	public void setInventory(int id,int quantity){
+<span class="nc" id="L44">		em().createQuery(setInventory).setParameter(&quot;id&quot;,id).setParameter(&quot;quantity&quot;,quantity).executeUpdate();</span>
+<span class="nc" id="L45">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

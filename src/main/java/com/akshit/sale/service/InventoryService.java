@@ -31,28 +31,26 @@ public class InventoryService {
 	}
 	public void update(String barcode,int quantity) throws ApiException {
 		int id = barcodetoid(barcode);
-		if(id<0){
+		if(quantity<0){
 			throw new ApiException("Quantity cannot be negative");
 		}
-		dao.updateinventory(id,quantity);
+		dao.setInventory(id,quantity);
 	}
-	public void add(InventoryForm form) throws ApiException {
-		Product p = x.select(form.getBarcode());
+	public void add(Inventory i,String barcode) throws ApiException {
+		Product p = x.select(barcode);
 		if(p==null) {
 			throw new ApiException("No such product exists.");
 		}
 		Inventory inv = dao.select(p.getProduct_id());
 		if(inv!=null){
-			if(inv.getQuantity()+ form.getQuantity()<0){
+			if(inv.getQuantity()+ i.getQuantity()<0){
 				throw new ApiException("Quantity cannot be negative");
 			}
-			dao.update(p.getProduct_id(),form.getQuantity());
+			dao.update(p.getProduct_id(),i.getQuantity());
 			return;
 		}
-		Inventory y = new Inventory();
-		y.setProduct_id(p.getProduct_id());
-		y.setQuantity(form.getQuantity());
-		dao.add(y);
+		i.setProduct_id(p.getProduct_id());
+		dao.add(i);
 	}
 	public InventoryData select(String barcode){
 		int id = barcodetoid(barcode);

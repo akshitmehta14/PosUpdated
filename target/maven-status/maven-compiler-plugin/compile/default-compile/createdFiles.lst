@@ -24,11 +24,11 @@ com\akshit\sale\util\PDFConversion.class
 com\akshit\sale\spring\WebInitializer.class
 com\akshit\sale\controller\BrandApiController.class
 com\akshit\sale\model\FilterForm.class
-com\akshit\sale\dto\branddto.class
 com\akshit\sale\pojo\BrandDetail.class
 com\akshit\sale\controller\OrderApiController.class
 com\akshit\sale\service\ApiException.class
 com\akshit\sale\service\OrderService.class
+com\akshit\sale\dto\BrandDto.class
 com\akshit\sale\dao\AbstractDao.class
 com\akshit\sale\dao\OrderDao.class
 com\akshit\sale\model\SalesData.class

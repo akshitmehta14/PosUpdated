@@ -2,7 +2,6 @@
 
 import java.util.List;
 
-import com.akshit.sale.model.ProductData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,30 +14,30 @@ import io.swagger.annotations.ApiOperation;
 
 @Api
 @RestController
-
-<span class="nc" id="L19">public class InventoryApiController {</span>
+@RequestMapping(path = &quot;api/inventory&quot;)
+<span class="nc" id="L18">public class InventoryApiController {</span>
 	@Autowired
 	private InventoryDto inventorydto;
 	
 	@ApiOperation(value = &quot;Adds into inventory&quot;)
-	@RequestMapping(path = &quot;/api/inventory&quot;, method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void add(@RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L26">		inventorydto.add(form);</span>
-<span class="nc" id="L27">	}</span>
+<span class="nc" id="L25">		inventorydto.add(form);</span>
+<span class="nc" id="L26">	}</span>
 	@ApiOperation(value = &quot;Updates a product&quot;)
-	@RequestMapping(path = &quot;/api/inventory/{barcode}&quot;,method = RequestMethod.PUT)
+	@RequestMapping(path = &quot;/{barcode}&quot;,method = RequestMethod.PUT)
 	public void update(@PathVariable String barcode,@RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L31">		inventorydto.update(barcode, form.getQuantity());</span>
-<span class="nc" id="L32">	}</span>
+<span class="nc" id="L30">		inventorydto.update(barcode, form.getQuantity());</span>
+<span class="nc" id="L31">	}</span>
 	@ApiOperation(value = &quot;Selects a product&quot;)
-	@RequestMapping(path = &quot;/api/inventory/{barcode}&quot;,method = RequestMethod.GET)
+	@RequestMapping(path = &quot;/{barcode}&quot;,method = RequestMethod.GET)
 	public InventoryData select(@PathVariable String barcode) throws ApiException {
-<span class="nc" id="L36">		return inventorydto.select(barcode);</span>
+<span class="nc" id="L35">		return inventorydto.select(barcode);</span>
 	}
 	@ApiOperation(value = &quot;Shows all inventory&quot;)
-	@RequestMapping(path = &quot;/api/inventory&quot;, method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List&lt;InventoryData&gt; getAll() {
-<span class="nc" id="L41">		return inventorydto.getall();</span>
+<span class="nc" id="L40">		return inventorydto.getall();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

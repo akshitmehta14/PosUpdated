@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.service</a> &gt; <span class="el_source">OrderService.java</span></div><h1>OrderService.java</h1><pre class="source lang-java linenums">package com.akshit.sale.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.akshit.sale.model.InvoiceModel;
 import com.akshit.sale.model.OrderData;
-import com.akshit.sale.model.OrderInvoiceXmlList;
-import com.akshit.sale.util.PDFConversion;
-import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +19,11 @@ import com.akshit.sale.pojo.OrderHistory;
 import com.akshit.sale.pojo.OrderItem;
 import com.akshit.sale.pojo.Product;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamSource;
 
 @Service
 @Transactional
-<span class="nc" id="L35">public class OrderService {</span>
+<span class="nc" id="L26">public class OrderService {</span>
 	@Autowired 
 	private OrderHistoryDao orderhistory; 
 	@Autowired 
@@ -42,84 +33,72 @@ import javax.xml.transform.stream.StreamSource;
 	@Autowired
 	private ProductDao productdao;
 
-//	public void add(List&lt;OrderForm&gt; f) throws ApiException {
-//		//List&lt;OrderItem&gt; ans = check(f);
-//		OrderHistory x = convert();
-//		orderhistory.add(x);
-//		for(OrderItem r:ans) {
-//
-//			orderdao.add(r);
-//			//InventoryDao v = new InventoryDao();
-//			//v.updateinventory(r.getProduct_id(),r.getQuantity());
-//		}
-//	}
-	@Transactional(rollbackOn  = ApiException.class)
-	public void add(List&lt;OrderForm&gt; f,HttpServletResponse response) throws IOException, FOPException, JAXBException, TransformerException, ApiException {
-<span class="nc" id="L58">		List&lt;OrderItem&gt; ans = check(f);</span>
-<span class="nc" id="L59">		OrderHistory x = convert();</span>
-<span class="nc" id="L60">		List&lt;InvoiceModel&gt; invoice = new ArrayList&lt;InvoiceModel&gt;();</span>
-<span class="nc" id="L61">		int a = orderhistory.add(x);</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">		for(OrderItem r:ans) {</span>
 
-<span class="nc" id="L64">			r.setOrder_id(a);</span>
-//			i.setQuantity(r.getQuantity());
-//			i.setProduct_id(4);
-<span class="nc" id="L67">			orderdao.add(r);</span>
-<span class="nc" id="L68">		}</span>
+	@Transactional()
+	public void add(List&lt;OrderForm&gt; f) throws ApiException {
+<span class="nc" id="L39">		List&lt;OrderItem&gt; ans = check(f);</span>
+<span class="nc" id="L40">		OrderHistory x = convert();</span>
+<span class="nc" id="L41">		List&lt;InvoiceModel&gt; invoice = new ArrayList&lt;InvoiceModel&gt;();</span>
+<span class="nc" id="L42">		int a = orderhistory.add(x);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">		for(OrderItem r:ans) {</span>
+
+<span class="nc" id="L45">			r.setOrder_id(a);</span>
+<span class="nc" id="L46">			orderdao.add(r);</span>
+<span class="nc" id="L47">		}</span>
 
 
-<span class="nc" id="L71">	}</span>
+<span class="nc" id="L50">	}</span>
 
 	public List&lt;OrderHistory&gt; getall() {
-<span class="nc" id="L74">		return orderhistory.getall();</span>
+<span class="nc" id="L53">		return orderhistory.getall();</span>
 	}
 	public List&lt;OrderData&gt; select(int id) throws ApiException{
-<span class="nc" id="L77">		List&lt;OrderItem&gt; items = orderdao.select(id);</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">		if(items==null){</span>
-<span class="nc" id="L79">			throw new ApiException(&quot;Order does not exist&quot;);</span>
+<span class="nc" id="L56">		List&lt;OrderItem&gt; items = orderdao.select(id);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		if(items==null){</span>
+<span class="nc" id="L58">			throw new ApiException(&quot;Order does not exist&quot;);</span>
 		}
-<span class="nc" id="L81">		return convert(items);</span>
+<span class="nc" id="L60">		return convert(items);</span>
 	}
 	@Transactional(rollbackOn  = ApiException.class)
 	private List&lt;OrderItem&gt; check(List&lt;OrderForm&gt; f) throws ApiException {
-<span class="nc" id="L85">		List&lt;OrderItem&gt; ans = new ArrayList&lt;OrderItem&gt;();</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">		for(OrderForm p:f) {</span>
-<span class="nc" id="L87">			OrderItem q = new OrderItem();</span>
-<span class="nc" id="L88">			Product z = productdao.select(p.getBarcode());</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">			if(z==null) {</span>
-<span class="nc" id="L90">				throw new ApiException(&quot;No such product exists.&quot;);</span>
+<span class="nc" id="L64">		List&lt;OrderItem&gt; ans = new ArrayList&lt;OrderItem&gt;();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		for(OrderForm p:f) {</span>
+<span class="nc" id="L66">			OrderItem q = new OrderItem();</span>
+<span class="nc" id="L67">			Product z = productdao.select(p.getBarcode());</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">			if(z==null) {</span>
+<span class="nc" id="L69">				throw new ApiException(&quot;No such product exists.&quot;);</span>
 			}
-<span class="nc" id="L92">			q.setProduct_id(z.getProduct_id());</span>
-<span class="nc" id="L93">			Inventory i = inventorydao.select(z.getProduct_id());</span>
-<span class="nc" id="L94">			q.setQuantity(p.getQuantity());</span>
-<span class="nc bnc" id="L95" title="All 2 branches missed.">			if(i==null) {</span>
-<span class="nc" id="L96">				throw new ApiException(&quot;No inventory exists for this product.&quot;);</span>
+<span class="nc" id="L71">			q.setProduct_id(z.getProduct_id());</span>
+<span class="nc" id="L72">			Inventory i = inventorydao.select(z.getProduct_id());</span>
+<span class="nc" id="L73">			q.setQuantity(p.getQuantity());</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">			if(i==null) {</span>
+<span class="nc" id="L75">				throw new ApiException(&quot;No inventory exists for this product.&quot;);</span>
 			}
-<span class="nc bnc" id="L98" title="All 2 branches missed.">			if(p.getQuantity() &gt; i.getQuantity()) {</span>
-<span class="nc" id="L99">				throw new ApiException(&quot;Selected quantity cannot be greater than Inventory&quot;);</span>
-<span class="nc" id="L100">			}q.setOrder_id(1);</span>
-<span class="nc" id="L101">			q.setMrp(z.getMrp());</span>
-<span class="nc" id="L102">			inventorydao.updateinventory(i.getProduct_id(),p.getQuantity());</span>
-<span class="nc" id="L103">			ans.add(q);</span>
-<span class="nc" id="L104">		}</span>
-<span class="nc" id="L105">		return ans;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">			if(p.getQuantity() &gt; i.getQuantity()) {</span>
+<span class="nc" id="L78">				throw new ApiException(&quot;Selected quantity cannot be greater than Inventory&quot;);</span>
+<span class="nc" id="L79">			}q.setOrder_id(1);</span>
+<span class="nc" id="L80">			q.setMrp(z.getMrp());</span>
+<span class="nc" id="L81">			inventorydao.updateinventory(i.getProduct_id(),p.getQuantity());</span>
+<span class="nc" id="L82">			ans.add(q);</span>
+<span class="nc" id="L83">		}</span>
+<span class="nc" id="L84">		return ans;</span>
 	}
 	private OrderHistory convert() {
-<span class="nc" id="L108">		OrderHistory h = new OrderHistory();</span>
-<span class="nc" id="L109">		LocalDateTime now = LocalDateTime.now();</span>
-<span class="nc" id="L110">		h.setDate(now);</span>
-<span class="nc" id="L111">		return h;</span>
+<span class="nc" id="L87">		OrderHistory h = new OrderHistory();</span>
+<span class="nc" id="L88">		LocalDateTime now = LocalDateTime.now();</span>
+<span class="nc" id="L89">		h.setDate(now);</span>
+<span class="nc" id="L90">		return h;</span>
 	}
 	protected List&lt;OrderData&gt; convert(List&lt;OrderItem&gt; items){
-<span class="nc" id="L114">		List&lt;OrderData&gt; ans = new ArrayList&lt;OrderData&gt;();</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">		for(OrderItem i:items){</span>
-<span class="nc" id="L116">			OrderData r = new OrderData();</span>
-<span class="nc" id="L117">			r.setMrp(i.getMrp());</span>
-<span class="nc" id="L118">			r.setQuantity(i.getQuantity());</span>
-<span class="nc" id="L119">			r.setName(productdao.select(i.getProduct_id()).getName());</span>
-<span class="nc" id="L120">			ans.add(r);</span>
-<span class="nc" id="L121">		}</span>
-<span class="nc" id="L122">		return ans;</span>
+<span class="nc" id="L93">		List&lt;OrderData&gt; ans = new ArrayList&lt;OrderData&gt;();</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">		for(OrderItem i:items){</span>
+<span class="nc" id="L95">			OrderData r = new OrderData();</span>
+<span class="nc" id="L96">			r.setMrp(i.getMrp());</span>
+<span class="nc" id="L97">			r.setQuantity(i.getQuantity());</span>
+<span class="nc" id="L98">			r.setName(productdao.select(i.getProduct_id()).getName());</span>
+<span class="nc" id="L99">			ans.add(r);</span>
+<span class="nc" id="L100">		}</span>
+<span class="nc" id="L101">		return ans;</span>
 	}
 
 }

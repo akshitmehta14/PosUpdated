@@ -3,7 +3,6 @@
 import java.io.IOException;
 import java.util.List;
 
-import com.akshit.sale.model.InvoiceModel;
 import com.akshit.sale.model.OrderData;
 import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.OrderService;
@@ -23,6 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 @Api
 @RestController
+@RequestMapping(path = &quot;/api/order&quot;)
 <span class="nc" id="L26">public class OrderApiController {</span>
 	@Autowired
 	private OrderDto orderdto;
@@ -31,21 +31,20 @@ import io.swagger.annotations.ApiOperation;
 
 
 	@ApiOperation(value = &quot;Shows all order&quot;)
-	@RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List&lt;OrderHistory&gt; getAll() {
 <span class="nc" id="L36">		return orderdto.getall();</span>
 	}
 
 	@ApiOperation(value = &quot;Shows details about an order&quot;)
-	@RequestMapping(path = &quot;/api/order/{id}&quot;,method = RequestMethod.GET)
+	@RequestMapping(path = &quot;/{id}&quot;,method = RequestMethod.GET)
 	public List&lt;OrderData&gt; select(@PathVariable int id) throws ApiException{
 <span class="nc" id="L42">		return orderdto.select(id);</span>
 	}
 	@ApiOperation(value=&quot;Creates an order&quot;)
-	@RequestMapping(path = &quot;/api/order&quot;, method = RequestMethod.POST)
-	public void add(@RequestBody List&lt;OrderForm&gt; f,HttpServletResponse response) throws FOPException, JAXBException, IOException, TransformerException, ApiException {
-<span class="nc" id="L47">		orderdto.add(f, response);</span>
-
-<span class="nc" id="L49">	}</span>
+	@RequestMapping(method = RequestMethod.POST)
+	public void add(@RequestBody List&lt;OrderForm&gt; f) throws ApiException {
+<span class="nc" id="L47">		orderdto.add(f);</span>
+<span class="nc" id="L48">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

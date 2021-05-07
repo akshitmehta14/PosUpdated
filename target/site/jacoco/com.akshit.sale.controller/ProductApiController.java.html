@@ -2,7 +2,6 @@
 
 import java.util.List;
 
-import com.akshit.sale.model.BrandForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,27 +15,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Api
 @RestController
+@RequestMapping(path = &quot;api/product&quot;)
 <span class="nc" id="L19">public class ProductApiController {</span>
 	@Autowired
 	private ProductDto productdto;
 	
 	@ApiOperation(value = &quot;Adds a product&quot;)
-	@RequestMapping(path = &quot;/api/product&quot;, method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void add(@RequestBody ProductForm form) throws ApiException {
 <span class="nc" id="L26">		productdto.add(form);</span>
 <span class="nc" id="L27">	}</span>
 	@ApiOperation(value = &quot;Updates a product by ID&quot;)
-	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.PUT)
+	@RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
 <span class="nc" id="L31">		productdto.update(id,f);</span>
 <span class="nc" id="L32">	}</span>
 	@ApiOperation(value = &quot;Selects a product by ID&quot;)
-	@RequestMapping(path = &quot;/api/product/{id}&quot;, method = RequestMethod.GET)
+	@RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
 	public ProductData select(@PathVariable int id) throws ApiException {
 <span class="nc" id="L36">		return productdto.select(id);</span>
 	}
 	@ApiOperation(value = &quot;Shows all products&quot;)
-	@RequestMapping(path = &quot;/api/product&quot;, method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List&lt;ProductData&gt; getAll() {
 <span class="nc" id="L41">		return productdto.getall();</span>
 	}

@@ -20,27 +20,19 @@ public class BrandService<list> {
 
 	@Transactional(rollbackOn = ApiException.class)
 	public void add(BrandDetail p) throws ApiException {
-		BrandForm f= new BrandForm();
-		f.setBrand(StringUtil.toLowerCase(p.getBrand()));
-		f.setCategory(StringUtil.toLowerCase(p.getCategory()));
 
 
-		BrandDetail b = dao.select(f);
+
+		BrandDetail b = dao.select(p);
 		if(b!=null) {
 			throw new ApiException("Brand and Category combination already exists");
 		}
 		dao.insert(p);
 	}
 
-	/*
-	 * @Transactional(rollbackOn = ApiException.class) public EmployeePojo get(int
-	 * id) throws ApiException { return getCheck(id); }
-	 */
 	@Transactional
-	public void update(int id,BrandForm f){
-		f.setBrand(StringUtil.toLowerCase(f.getBrand()));
-		f.setCategory(StringUtil.toLowerCase(f.getCategory()));
-		dao.update(id,f);
+	public void update(int id,BrandDetail p){
+		dao.update(id,p);
 	}
 	@Transactional
 	public List<BrandDetail> getAll() {
@@ -51,6 +43,13 @@ public class BrandService<list> {
 
 	public BrandDetail select(int id) {
 		return dao.select(id);
+	}
+	public int select(BrandDetail b) throws ApiException {
+		BrandDetail selected = dao.select(b);
+		if(selected==null){
+			throw new ApiException("Brand Category combination does not exist.");
+		}
+		return selected.getBrand_id();
 	}
 
 	/*

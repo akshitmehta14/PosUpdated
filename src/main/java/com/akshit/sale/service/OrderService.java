@@ -1,16 +1,11 @@
 package com.akshit.sale.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.akshit.sale.model.InvoiceModel;
 import com.akshit.sale.model.OrderData;
-import com.akshit.sale.model.OrderInvoiceXmlList;
-import com.akshit.sale.util.PDFConversion;
-import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +19,7 @@ import com.akshit.sale.pojo.OrderHistory;
 import com.akshit.sale.pojo.OrderItem;
 import com.akshit.sale.pojo.Product;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamSource;
 
 @Service
 @Transactional
@@ -42,19 +33,9 @@ public class OrderService {
 	@Autowired
 	private ProductDao productdao;
 
-//	public void add(List<OrderForm> f) throws ApiException {
-//		//List<OrderItem> ans = check(f);
-//		OrderHistory x = convert();
-//		orderhistory.add(x);
-//		for(OrderItem r:ans) {
-//
-//			orderdao.add(r);
-//			//InventoryDao v = new InventoryDao();
-//			//v.updateinventory(r.getProduct_id(),r.getQuantity());
-//		}
-//	}
-	@Transactional(rollbackOn  = ApiException.class)
-	public void add(List<OrderForm> f,HttpServletResponse response) throws IOException, FOPException, JAXBException, TransformerException, ApiException {
+
+	@Transactional()
+	public void add(List<OrderForm> f) throws ApiException {
 		List<OrderItem> ans = check(f);
 		OrderHistory x = convert();
 		List<InvoiceModel> invoice = new ArrayList<InvoiceModel>();
@@ -62,8 +43,6 @@ public class OrderService {
 		for(OrderItem r:ans) {
 
 			r.setOrder_id(a);
-//			i.setQuantity(r.getQuantity());
-//			i.setProduct_id(4);
 			orderdao.add(r);
 		}
 

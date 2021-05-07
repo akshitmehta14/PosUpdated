@@ -16,7 +16,35 @@ function toJson($form){
 function handleAjaxError(response){
 	var response = JSON.parse(response.responseText);
 	console.log(response);
-	alert(response.message);
+	nativeToast({
+      message: response.message ,
+      position: 'north',
+      timeout: 0,
+      type: 'error',
+      closeOnClick: true
+    });
+//	var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+//    var toastList = toastElList.map(function (toastEl) {
+//      return new bootstrap.Toast(toastEl, option)
+//    });
+//    bs4pop.alert(response.message,function(){},{
+//      title:'Error',
+//      hideRemove:true,
+//      width: 500,
+//      btns: [
+//        {
+//          label:'Okay',
+//          onClick(){
+//          if(cb){
+//              return cb();
+//            }
+//          }
+//        }
+//      ]
+//    });
+	//alert(response.message);
+//	$("<div title='Basic dialog'>Test message</div>").dialog();
+//	'<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false"><div class="toast-header"><img src="..." class="rounded me-2" alt="..."><strong class="me-auto">Error</strong><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div><div class="toast-body">' + response.message + '</div></div>';
 }
 
 function readFileData(file, callback){

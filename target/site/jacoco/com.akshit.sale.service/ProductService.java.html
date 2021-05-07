@@ -21,74 +21,53 @@ import com.akshit.sale.model.ProductData;
 	
 	@Autowired
 	private ProductDao productdao;
-	public void add(ProductForm form) throws ApiException {
-<span class="nc" id="L25">		BrandForm f = new BrandForm();</span>
-<span class="nc" id="L26">		f.setBrand(form.getBrand());</span>
-<span class="nc" id="L27">		f.setCategory(form.getCategory());</span>
-<span class="nc" id="L28">		BrandDetail p = branddao.select(f);</span>
-<span class="nc bnc" id="L29" title="All 2 branches missed.">		if(productdao.select(form.getBarcode())!=null){</span>
-<span class="nc" id="L30">			throw new ApiException(&quot;Product already exists.&quot;);</span>
+	public void add(Product p) throws ApiException {
+<span class="nc bnc" id="L25" title="All 2 branches missed.">		if(productdao.select(p.getBarcode())!=null){</span>
+<span class="nc" id="L26">			throw new ApiException(&quot;Product already exists.&quot;);</span>
 		}
-<span class="nc bnc" id="L32" title="All 2 branches missed.">		if(p==null) {</span>
-<span class="nc" id="L33">			throw new ApiException(&quot;Brand and Category combination does not exists.&quot;);</span>
-		}
-<span class="nc" id="L35">		Product x = convert(form,p);</span>
-<span class="nc" id="L36">		productdao.add(x);</span>
-<span class="nc" id="L37">	}</span>
+<span class="nc" id="L28">		productdao.add(p);</span>
+<span class="nc" id="L29">	}</span>
 	public List&lt;ProductData&gt; getall() {
-<span class="nc" id="L39">		return innerjoin(productdao.getall(),branddao.selectAll());</span>
+<span class="nc" id="L31">		return innerjoin(productdao.getall(),branddao.selectAll());</span>
 		
 	}
 	private Product convert(ProductForm f, BrandDetail p) {
-<span class="nc" id="L43">		Product x = new Product();</span>
-<span class="nc" id="L44">		x.setBarcode(f.getBarcode());</span>
-<span class="nc" id="L45">		x.setBrand_id(p.getBrand_id());</span>
-<span class="nc" id="L46">		x.setMrp(f.getMrp());</span>
-<span class="nc" id="L47">		x.setName(f.getName());</span>
-<span class="nc" id="L48">		return x;</span>
+<span class="nc" id="L35">		Product x = new Product();</span>
+<span class="nc" id="L36">		x.setBarcode(f.getBarcode());</span>
+<span class="nc" id="L37">		x.setBrand_id(p.getBrand_id());</span>
+<span class="nc" id="L38">		x.setMrp(f.getMrp());</span>
+<span class="nc" id="L39">		x.setName(f.getName());</span>
+<span class="nc" id="L40">		return x;</span>
 	}
 	public ProductData select(int id){
-<span class="nc" id="L51">		Product p = productdao.select(id);</span>
-<span class="nc" id="L52">		BrandDetail b = branddao.select(p.getBrand_id());</span>
-<span class="nc" id="L53">		return convert(p,b);</span>
+<span class="nc" id="L43">		Product p = productdao.select(id);</span>
+<span class="nc" id="L44">		BrandDetail b = branddao.select(p.getBrand_id());</span>
+<span class="nc" id="L45">		return convert(p,b);</span>
 	}
 	private ProductData convert(Product f, BrandDetail p) {
-<span class="nc" id="L56">		ProductData x = new ProductData();</span>
-<span class="nc" id="L57">		x.setProduct_id(f.getProduct_id());</span>
-<span class="nc" id="L58">		x.setBarcode(f.getBarcode());</span>
-<span class="nc" id="L59">		x.setBrand(p.getBrand());</span>
-<span class="nc" id="L60">		x.setCategory(p.getCategory());</span>
-<span class="nc" id="L61">		x.setMrp(f.getMrp());</span>
-<span class="nc" id="L62">		x.setName(f.getName());</span>
-<span class="nc" id="L63">		return x;</span>
+<span class="nc" id="L48">		ProductData x = new ProductData();</span>
+<span class="nc" id="L49">		x.setProduct_id(f.getProduct_id());</span>
+<span class="nc" id="L50">		x.setBarcode(f.getBarcode());</span>
+<span class="nc" id="L51">		x.setBrand(p.getBrand());</span>
+<span class="nc" id="L52">		x.setCategory(p.getCategory());</span>
+<span class="nc" id="L53">		x.setMrp(f.getMrp());</span>
+<span class="nc" id="L54">		x.setName(f.getName());</span>
+<span class="nc" id="L55">		return x;</span>
 	}
 	private List&lt;ProductData&gt; innerjoin(List&lt;Product&gt; list1, List&lt;BrandDetail&gt; list2){
-<span class="nc" id="L66">		List&lt;ProductData&gt; list3 = new ArrayList&lt;ProductData&gt;(); </span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">		for(Product p:list1) {</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">			for(BrandDetail b:list2) {</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">				if(p.getBrand_id() == b.getBrand_id()) {</span>
-<span class="nc" id="L70">					list3.add(convert(p,b));</span>
+<span class="nc" id="L58">		List&lt;ProductData&gt; list3 = new ArrayList&lt;ProductData&gt;(); </span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">		for(Product p:list1) {</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">			for(BrandDetail b:list2) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">				if(p.getBrand_id() == b.getBrand_id()) {</span>
+<span class="nc" id="L62">					list3.add(convert(p,b));</span>
 				}
-<span class="nc" id="L72">			}</span>
-<span class="nc" id="L73">		}</span>
-<span class="nc" id="L74">		return list3;</span>
+<span class="nc" id="L64">			}</span>
+<span class="nc" id="L65">		}</span>
+<span class="nc" id="L66">		return list3;</span>
 	}
 
-    public void update(int id, ProductForm f) throws ApiException {
-<span class="nc" id="L78">		Product p = new Product();</span>
-<span class="nc" id="L79">		BrandForm x = new BrandForm();</span>
-<span class="nc" id="L80">		x.setBrand(f.getBrand());</span>
-<span class="nc" id="L81">		x.setCategory(f.getCategory());</span>
-<span class="nc" id="L82">		BrandDetail b = branddao.select(x);</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">		if(b==null){</span>
-<span class="nc" id="L84">			throw new ApiException(&quot;Failed to update as brand and category does not exists&quot;);</span>
-		}
-<span class="nc" id="L86">		p.setProduct_id(id);</span>
-<span class="nc" id="L87">		p.setBrand_id(b.getBrand_id());</span>
-<span class="nc" id="L88">		p.setMrp(f.getMrp());</span>
-<span class="nc" id="L89">		p.setBarcode(f.getBarcode());</span>
-<span class="nc" id="L90">		p.setName(f.getName());</span>
-<span class="nc" id="L91">		productdao.update(p);</span>
-<span class="nc" id="L92">    }</span>
+    public void update(int id, Product p) throws ApiException {
+<span class="nc" id="L70">		productdao.update(id,p);</span>
+<span class="nc" id="L71">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

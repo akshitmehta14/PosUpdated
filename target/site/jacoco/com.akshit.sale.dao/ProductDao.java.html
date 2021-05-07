@@ -25,9 +25,9 @@ import com.akshit.sale.pojo.Product;
 <span class="nc" id="L25">		return query.getResultList();</span>
 	}
 	@Transactional
-	public void update(Product p){
+	public void update(int id,Product p){
 
-<span class="nc" id="L30">		em.createQuery(update_query).setParameter(&quot;id&quot;, p.getProduct_id())</span>
+<span class="nc" id="L30">		em.createQuery(update_query).setParameter(&quot;id&quot;, id)</span>
 <span class="nc" id="L31">				.setParameter(&quot;brand_id&quot;,p.getBrand_id())</span>
 <span class="nc" id="L32">				.setParameter(&quot;name&quot;, p.getName())</span>
 <span class="nc" id="L33">				.setParameter(&quot;mrp&quot;, p.getMrp())</span>

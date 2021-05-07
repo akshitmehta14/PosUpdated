@@ -3,6 +3,7 @@ package com.akshit.sale.dto;
 import java.util.List;
 
 import com.akshit.sale.model.ProductData;
+import com.akshit.sale.pojo.Inventory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +19,9 @@ public class InventoryDto {
 	@Autowired
 	private InventoryService service;
 	public void add(InventoryForm form) throws ApiException {
-		normalize(form);
-		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));
-		service.add(form);
+		form = normalize(form);
+		Inventory i = convert(form);
+		service.add(i,form.getBarcode());
 	}
 	public void update(String barcode, int quantity) throws ApiException {
 		barcode = StringUtil.toLowerCase(barcode);
@@ -37,7 +38,7 @@ public class InventoryDto {
 		return service.getall();
 	}
 	
-	private void normalize(InventoryForm p) throws ApiException{
+	private InventoryForm normalize(InventoryForm p) throws ApiException{
 		if(StringUtil.negative(p.getQuantity())==true) {
 			throw new ApiException("quantity cannot be negative");
 		}
@@ -45,7 +46,12 @@ public class InventoryDto {
 		if(StringUtil.isEmpty(p.getBarcode())==true) {
 			throw new ApiException("barcode cannot be empty");
 		}
-		StringUtil.toLowerCase(p.getBarcode());
-		return;
+		p.setBarcode(StringUtil.toLowerCase(p.getBarcode()));
+		return p;
+	}
+	protected Inventory convert(InventoryForm form){
+		Inventory converted = new Inventory();
+		converted.setQuantity(form.getQuantity());
+		return converted;
 	}
 }

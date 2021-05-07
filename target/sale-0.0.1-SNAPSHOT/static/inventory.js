@@ -132,7 +132,7 @@ function displayInventoryList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button type="button" class="btn btn-group btn-sm btn-outline-primary" onclick="displayEditInventory(\'' + e.barcode + '\')"><span class="material-icons">edit</span></button>'
+		var buttonHtml = ' <button type="button" class="btn btn-group btn-sm btn-link" onclick="displayEditInventory(\'' + e.barcode + '\')"><span class="material-icons">edit</span></button>'
 		var row = '<tr>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>'  + e.name + '</td>'

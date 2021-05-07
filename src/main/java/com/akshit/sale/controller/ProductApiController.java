@@ -2,7 +2,6 @@ package com.akshit.sale.controller;
 
 import java.util.List;
 
-import com.akshit.sale.model.BrandForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,27 +15,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Api
 @RestController
+@RequestMapping(path = "api/product")
 public class ProductApiController {
 	@Autowired
 	private ProductDto productdto;
 	
 	@ApiOperation(value = "Adds a product")
-	@RequestMapping(path = "/api/product", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void add(@RequestBody ProductForm form) throws ApiException {
 		productdto.add(form);
 	}
 	@ApiOperation(value = "Updates a product by ID")
-	@RequestMapping(path = "/api/product/{id}", method = RequestMethod.PUT)
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
 		productdto.update(id,f);
 	}
 	@ApiOperation(value = "Selects a product by ID")
-	@RequestMapping(path = "/api/product/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public ProductData select(@PathVariable int id) throws ApiException {
 		return productdto.select(id);
 	}
 	@ApiOperation(value = "Shows all products")
-	@RequestMapping(path = "/api/product", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List<ProductData> getAll() {
 		return productdto.getall();
 	}

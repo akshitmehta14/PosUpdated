@@ -83,9 +83,9 @@ function displayBrandList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = '<button type="button" class="btn btn-group btn-sm btn-outline-primary" type="button" class="btn btn-group btn-sm btn-primary" onclick="displayEditBrand(' + e.brand_id + ')"><span class="material-icons">edit</span></button>';
+		var buttonHtml = '<button type="button" class="btn btn-group btn-sm btn-link" type="button" class="btn btn-group btn-sm btn-primary" onclick="displayEditBrand(' + e.brand_id + ')"><span class="material-icons">edit</span></button>';
 		var row = '<tr>'
-		+ '<td>' + e.brand_id + '</td>'
+//		+ '<td>' + e.brand_id + '</td>'
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'
 		+ '<td>' + buttonHtml + '</td>'

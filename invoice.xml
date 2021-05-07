@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <items>
-    <date>2021-04-29 16:53:34</date>
+    <date>2021-05-05 15:43:48</date>
     <item>
-        <mrp>200.59</mrp>
-        <name>Green Tea</name>
-        <quantity>10</quantity>
+        <mrp>88.35</mrp>
+        <name>Colgate Maxfresh</name>
+        <quantity>8</quantity>
     </item>
-    <item>
-        <mrp>600.58</mrp>
-        <name>Barbeque</name>
-        <quantity>15</quantity>
-    </item>
-    <total>11013.0</total>
+    <total>706.0</total>
 </items>

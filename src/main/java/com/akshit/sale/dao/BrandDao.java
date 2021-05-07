@@ -28,8 +28,8 @@ public class BrandDao extends AbstractDao{
 		em.persist(p);
 	}
 	@Transactional
-	public void update(int id, BrandForm f){
-		em.createQuery(updatebyid).setParameter("id",id).setParameter("brand",f.getBrand()).setParameter("category",f.getCategory()).executeUpdate();
+	public void update(int id, BrandDetail p){
+		em.createQuery(updatebyid).setParameter("id",id).setParameter("brand",p.getBrand()).setParameter("category",p.getCategory()).executeUpdate();
 
 	}
 	@Transactional
@@ -38,9 +38,9 @@ public class BrandDao extends AbstractDao{
 		query.setParameter("id",id);
 		return getSingle(query);
 	}
-	 public BrandDetail select(BrandForm f) { 
+	 public BrandDetail select(BrandDetail p) {
 		 TypedQuery<BrandDetail> query = getQuery(select_id, BrandDetail.class);
-		 query.setParameter("brand", f.getBrand()).setParameter("category",f.getCategory());
+		 query.setParameter("brand", p.getBrand()).setParameter("category",p.getCategory());
 		 return getSingle(query);
 	}
 

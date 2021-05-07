@@ -1,6 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>branddto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.dto</a> &gt; <span class="el_source">branddto.java</span></div><h1>branddto.java</h1><pre class="source lang-java linenums">package com.akshit.sale.dto;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BrandDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.dto</a> &gt; <span class="el_source">BrandDto.java</span></div><h1>BrandDto.java</h1><pre class="source lang-java linenums">package com.akshit.sale.dto;
 
-<span class="nc" id="L3">public class branddto {</span>
+import com.akshit.sale.model.BrandForm;
+import com.akshit.sale.pojo.BrandDetail;
+import com.akshit.sale.service.ApiException;
+import com.akshit.sale.service.BrandService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+<span class="nc" id="L13">public class BrandDto {</span>
+    @Autowired
+    private BrandService service;
+
+    public List&lt;BrandDetail&gt; getAll() {
+<span class="nc" id="L18">        return service.getAll();</span>
+    }
+    public BrandDetail select(int id) {
+
+<span class="nc" id="L22">        return service.select(id);</span>
+    }
+
+    public void add(BrandForm form) throws ApiException {
+<span class="nc" id="L26">        BrandDetail p = convert(form);</span>
+<span class="nc" id="L27">        p.setBrand(StringUtil.toLowerCase(p.getBrand()));</span>
+<span class="nc" id="L28">        p.setCategory(StringUtil.toLowerCase(p.getCategory()));</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">        if(StringUtil.isEmpty(p.getCategory()) || StringUtil.isEmpty(p.getBrand())){</span>
+<span class="nc" id="L30">            throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
+        }
+<span class="nc" id="L32">        service.add(p);</span>
+<span class="nc" id="L33">    }</span>
+
+    public void update(int id, BrandForm f) throws ApiException {
+
+<span class="nc" id="L37">        f.setBrand(StringUtil.toLowerCase(f.getBrand()));</span>
+<span class="nc" id="L38">        f.setCategory(StringUtil.toLowerCase(f.getCategory()));</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if(StringUtil.isEmpty(f.getCategory()) || StringUtil.isEmpty(f.getBrand())){</span>
+<span class="nc" id="L40">            throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
+        }
+<span class="nc" id="L42">        BrandDetail p = convert(f);</span>
+<span class="nc" id="L43">        service.update(id,p);</span>
+<span class="nc" id="L44">    }</span>
+
+    private static BrandForm convert(BrandDetail p) {
+<span class="nc" id="L47">        BrandForm d = new BrandForm();</span>
+<span class="nc" id="L48">        d.setBrand(p.getBrand());</span>
+<span class="nc" id="L49">        d.setCategory(p.getCategory());</span>
+<span class="nc" id="L50">        return d;</span>
+    }
+
+    private static BrandDetail convert(BrandForm f) {
+<span class="nc" id="L54">        BrandDetail p = new BrandDetail();</span>
+<span class="nc" id="L55">        p.setBrand(f.getBrand());</span>
+<span class="nc" id="L56">        p.setCategory(f.getCategory());</span>
+<span class="nc" id="L57">        return p;</span>
+    }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

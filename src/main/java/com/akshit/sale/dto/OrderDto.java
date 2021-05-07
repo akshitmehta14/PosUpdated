@@ -1,15 +1,11 @@
 package com.akshit.sale.dto;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
 
 import com.akshit.sale.model.OrderData;
-import org.apache.fop.apps.FOPException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +28,7 @@ public class OrderDto {
 	}
 
 	@Transactional
-	public void add(List<OrderForm> form, HttpServletResponse response) throws ApiException, FOPException, JAXBException, IOException, TransformerException {
+	public void add(List<OrderForm> form) throws ApiException {
 		for(OrderForm f:form ){
 			if(StringUtil.isEmpty(f.getBarcode())){
 				throw new ApiException("Barcode cannot be empty");
@@ -41,6 +37,6 @@ public class OrderDto {
 				throw new ApiException("Quantity cannot be negative");
 			}
 		}
-		orderservice.add(form,response);
+		orderservice.add(form);
 	}
 }

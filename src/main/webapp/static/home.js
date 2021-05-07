@@ -18,10 +18,13 @@ function createOrder(event){
 	   headers: {
        	'Content-Type': 'application/json'
        },
+       success: function(response) {
+       	   		alert("Order successfully created.");
+       },
 	   error: handleAjaxError
 	});
     displayOrderList();
-    alert("Order successfully created.")
+
 	return false;
 }
 
@@ -49,7 +52,7 @@ function displayOrderList(){
 	for(var i in data){
 		var e = data[i];
 		var f= j-1;
-		var buttonHtml = '<button type="button" class="btn btn-group btn-sm btn-outline-primary" onclick="deleteItem(' + f + ')"><span class="material-icons">remove</span></button>';
+		var buttonHtml = '<button type="button" class="btn btn-group btn-sm btn-link" onclick="deleteItem(' + f + ')"><span class="material-icons">remove</span></button>';
 //		var buttonHtml = ' <button onclick="displayEditBrand(' + e.brandId + ')">edit</button>'
 		var row = '<tr>'
 		+ '<td>' + j + '</td>'

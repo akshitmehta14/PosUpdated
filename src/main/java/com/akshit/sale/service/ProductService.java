@@ -21,19 +21,11 @@ public class ProductService {
 	
 	@Autowired
 	private ProductDao productdao;
-	public void add(ProductForm form) throws ApiException {
-		BrandForm f = new BrandForm();
-		f.setBrand(form.getBrand());
-		f.setCategory(form.getCategory());
-		BrandDetail p = branddao.select(f);
-		if(productdao.select(form.getBarcode())!=null){
+	public void add(Product p) throws ApiException {
+		if(productdao.select(p.getBarcode())!=null){
 			throw new ApiException("Product already exists.");
 		}
-		if(p==null) {
-			throw new ApiException("Brand and Category combination does not exists.");
-		}
-		Product x = convert(form,p);
-		productdao.add(x);
+		productdao.add(p);
 	}
 	public List<ProductData> getall() {
 		return innerjoin(productdao.getall(),branddao.selectAll());
@@ -74,20 +66,7 @@ public class ProductService {
 		return list3;
 	}
 
-    public void update(int id, ProductForm f) throws ApiException {
-		Product p = new Product();
-		BrandForm x = new BrandForm();
-		x.setBrand(f.getBrand());
-		x.setCategory(f.getCategory());
-		BrandDetail b = branddao.select(x);
-		if(b==null){
-			throw new ApiException("Failed to update as brand and category does not exists");
-		}
-		p.setProduct_id(id);
-		p.setBrand_id(b.getBrand_id());
-		p.setMrp(f.getMrp());
-		p.setBarcode(f.getBarcode());
-		p.setName(f.getName());
-		productdao.update(p);
+    public void update(int id, Product p) throws ApiException {
+		productdao.update(id,p);
     }
 }

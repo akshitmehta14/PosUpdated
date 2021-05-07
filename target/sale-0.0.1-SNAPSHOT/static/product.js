@@ -110,9 +110,9 @@ function displayProductList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-		var buttonHtml = ' <button type="button" class="btn btn-group btn-sm btn-outline-primary" onclick="displayEditProduct(' + e.product_id + ')"><span class="material-icons">edit</span></button>'
+		var buttonHtml = ' <button type="button" class="btn btn-group btn-sm btn-link" onclick="displayEditProduct(' + e.product_id + ')"><span class="material-icons">edit</span></button>'
 		var row = '<tr>'
-		+ '<td>' + e.product_id + '</td>'
+//		+ '<td>' + e.product_id + '</td>'
 		+ '<td>' + e.barcode + '</td>'
 		+ '<td>' + e.brand + '</td>'
 		+ '<td>'  + e.category + '</td>'

@@ -29,14 +29,14 @@ function displayOrderList(data){
 		var e = data[i];
 
 //		var invoice = '<a download class="btn btn-sm btn-outline-primary" onclick="downloadInvoice('+e.order_id+')"><span class="material-icons">download</span></a>';
-		var invoice = '<a download="invoice.pdf" class="btn btn-group btn-sm btn-outline-primary" href=' + getPdfUrl()+'/' + e.order_id +
+		var invoice = '<a download="invoice.pdf" class="btn btn-group btn-sm btn-link" href=' + getPdfUrl()+'/' + e.order_id +
 		    '><span class="material-icons">download</span></a>';
-		var eye = '<button type="button" class="btn btn-sm btn-group btn-outline-primary" onclick="getItemsList('+e.order_id+')"><span class="material-icons">visibility</span></button>';
+		var eye = '<button type="button" class="btn btn-sm btn-group btn-link" onclick="getItemsList('+e.order_id+')"><span class="material-icons">visibility</span></button>';
 		var x = e.date.dayOfMonth+'/'+e.date.monthValue+'/'+e.date.year +' - ' + e.date.hour +':' + e.date.minute + ':' + e.date.second;   //time
 		var row = '<tr>'
 		+ '<td>' + e.order_id + '</td>'
 		+ '<td>'  + x + '</td>'
-		+ '<td>' + eye +'   ' + invoice + '</td>'
+		+ '<td>' + eye +' ' + invoice + '</td>'
 		+ '</tr>';
         $tbody.append(row);
 	}

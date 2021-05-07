@@ -13,7 +13,9 @@ import java.util.List;
     private ReportService reportservice;
 
     public List&lt;SalesData&gt; salesgeneration(FilterForm form){
-<span class="nc" id="L16">        return reportservice.salesgeneration(form);</span>
+<span class="nc" id="L16">        form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
+<span class="nc" id="L17">        form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
+<span class="nc" id="L18">        return reportservice.salesgeneration(form);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

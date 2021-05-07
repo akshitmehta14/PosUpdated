@@ -13,6 +13,8 @@ public class ReportDto {
     private ReportService reportservice;
 
     public List<SalesData> salesgeneration(FilterForm form){
+        form.setBrand(StringUtil.toLowerCase(form.getBrand()));
+        form.setCategory(StringUtil.toLowerCase(form.getCategory()));
         return reportservice.salesgeneration(form);
     }
 }
