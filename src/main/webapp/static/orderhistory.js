@@ -15,14 +15,7 @@ function getOrderList(){
 	    displayOrderList(data);
 	}
 	ajaxRequest(url,'GET',1,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'GET',
-//	   success: function(data) {
-//	   		displayOrderList(data);
-//	   },
-//	   error: handleAjaxError
-//	});
+
 }
 
 
@@ -31,8 +24,6 @@ function displayOrderList(data){
 	$tbody.empty();
 	for(var i in data){
 		var e = data[i];
-
-//		var invoice = '<a download class="btn btn-sm btn-outline-primary" onclick="downloadInvoice('+e.order_id+')"><span class="material-icons">download</span></a>';
 		var invoice = '<a download="invoice.pdf" class="btn btn-group btn-sm btn-link" href=' + getPdfUrl()+'/' + e.order_id +
 		    '><span class="material-icons">download</span></a>';
 		var eye = '<button type="button" class="btn btn-sm btn-group btn-link" onclick="getItemsList('+e.order_id+')"><span class="material-icons">visibility</span></button>';
@@ -60,14 +51,7 @@ function getItemsList(id){
         displayItemsList(data);
     }
     ajaxRequest(url,'GET',1,successFx)
-//    	$.ajax({
-//    	   url: url,
-//    	   type: 'GET',
-//    	   success: function(data) {
-//    	   		displayItemsList(data);
-//    	   },
-//    	   error: handleAjaxError
-//    	});
+
 }
 function displayItemsList(data){
     var $tbody = $('#order-table').find('tbody');

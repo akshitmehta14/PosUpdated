@@ -18,18 +18,7 @@ function SalesReport(event){
         displayReportData(data);
     }
     ajaxRequest(url,'POST',json,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'POST',
-//	   data: json,
-//	   headers: {
-//       	'Content-Type': 'application/json'
-//       },
-//	   success: function(data) {
-//	   		displayReportData(data);
-//	   },
-//	   error: handleAjaxError
-//	});
+
 
 	return false;
 }

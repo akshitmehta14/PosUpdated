@@ -15,18 +15,6 @@ function addInventory(event){
             getInventoryList();
         }
     ajaxRequest(url,'POST',json,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'POST',
-//	   data: json,
-//	   headers: {
-//       	'Content-Type': 'application/json'
-//       },
-//	   success: function(response) {
-//	   		getInventoryList();
-//	   },
-//	   error: handleAjaxError
-//	});
 
 	return false;
 }
@@ -45,18 +33,6 @@ function updateInventory(event){
         getInventoryList();
     }
     ajaxRequest(url,'PUT',json,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'PUT',
-//	   data: json,
-//	   headers: {
-//       	'Content-Type': 'application/json'
-//       },
-//	   success: function(response) {
-//	   		getInventoryList();
-//	   },
-//	   error: handleAjaxError
-//	});
 
 	return false;
 }
@@ -68,14 +44,6 @@ function getInventoryList(){
             displayInventoryList(data);
         }
     ajaxRequest(url,'GET',1,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'GET',
-//	   success: function(data) {
-//	   		displayInventoryList(data);
-//	   },
-//	   error: handleAjaxError
-//	});
 }
 
 
@@ -161,14 +129,7 @@ function displayEditInventory(barcode){
             displayInventory(data);
         }
     ajaxRequest(url,'GET',1,successFx);
-//	$.ajax({
-//	   url: url,
-//	   type: 'GET',
-//	   success: function(data) {
-//	   		displayInventory(data);
-//	   },
-//	   error: handleAjaxError
-//	});
+
 }
 
 function resetUploadDialog(){
