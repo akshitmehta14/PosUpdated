@@ -2,7 +2,6 @@ com\akshit\sale\pojo\OrderHistory.class
 com\akshit\sale\service\ProductService.class
 com\akshit\sale\controller\ProductApiController.class
 com\akshit\sale\dto\InventoryDto.class
-com\akshit\sale\dto\StringUtil.class
 com\akshit\sale\model\ProductForm.class
 com\akshit\sale\model\OrderInvoiceXmlList.class
 com\akshit\sale\spring\DbConfig.class
@@ -25,12 +24,14 @@ com\akshit\sale\spring\WebInitializer.class
 com\akshit\sale\controller\BrandApiController.class
 com\akshit\sale\model\FilterForm.class
 com\akshit\sale\pojo\BrandDetail.class
+com\akshit\sale\util\StringUtil.class
 com\akshit\sale\controller\OrderApiController.class
 com\akshit\sale\service\ApiException.class
+com\akshit\sale\model\OrderHistoryData.class
 com\akshit\sale\service\OrderService.class
 com\akshit\sale\dto\BrandDto.class
 com\akshit\sale\dao\AbstractDao.class
-com\akshit\sale\dao\OrderDao.class
+com\akshit\sale\dao\OrderItemDao.class
 com\akshit\sale\model\SalesData.class
 com\akshit\sale\dto\ReportDto.class
 com\akshit\sale\spring\ControllerConfig.class

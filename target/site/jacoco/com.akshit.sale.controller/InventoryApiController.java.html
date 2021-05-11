@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.controller</a> &gt; <span class="el_source">InventoryApiController.java</span></div><h1>InventoryApiController.java</h1><pre class="source lang-java linenums">package com.akshit.sale.controller;
 
-import java.util.List;
-
+import com.akshit.sale.dto.InventoryDto;
+import com.akshit.sale.model.InventoryData;
+import com.akshit.sale.model.InventoryForm;
+import com.akshit.sale.service.ApiException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.akshit.sale.dto.InventoryDto;
-import com.akshit.sale.service.ApiException;
-import com.akshit.sale.model.InventoryData;
-import com.akshit.sale.model.InventoryForm;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import java.util.List;
 
 @Api
 @RestController
 @RequestMapping(path = &quot;api/inventory&quot;)
-<span class="nc" id="L18">public class InventoryApiController {</span>
+<span class="fc" id="L17">public class InventoryApiController {</span>
 	@Autowired
-	private InventoryDto inventorydto;
+	private InventoryDto inventoryDto;
 	
 	@ApiOperation(value = &quot;Adds into inventory&quot;)
 	@RequestMapping(method = RequestMethod.POST)
 	public void add(@RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L25">		inventorydto.add(form);</span>
-<span class="nc" id="L26">	}</span>
+<span class="nc" id="L24">		inventoryDto.add(form);</span>
+<span class="nc" id="L25">	}</span>
 	@ApiOperation(value = &quot;Updates a product&quot;)
 	@RequestMapping(path = &quot;/{barcode}&quot;,method = RequestMethod.PUT)
-	public void update(@PathVariable String barcode,@RequestBody InventoryForm form) throws ApiException {
-<span class="nc" id="L30">		inventorydto.update(barcode, form.getQuantity());</span>
-<span class="nc" id="L31">	}</span>
+	public void update(@PathVariable String barcode,@RequestBody int quantity) throws ApiException {
+<span class="nc" id="L29">		inventoryDto.update(barcode, quantity);</span>
+<span class="nc" id="L30">	}</span>
 	@ApiOperation(value = &quot;Selects a product&quot;)
 	@RequestMapping(path = &quot;/{barcode}&quot;,method = RequestMethod.GET)
 	public InventoryData select(@PathVariable String barcode) throws ApiException {
-<span class="nc" id="L35">		return inventorydto.select(barcode);</span>
+<span class="nc" id="L34">		return inventoryDto.select(barcode);</span>
 	}
 	@ApiOperation(value = &quot;Shows all inventory&quot;)
 	@RequestMapping(method = RequestMethod.GET)
 	public List&lt;InventoryData&gt; getAll() {
-<span class="nc" id="L40">		return inventorydto.getall();</span>
+<span class="nc" id="L39">		return inventoryDto.getAll();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

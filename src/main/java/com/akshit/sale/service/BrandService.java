@@ -1,27 +1,21 @@
 package com.akshit.sale.service;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import com.akshit.sale.dto.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.akshit.sale.dao.BrandDao;
 import com.akshit.sale.pojo.BrandDetail;
-import com.akshit.sale.model.BrandForm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.List;
 @Service
-public class BrandService<list> {
+public class BrandService {
 
 	@Autowired
 	private BrandDao dao;
 
-	@Transactional(rollbackOn = ApiException.class)
+	@Transactional(rollbackFor = ApiException.class)
 	public void add(BrandDetail p) throws ApiException {
-
-
 
 		BrandDetail b = dao.select(p);
 		if(b!=null) {
@@ -31,7 +25,10 @@ public class BrandService<list> {
 	}
 
 	@Transactional
-	public void update(int id,BrandDetail p){
+	public void update(int id,BrandDetail p) throws ApiException {
+		if(dao.select(p)!=null){
+			throw new ApiException("Brand and Category combination already exists");
+		}
 		dao.update(id,p);
 	}
 	@Transactional
@@ -51,21 +48,4 @@ public class BrandService<list> {
 		}
 		return selected.getBrand_id();
 	}
-
-	/*
-	 * @Transactional(rollbackOn = ApiException.class) public void update(int id,
-	 * EmployeePojo p) throws ApiException { normalize(p); EmployeePojo ex =
-	 * getCheck(id); ex.setAge(p.getAge()); ex.setName(p.getName()); dao.update(ex);
-	 * }
-	 */
-
-	/*
-	 * @Transactional public BrandDetail getCheck(BrandForm f) throws ApiException {
-	 * EmployeePojo p = dao.select(f); if (p == null) { throw new
-	 * ApiException("Employee with given ID does not exit, id: " + id); } return p;
-	 * }
-	 * 
-	 * protected static void normalize(EmployeePojo p) {
-	 * p.setName(StringUtil.toLowerCase(p.getName())); }
-	 */
 }

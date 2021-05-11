@@ -156,18 +156,22 @@ function updateBrand(){
 	var $form = $("#brand-edit-form");
 	var json = toJson($form);
 
-	$.ajax({
-	   url: url,
-	   type: 'PUT',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
+    successFx = (response) => {
+        getBrandList();
+    }
+    ajaxRequest(url,'PUT',json,successFx);
+//	$.ajax({
+//	   url: url,
+//	   type: 'PUT',
+//	   data: json,
+//	   headers: {
+//       	'Content-Type': 'application/json'
+//       },
+//	   success: function(response) {
+//	   		getBrandList();
+//	   },
+//	   error: handleAjaxError
+//	});
 
 	return false;
 }
@@ -180,19 +184,22 @@ function addBrand(event){
 	var $form = $("#brand-form");
 	var json = toJson($form);
 	var url = getBrandUrl();
-
-	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
+    successFx = (response) => {
+            getBrandList();
+        }
+    ajaxRequest(url,'POST',json,successFx);
+//	$.ajax({
+//	   url: url,
+//	   type: 'POST',
+//	   data: json,
+//	   headers: {
+//       	'Content-Type': 'application/json'
+//       },
+//	   success: function(response) {
+//	   		getBrandList();
+//	   },
+//	   error: handleAjaxError
+//	});
 
 	return false;
 }

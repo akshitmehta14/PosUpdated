@@ -4,21 +4,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-<span class="nc" id="L7">public abstract class AbstractDao {</span>
+<span class="fc" id="L7">public abstract class AbstractDao {</span>
 	
 	@PersistenceContext
 	private EntityManager em;
 
 	protected &lt;T&gt; T getSingle(TypedQuery&lt;T&gt; query) {
-<span class="nc" id="L13">		return query.getResultList().stream().findFirst().orElse(null);</span>
+<span class="fc" id="L13">		return query.getResultList().stream().findFirst().orElse(null);</span>
 	}
 	
 	protected &lt;T&gt; TypedQuery&lt;T&gt; getQuery(String jpql, Class&lt;T&gt; clazz) {
-<span class="nc" id="L17">		return em.createQuery(jpql, clazz);</span>
+<span class="fc" id="L17">		return em.createQuery(jpql, clazz);</span>
 	}
 	
 	protected EntityManager em() {
-<span class="nc" id="L21">		return em;</span>
+<span class="fc" id="L21">		return em;</span>
 	}
 
 }

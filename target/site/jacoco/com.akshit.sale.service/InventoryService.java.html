@@ -1,84 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.service</a> &gt; <span class="el_source">InventoryService.java</span></div><h1>InventoryService.java</h1><pre class="source lang-java linenums">package com.akshit.sale.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.akshit.sale.dao.InventoryDao;
 import com.akshit.sale.dao.ProductDao;
 import com.akshit.sale.model.InventoryData;
-import com.akshit.sale.model.InventoryForm;
 import com.akshit.sale.pojo.Inventory;
 import com.akshit.sale.pojo.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
-@Transactional
-<span class="nc" id="L22">public class InventoryService {</span>
-	@Autowired
-	private InventoryDao dao;
-	@Autowired
-	private ProductDao x;
-	
-	public List&lt;InventoryData&gt; getall() {
-<span class="nc" id="L29">		List&lt;InventoryData&gt; i = convert(x.getall(),dao.getall());</span>
-<span class="nc" id="L30">		return i;</span>
-	}
-	public void update(String barcode,int quantity) throws ApiException {
-<span class="nc" id="L33">		int id = barcodetoid(barcode);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(quantity&lt;0){</span>
-<span class="nc" id="L35">			throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
-		}
-<span class="nc" id="L37">		dao.setInventory(id,quantity);</span>
-<span class="nc" id="L38">	}</span>
-	public void add(Inventory i,String barcode) throws ApiException {
-<span class="nc" id="L40">		Product p = x.select(barcode);</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">		if(p==null) {</span>
-<span class="nc" id="L42">			throw new ApiException(&quot;No such product exists.&quot;);</span>
-		}
-<span class="nc" id="L44">		Inventory inv = dao.select(p.getProduct_id());</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">		if(inv!=null){</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">			if(inv.getQuantity()+ i.getQuantity()&lt;0){</span>
-<span class="nc" id="L47">				throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
-			}
-<span class="nc" id="L49">			dao.update(p.getProduct_id(),i.getQuantity());</span>
-<span class="nc" id="L50">			return;</span>
-		}
-<span class="nc" id="L52">		dao.add(i);</span>
-<span class="nc" id="L53">	}</span>
-	public InventoryData select(String barcode){
-<span class="nc" id="L55">		int id = barcodetoid(barcode);</span>
-<span class="nc" id="L56">		Inventory i = dao.select(id);</span>
-<span class="nc" id="L57">		Product p = x.select(id);</span>
-<span class="nc" id="L58">		return convert(p,i);</span>
-	}
-	private int barcodetoid(String barcode){
-<span class="nc" id="L61">		return x.select(barcode).getProduct_id();</span>
-	}
-	private List&lt;InventoryData&gt; convert(List&lt;Product&gt; list1, List&lt;Inventory&gt; list2){
-<span class="nc" id="L64">		List&lt;InventoryData&gt; ans = new ArrayList&lt;InventoryData&gt;();</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">		for(Inventory i:list2) {</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">			for(Product p:list1) {</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">				if(i.getProduct_id() == p.getProduct_id()) {</span>
-<span class="nc" id="L68">					InventoryData y= convert(p,i);</span>
-<span class="nc" id="L69">					ans.add(y);</span>
-				}
-<span class="nc" id="L71">			}</span>
-<span class="nc" id="L72">		}</span>
-<span class="nc" id="L73">		return ans;</span>
-	}
-	protected InventoryData convert(Product p,Inventory i){
-<span class="nc" id="L76">		InventoryData y= new InventoryData();</span>
-<span class="nc" id="L77">		y.setProduct_id(i.getProduct_id());</span>
-<span class="nc" id="L78">		y.setBarcode(p.getBarcode());</span>
-<span class="nc" id="L79">		y.setName(p.getName());</span>
-<span class="nc" id="L80">		y.setQuantity(i.getQuantity());</span>
-<span class="nc" id="L81">		return y;</span>
-	}
+<span class="fc" id="L17">public class InventoryService {</span>
+    @Autowired
+    private InventoryDao inventoryDao;
+    @Autowired
+    private ProductDao productDao;
+
+    @Transactional(readOnly = true)
+    public List&lt;InventoryData&gt; getAll() {
+<span class="fc" id="L25">        List&lt;InventoryData&gt; ans = convert(productDao.getall(), inventoryDao.getall());</span>
+<span class="fc" id="L26">        return ans;</span>
+    }
+
+    @Transactional(rollbackFor = ApiException.class)
+    public void update(String barcode, int quantity) throws ApiException {
+<span class="nc" id="L31">        int id = barcodeToId(barcode);</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (quantity &lt; 0) {</span>
+<span class="nc" id="L33">            throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
+        }
+<span class="nc" id="L35">        inventoryDao.setInventory(id, quantity);</span>
+<span class="nc" id="L36">    }</span>
+
+    public void add(Inventory inventory, String barcode) throws ApiException {
+<span class="fc" id="L39">        Product p = productDao.select(barcode);</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (p == null) {</span>
+<span class="nc" id="L41">            throw new ApiException(&quot;No such product exists.&quot;);</span>
+        }
+<span class="fc" id="L43">        Inventory inv = inventoryDao.select(p.getProduct_id());</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (inv != null) {</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (inv.getQuantity() + inventory.getQuantity() &lt; 0) {</span>
+<span class="nc" id="L46">                throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
+            }
+<span class="nc" id="L48">            inventoryDao.update(p.getProduct_id(), inventory.getQuantity());</span>
+<span class="nc" id="L49">            return;</span>
+        }
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if(inventory.getQuantity()&lt;0){</span>
+<span class="fc" id="L52">            throw new ApiException(&quot;Quantity cannot be negative&quot;);</span>
+        }
+<span class="fc" id="L54">        inventory.setProduct_id(p.getProduct_id());</span>
+<span class="fc" id="L55">        inventoryDao.add(inventory);</span>
+<span class="fc" id="L56">    }</span>
+
+    @Transactional(readOnly = true)
+    public InventoryData select(String barcode) throws ApiException {
+<span class="fc" id="L60">        int id = barcodeToId(barcode);</span>
+<span class="fc" id="L61">        Inventory i = inventoryDao.select(id);</span>
+<span class="fc" id="L62">        Product p = productDao.select(id);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if(p==null){</span>
+<span class="nc" id="L64">            throw new ApiException(&quot;No such product exists&quot;);</span>
+        }
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        if(i==null){</span>
+<span class="fc" id="L67">            throw new ApiException(&quot;No inventory for product exists&quot;);</span>
+        }
+<span class="nc" id="L69">        return convert(p, i);</span>
+    }
+
+    @Transactional(readOnly = true)
+    public InventoryData select(int id) throws ApiException {
+<span class="fc" id="L74">        Inventory i = inventoryDao.select(id);</span>
+<span class="fc" id="L75">        Product p = productDao.select(id);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if(p==null){</span>
+<span class="fc" id="L77">            throw new ApiException(&quot;No such product exists&quot;);</span>
+        }
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if(i==null){</span>
+<span class="nc" id="L80">            throw new ApiException(&quot;No inventory for product exists&quot;);</span>
+        }
+<span class="fc" id="L82">        return convert(p, i);</span>
+    }
+
+    private int barcodeToId(String barcode) {
+<span class="fc" id="L86">        return productDao.select(barcode).getProduct_id();</span>
+    }
+
+    private List&lt;InventoryData&gt; convert(List&lt;Product&gt; list1, List&lt;Inventory&gt; list2) {
+<span class="fc" id="L90">        List&lt;InventoryData&gt; ans = new ArrayList&lt;InventoryData&gt;();</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (Inventory i : list2) {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            for (Product p : list1) {</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                if (i.getProduct_id() == p.getProduct_id()) {</span>
+<span class="fc" id="L94">                    InventoryData y = convert(p, i);</span>
+<span class="fc" id="L95">                    ans.add(y);</span>
+                }
+<span class="fc" id="L97">            }</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        return ans;</span>
+    }
+
+    private InventoryData convert(Product p, Inventory i) {
+<span class="fc" id="L103">        InventoryData y = new InventoryData();</span>
+<span class="fc" id="L104">        y.setProduct_id(i.getProduct_id());</span>
+<span class="fc" id="L105">        y.setBarcode(p.getBarcode());</span>
+<span class="fc" id="L106">        y.setName(p.getName());</span>
+<span class="fc" id="L107">        y.setQuantity(i.getQuantity());</span>
+<span class="fc" id="L108">        return y;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

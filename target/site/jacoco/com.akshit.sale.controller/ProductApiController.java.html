@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.controller</a> &gt; <span class="el_source">ProductApiController.java</span></div><h1>ProductApiController.java</h1><pre class="source lang-java linenums">package com.akshit.sale.controller;
 
-import java.util.List;
-
+import com.akshit.sale.dto.ProductDto;
+import com.akshit.sale.model.ProductData;
+import com.akshit.sale.model.ProductForm;
+import com.akshit.sale.service.ApiException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.akshit.sale.dto.ProductDto;
-import com.akshit.sale.model.ProductForm;
-import com.akshit.sale.service.ApiException;
-import com.akshit.sale.model.ProductData;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
 
 @Api
 @RestController
 @RequestMapping(path = &quot;api/product&quot;)
-<span class="nc" id="L19">public class ProductApiController {</span>
+<span class="fc" id="L17">public class ProductApiController {</span>
 	@Autowired
-	private ProductDto productdto;
+	private ProductDto productDto;
 	
 	@ApiOperation(value = &quot;Adds a product&quot;)
 	@RequestMapping(method = RequestMethod.POST)
 	public void add(@RequestBody ProductForm form) throws ApiException {
-<span class="nc" id="L26">		productdto.add(form);</span>
-<span class="nc" id="L27">	}</span>
+<span class="nc" id="L24">		productDto.add(form);</span>
+<span class="nc" id="L25">	}</span>
 	@ApiOperation(value = &quot;Updates a product by ID&quot;)
 	@RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestBody ProductForm f) throws ApiException {
-<span class="nc" id="L31">		productdto.update(id,f);</span>
-<span class="nc" id="L32">	}</span>
+<span class="nc" id="L29">		productDto.update(id,f);</span>
+<span class="nc" id="L30">	}</span>
 	@ApiOperation(value = &quot;Selects a product by ID&quot;)
 	@RequestMapping(path = &quot;/{id}&quot;, method = RequestMethod.GET)
 	public ProductData select(@PathVariable int id) throws ApiException {
-<span class="nc" id="L36">		return productdto.select(id);</span>
+<span class="nc" id="L34">		return productDto.select(id);</span>
 	}
 	@ApiOperation(value = &quot;Shows all products&quot;)
 	@RequestMapping(method = RequestMethod.GET)
 	public List&lt;ProductData&gt; getAll() {
-<span class="nc" id="L41">		return productdto.getall();</span>
+<span class="nc" id="L39">		return productDto.getAll();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

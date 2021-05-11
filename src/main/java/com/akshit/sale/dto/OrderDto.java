@@ -1,33 +1,32 @@
 package com.akshit.sale.dto;
 
-import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
-
+import com.akshit.sale.service.OrderService;
 import com.akshit.sale.model.OrderData;
+import com.akshit.sale.model.OrderForm;
+import com.akshit.sale.model.OrderHistoryData;
+import com.akshit.sale.pojo.OrderHistory;
+import com.akshit.sale.service.ApiException;
+import com.akshit.sale.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.akshit.sale.model.OrderForm;
-import com.akshit.sale.pojo.OrderHistory;
-import com.akshit.sale.service.ApiException;
-import com.akshit.sale.service.OrderService;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderDto {
 	@Autowired
-	private OrderService orderservice;
+	private OrderService orderService;
 	
-	public List<OrderHistory> getall() {
-		return orderservice.getall();
+	public List<OrderHistoryData> getAll() {
+		return convert(orderService.getAll());
 	}
 
 	public List<OrderData> select(int id) throws ApiException{
-		return orderservice.select(id);
+		return orderService.select(id);
 	}
 
-	@Transactional
 	public void add(List<OrderForm> form) throws ApiException {
 		for(OrderForm f:form ){
 			if(StringUtil.isEmpty(f.getBarcode())){
@@ -37,6 +36,16 @@ public class OrderDto {
 				throw new ApiException("Quantity cannot be negative");
 			}
 		}
-		orderservice.add(form);
+		orderService.add(form);
+	}
+	private List<OrderHistoryData> convert(List<OrderHistory> list){
+		List<OrderHistoryData> data = new ArrayList<OrderHistoryData>();
+		for(OrderHistory temp:list) {
+			OrderHistoryData obj = new OrderHistoryData();
+			obj.setOrder_id(temp.getOrder_id());
+			obj.setDate(temp.getDate());
+			data.add(obj);
+		}
+		return data;
 	}
 }

@@ -11,20 +11,17 @@ function createOrder(event){
     var json = JSON.stringify(data);
     console.log(json);
     data = [];
-    $.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-       success: function(response) {
-       	   		alert("Order successfully created.");
-       },
-	   error: handleAjaxError
-	});
-    displayOrderList();
-
+    successFx = function(response){
+    nativeToast({
+        message: "Order Successfully Created" ,
+        position: 'north',
+        timeout: 2000,
+        type: 'success',
+        closeOnClick: true
+        });
+        displayOrderList();
+    }
+    ajaxRequest(url,'POST',json,successFx);
 	return false;
 }
 

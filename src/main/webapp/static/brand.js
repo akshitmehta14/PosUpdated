@@ -9,14 +9,10 @@ function getBrandUrl(){
 
 function getBrandList(){
 	var url = getBrandUrl();
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrandList(data);
-	   },
-	   error: handleAjaxError
-	});
+	let successFx = function(data) {
+    	    displayBrandList(data);
+    	}
+    ajaxRequest(url,'GET',1,successFx);
 }
 
 // FILE UPLOAD METHODS
@@ -97,14 +93,11 @@ function displayBrandList(data){
 function displayEditBrand(id){
 	var url = getBrandUrl() + "/" + id;
 	console.log(id);
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayBrand(data);
-	   },
-	   error: handleAjaxError
-	});
+	let successFx = function(data) {
+	    displayBrand(data);
+	}
+	ajaxRequest(url,'GET',1,successFx);
+
 }
 
 function resetUploadDialog(){
@@ -131,7 +124,6 @@ function updateFileName(){
 	var fileName = $file.val();
 	fileName = fileName.substr(12);
 	$('#brandFileName').html(fileName);
-	//console.log($('#brandFileName').html(fileName));
 }
 
 function displayUploadData(){
@@ -156,18 +148,12 @@ function updateBrand(){
 	var $form = $("#brand-edit-form");
 	var json = toJson($form);
 
-	$.ajax({
-	   url: url,
-	   type: 'PUT',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
+    successFx = function(response){
+                getBrandList();
+            }
+
+    ajaxRequest(url,'PUT',json,successFx);
+
 
 	return false;
 }
@@ -180,19 +166,11 @@ function addBrand(event){
 	var $form = $("#brand-form");
 	var json = toJson($form);
 	var url = getBrandUrl();
+	successFx = function(response){
+                    getBrandList();
+                }
+	ajaxRequest(url,'POST',json,successFx);
 
-	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getBrandList();
-	   },
-	   error: handleAjaxError
-	});
 
 	return false;
 }

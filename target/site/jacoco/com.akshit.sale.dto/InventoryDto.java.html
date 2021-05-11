@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.dto</a> &gt; <span class="el_source">InventoryDto.java</span></div><h1>InventoryDto.java</h1><pre class="source lang-java linenums">package com.akshit.sale.dto;
 
-import java.util.List;
-
-import com.akshit.sale.model.ProductData;
+import com.akshit.sale.model.InventoryData;
+import com.akshit.sale.model.InventoryForm;
 import com.akshit.sale.pojo.Inventory;
+import com.akshit.sale.service.ApiException;
+import com.akshit.sale.service.InventoryService;
+import com.akshit.sale.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
-import com.akshit.sale.model.InventoryData;
-import com.akshit.sale.model.InventoryForm;
-import com.akshit.sale.service.ApiException;
-import com.akshit.sale.service.InventoryService;
 @Service
 @Transactional
-<span class="nc" id="L18">public class InventoryDto {</span>
-	@Autowired
-	private InventoryService service;
-	public void add(InventoryForm form) throws ApiException {
-<span class="nc" id="L22">		form = normalize(form);</span>
-<span class="nc" id="L23">		Inventory i = convert(form);</span>
-<span class="nc" id="L24">		service.add(i,form.getBarcode());</span>
-<span class="nc" id="L25">	}</span>
-	public void update(String barcode, int quantity) throws ApiException {
-<span class="nc" id="L27">		barcode = StringUtil.toLowerCase(barcode);</span>
-<span class="nc" id="L28">		service.update(barcode,quantity);</span>
-<span class="nc" id="L29">	}</span>
-	public InventoryData select(String barcode) throws ApiException {
-<span class="nc" id="L31">		barcode = StringUtil.toLowerCase(barcode);</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">		if(StringUtil.isEmpty(barcode)){</span>
-<span class="nc" id="L33">			throw new ApiException(&quot;Barcode cannot be empty&quot;);</span>
-		}
-<span class="nc" id="L35">		return service.select(barcode);</span>
-	}
-	public List&lt;InventoryData&gt; getall() {
-<span class="nc" id="L38">		return service.getall();</span>
-	}
-	
-	private InventoryForm normalize(InventoryForm p) throws ApiException{
-<span class="nc bnc" id="L42" title="All 2 branches missed.">		if(StringUtil.negative(p.getQuantity())==true) {</span>
-<span class="nc" id="L43">			throw new ApiException(&quot;quantity cannot be negative&quot;);</span>
-		}
-		
-<span class="nc bnc" id="L46" title="All 2 branches missed.">		if(StringUtil.isEmpty(p.getBarcode())==true) {</span>
-<span class="nc" id="L47">			throw new ApiException(&quot;barcode cannot be empty&quot;);</span>
-		}
-<span class="nc" id="L49">		p.setBarcode(StringUtil.toLowerCase(p.getBarcode()));</span>
-<span class="nc" id="L50">		return p;</span>
-	}
-	protected Inventory convert(InventoryForm form){
-<span class="nc" id="L53">		Inventory converted = new Inventory();</span>
-<span class="nc" id="L54">		converted.setQuantity(form.getQuantity());</span>
-<span class="nc" id="L55">		return converted;</span>
-	}
+<span class="fc" id="L17">public class InventoryDto {</span>
+    @Autowired
+    private InventoryService service;
+
+    public void add(InventoryForm form) throws ApiException {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (StringUtil.isEmpty(form.getBarcode())) {</span>
+<span class="nc" id="L23">            throw new ApiException(&quot;Barcode cannot be empty&quot;);</span>
+        }
+<span class="nc" id="L25">        form = normalizeCheck(form);</span>
+<span class="nc" id="L26">        Inventory i = convert(form);</span>
+<span class="nc" id="L27">        service.add(i, form.getBarcode());</span>
+<span class="nc" id="L28">    }</span>
+
+    public void update(String barcode, int quantity) throws ApiException {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (StringUtil.isEmpty(barcode)) {</span>
+<span class="nc" id="L32">            throw new ApiException(&quot;Barcode cannot be empty&quot;);</span>
+        }
+<span class="nc" id="L34">        barcode = StringUtil.toLowerCaseTrim(barcode);</span>
+<span class="nc" id="L35">        service.update(barcode, quantity);</span>
+<span class="nc" id="L36">    }</span>
+
+    public InventoryData select(String barcode) throws ApiException {
+<span class="nc" id="L39">        barcode = StringUtil.toLowerCaseTrim(barcode);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (StringUtil.isEmpty(barcode)) {</span>
+<span class="nc" id="L41">            throw new ApiException(&quot;Barcode cannot be empty&quot;);</span>
+        }
+<span class="nc" id="L43">        return service.select(barcode);</span>
+    }
+
+    public List&lt;InventoryData&gt; getAll() {
+<span class="nc" id="L47">        return service.getAll();</span>
+    }
+
+    private InventoryForm normalizeCheck(InventoryForm p) throws ApiException {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (StringUtil.negative(p.getQuantity()) == true) {</span>
+<span class="nc" id="L52">            throw new ApiException(&quot;quantity cannot be negative&quot;);</span>
+        }
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (StringUtil.isEmpty(p.getBarcode()) == true) {</span>
+<span class="nc" id="L56">            throw new ApiException(&quot;barcode cannot be empty&quot;);</span>
+        }
+<span class="nc" id="L58">        p.setBarcode(StringUtil.toLowerCaseTrim(p.getBarcode()));</span>
+<span class="nc" id="L59">        return p;</span>
+    }
+
+    protected Inventory convert(InventoryForm form) {
+<span class="nc" id="L63">        Inventory converted = new Inventory();</span>
+<span class="nc" id="L64">        converted.setQuantity(form.getQuantity());</span>
+<span class="nc" id="L65">        return converted;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

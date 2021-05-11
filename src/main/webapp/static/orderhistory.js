@@ -11,14 +11,18 @@ function getPdfUrl(){
 
 function getOrderList(){
 	var url = getOrderUrl();
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayOrderList(data);
-	   },
-	   error: handleAjaxError
-	});
+	successFx = function(data){
+	    displayOrderList(data);
+	}
+	ajaxRequest(url,'GET',1,successFx);
+//	$.ajax({
+//	   url: url,
+//	   type: 'GET',
+//	   success: function(data) {
+//	   		displayOrderList(data);
+//	   },
+//	   error: handleAjaxError
+//	});
 }
 
 
@@ -52,14 +56,18 @@ function downloadInvoice(id){
 }
 function getItemsList(id){
     var url = getOrderUrl()+'/'+id;
-    	$.ajax({
-    	   url: url,
-    	   type: 'GET',
-    	   success: function(data) {
-    	   		displayItemsList(data);
-    	   },
-    	   error: handleAjaxError
-    	});
+    successFx = function(data){
+        displayItemsList(data);
+    }
+    ajaxRequest(url,'GET',1,successFx)
+//    	$.ajax({
+//    	   url: url,
+//    	   type: 'GET',
+//    	   success: function(data) {
+//    	   		displayItemsList(data);
+//    	   },
+//    	   error: handleAjaxError
+//    	});
 }
 function displayItemsList(data){
     var $tbody = $('#order-table').find('tbody');

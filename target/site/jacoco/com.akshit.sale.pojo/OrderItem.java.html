@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderItem.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.pojo</a> &gt; <span class="el_source">OrderItem.java</span></div><h1>OrderItem.java</h1><pre class="source lang-java linenums">package com.akshit.sale.pojo;
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-<span class="nc" id="L11">public class OrderItem {</span>
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int item;
-	@NotNull
-	private int orderpojoid;
-	@NotNull
-	private int productpojoid;
-	@NotNull
-	private int quantity;
-	@NotNull
-	private double mrp;
+<span class="fc" id="L6">public class OrderItem {</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int item;
+    @Column(nullable = false)
+    private int orderpojoid;
+    @Column(nullable = false)
+    private int productpojoid;
+    @Column(nullable = false)
+    private int quantity;
+    @Column(nullable = false)
+    private double mrp;
 
-	public double getMrp() {
-<span class="nc" id="L25">		return mrp;</span>
-	}
+    public double getMrp() {
+<span class="nc" id="L20">        return mrp;</span>
+    }
 
-	public void setMrp(double mrp) {
-<span class="nc" id="L29">		this.mrp = mrp;</span>
-<span class="nc" id="L30">	}</span>
+    public void setMrp(double mrp) {
+<span class="nc" id="L24">        this.mrp = mrp;</span>
+<span class="nc" id="L25">    }</span>
 
-	public int getItem() {
-<span class="nc" id="L33">		return item;</span>
-	}
-	public void setItem(int item) {
-<span class="nc" id="L36">		this.item = item;</span>
-<span class="nc" id="L37">	}</span>
-	public int getOrder_id() {
-<span class="nc" id="L39">		return orderpojoid;</span>
-	}
-	public void setOrder_id(int order_id) {
-<span class="nc" id="L42">		this.orderpojoid = order_id;</span>
-<span class="nc" id="L43">	}</span>
-	public int getProduct_id() {
-<span class="nc" id="L45">		return productpojoid;</span>
-	}
-	public void setProduct_id(int product_id) {
-<span class="nc" id="L48">		this.productpojoid = product_id;</span>
-<span class="nc" id="L49">	}</span>
-	public int getQuantity() {
-<span class="nc" id="L51">		return quantity;</span>
-	}
-	public void setQuantity(int quantity) {
-<span class="nc" id="L54">		this.quantity = quantity;</span>
-<span class="nc" id="L55">	}</span>
-	
+    public int getItem() {
+<span class="nc" id="L28">        return item;</span>
+    }
+
+    public void setItem(int item) {
+<span class="nc" id="L32">        this.item = item;</span>
+<span class="nc" id="L33">    }</span>
+
+    public int getOrder_id() {
+<span class="nc" id="L36">        return orderpojoid;</span>
+    }
+
+    public void setOrder_id(int order_id) {
+<span class="nc" id="L40">        this.orderpojoid = order_id;</span>
+<span class="nc" id="L41">    }</span>
+
+    public int getProduct_id() {
+<span class="nc" id="L44">        return productpojoid;</span>
+    }
+
+    public void setProduct_id(int product_id) {
+<span class="nc" id="L48">        this.productpojoid = product_id;</span>
+<span class="nc" id="L49">    }</span>
+
+    public int getQuantity() {
+<span class="nc" id="L52">        return quantity;</span>
+    }
+
+    public void setQuantity(int quantity) {
+<span class="nc" id="L56">        this.quantity = quantity;</span>
+<span class="nc" id="L57">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

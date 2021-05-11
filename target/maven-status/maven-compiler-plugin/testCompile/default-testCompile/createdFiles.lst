@@ -1,1 +1,4 @@
-com\akshit\sale\AppTest.class
+com\akshit\sale\service\BrandTest.class
+com\akshit\sale\config\AbstractUnit.class
+com\akshit\sale\service\InventoryServiceTest.class
+com\akshit\sale\config\QaConfig.class

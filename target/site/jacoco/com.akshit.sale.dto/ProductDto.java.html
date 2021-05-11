@@ -1,79 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.dto</a> &gt; <span class="el_source">ProductDto.java</span></div><h1>ProductDto.java</h1><pre class="source lang-java linenums">package com.akshit.sale.dto;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import com.akshit.sale.model.BrandForm;
+import com.akshit.sale.model.ProductData;
+import com.akshit.sale.model.ProductForm;
 import com.akshit.sale.pojo.BrandDetail;
 import com.akshit.sale.pojo.Product;
+import com.akshit.sale.service.ApiException;
 import com.akshit.sale.service.BrandService;
+import com.akshit.sale.service.ProductService;
+import com.akshit.sale.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.akshit.sale.model.ProductForm;
-import com.akshit.sale.service.ApiException;
-import com.akshit.sale.service.ProductService;
-import com.akshit.sale.model.ProductData;
+import javax.transaction.Transactional;
+import java.util.List;
 @Service
-<span class="nc" id="L19">public class ProductDto {</span>
+<span class="fc" id="L17">public class ProductDto {</span>
 	@Autowired
 	private ProductService service;
 	@Autowired
-	private BrandService brandservice;
+	private BrandService brandService;
 	
 	@Transactional
 	public void add(ProductForm form) throws ApiException {
-<span class="nc bnc" id="L27" title="All 8 branches missed.">		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){</span>
-<span class="nc" id="L28">			throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
-		}
-<span class="nc bnc" id="L30" title="All 2 branches missed.">		if(StringUtil.negative(form.getMrp())){</span>
-<span class="nc" id="L31">			throw new ApiException(&quot;MRP cannot be negative&quot;);</span>
-		}
-<span class="nc" id="L33">		form = normalize(form);</span>
-<span class="nc" id="L34">		Product p = convert_check(form);</span>
-<span class="nc" id="L35">		service.add(p);</span>
-<span class="nc" id="L36">	}</span>
+<span class="nc" id="L25">		check(form);</span>
+<span class="nc" id="L26">		form = normalize(form);</span>
+<span class="nc" id="L27">		Product p = convert(form);</span>
+<span class="nc" id="L28">		service.add(p);</span>
+<span class="nc" id="L29">	}</span>
 	@Transactional
-	public List&lt;ProductData&gt; getall() {
-<span class="nc" id="L39">		return service.getall();</span>
+	public List&lt;ProductData&gt; getAll() {
+<span class="nc" id="L32">		return service.getAll();</span>
 	}
 
 	@Transactional
     public void update(int id, ProductForm form) throws ApiException {
-<span class="nc bnc" id="L44" title="All 8 branches missed.">		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){</span>
-<span class="nc" id="L45">			throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
-		}
-<span class="nc bnc" id="L47" title="All 2 branches missed.">		if(StringUtil.negative(form.getMrp())){</span>
-<span class="nc" id="L48">			throw new ApiException(&quot;MRP cannot be negative&quot;);</span>
-		}
-<span class="nc" id="L50">		form = normalize(form);</span>
-<span class="nc" id="L51">		Product p = convert_check(form);</span>
-<span class="nc" id="L52">		service.update(id,p);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L37">		check(form);</span>
+<span class="nc" id="L38">		form = normalize(form);</span>
+<span class="nc" id="L39">		Product p = convert(form);</span>
+<span class="nc" id="L40">		service.update(id,p);</span>
+<span class="nc" id="L41">    }</span>
 
-    public ProductData select(int id) {
-<span class="nc" id="L56">		return service.select(id);</span>
+    public ProductData select(int id) throws ApiException {
+<span class="nc" id="L44">		return service.select(id);</span>
     }
 
-    protected ProductForm normalize(ProductForm form){
-<span class="nc" id="L60">		form.setBarcode(StringUtil.toLowerCase(form.getBarcode()));</span>
-<span class="nc" id="L61">		form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
-<span class="nc" id="L62">		form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
-<span class="nc" id="L63">		return form;</span>
+    private void check(ProductForm form) throws ApiException {
+<span class="nc bnc" id="L48" title="All 8 branches missed.">		if(StringUtil.isEmpty(form.getBarcode()) || StringUtil.isEmpty(form.getBrand()) || StringUtil.isEmpty(form.getCategory()) || StringUtil.isEmpty(form.getName())){</span>
+<span class="nc" id="L49">			throw new ApiException(&quot;One or more fields are empty.&quot;);</span>
+		}
+<span class="nc bnc" id="L51" title="All 2 branches missed.">		if(StringUtil.negative(form.getMrp())){</span>
+<span class="nc" id="L52">			throw new ApiException(&quot;MRP cannot be negative&quot;);</span>
+		}
+<span class="nc" id="L54">	}</span>
+    private ProductForm normalize(ProductForm form){
+<span class="nc" id="L56">		form.setBarcode(StringUtil.toLowerCaseTrim(form.getBarcode()));</span>
+<span class="nc" id="L57">		form.setBrand(StringUtil.toLowerCaseTrim(form.getBrand()));</span>
+<span class="nc" id="L58">		form.setCategory(StringUtil.toLowerCaseTrim(form.getCategory()));</span>
+<span class="nc" id="L59">		return form;</span>
 	}
 
-    protected Product convert_check(ProductForm form) throws ApiException {
-<span class="nc" id="L67">		BrandDetail b = new BrandDetail();</span>
-<span class="nc" id="L68">		b.setCategory(form.getCategory());</span>
-<span class="nc" id="L69">		b.setBrand(form.getBrand());</span>
-<span class="nc" id="L70">		int brandId= brandservice.select(b);</span>
-<span class="nc" id="L71">		Product converted = new Product();</span>
-<span class="nc" id="L72">		converted.setBrand_id(brandId);</span>
-<span class="nc" id="L73">		converted.setName(form.getName());</span>
-<span class="nc" id="L74">		converted.setMrp(form.getMrp());</span>
-<span class="nc" id="L75">		converted.setBarcode(form.getBarcode());</span>
-<span class="nc" id="L76">		return converted;</span>
+    private Product convert(ProductForm form) throws ApiException {
+<span class="nc" id="L63">		BrandDetail b = new BrandDetail();</span>
+<span class="nc" id="L64">		b.setCategory(form.getCategory());</span>
+<span class="nc" id="L65">		b.setBrand(form.getBrand());</span>
+<span class="nc" id="L66">		int brandId= brandService.select(b);</span>
+<span class="nc" id="L67">		Product converted = new Product();</span>
+<span class="nc" id="L68">		converted.setBrand_id(brandId);</span>
+<span class="nc" id="L69">		converted.setName(form.getName());</span>
+<span class="nc" id="L70">		converted.setMrp(form.getMrp());</span>
+<span class="nc" id="L71">		converted.setBarcode(form.getBarcode());</span>
+<span class="nc" id="L72">		return converted;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

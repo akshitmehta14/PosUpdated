@@ -7,42 +7,49 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.akshit.sale.model.InfoData;
 
-	@Controller
-<span class="nc" id="L11">	public class SiteUIController {</span>
+@Controller
+@RequestMapping(value = &quot;/ui&quot;)
+<span class="fc" id="L12">public class SiteUIController {</span>
 
-		@Value(&quot;${app.baseUrl}&quot;)
-		private String baseUrl;
-		@RequestMapping(value = &quot;/ui/home&quot;)
-		public ModelAndView home() {
-<span class="nc" id="L17">			return mav(&quot;home.html&quot;);</span>
-		}
-		@RequestMapping(value = &quot;/ui/product&quot;)
-		public ModelAndView product() {
-<span class="nc" id="L21">			return mav(&quot;product.html&quot;);</span>
-		}
-		@RequestMapping(value = &quot;/ui/orderHistory&quot;)
-		public ModelAndView orderHistory() {
-<span class="nc" id="L25">			return mav(&quot;orderHistory.html&quot;);</span>
-		}
-		@RequestMapping(value = &quot;/ui/inventory&quot;)
-		public ModelAndView inventory() {
-<span class="nc" id="L29">			return mav(&quot;inventory.html&quot;);</span>
-		}
-		@RequestMapping(value = &quot;/ui/report&quot;)
-		public ModelAndView report() {
-<span class="nc" id="L33">			return mav(&quot;report.html&quot;);</span>
-		}
-		@RequestMapping(value = &quot;/ui/brand&quot;)
-		public ModelAndView brand() {
-<span class="nc" id="L37">			return mav(&quot;brand.html&quot;);</span>
-		}
-		private ModelAndView mav(String page) {
-<span class="nc" id="L40">			ModelAndView mav = new ModelAndView(page);</span>
-<span class="nc" id="L41">			mav.addObject(&quot;info&quot;, new InfoData());</span>
-<span class="nc" id="L42">			mav.addObject(&quot;baseUrl&quot;, baseUrl);</span>
-<span class="nc" id="L43">			return mav;</span>
-		}
-		
+    @Value(&quot;${app.baseUrl}&quot;)
+    private String baseUrl;
+
+    @RequestMapping(value = &quot;/home&quot;)
+    public ModelAndView home() {
+<span class="nc" id="L19">        return mav(&quot;home.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/product&quot;)
+    public ModelAndView product() {
+<span class="nc" id="L24">        return mav(&quot;product.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/orderHistory&quot;)
+    public ModelAndView orderHistory() {
+<span class="nc" id="L29">        return mav(&quot;orderHistory.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/inventory&quot;)
+    public ModelAndView inventory() {
+<span class="nc" id="L34">        return mav(&quot;inventory.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/report&quot;)
+    public ModelAndView report() {
+<span class="nc" id="L39">        return mav(&quot;report.html&quot;);</span>
+    }
+
+    @RequestMapping(value = &quot;/brand&quot;)
+    public ModelAndView brand() {
+<span class="nc" id="L44">        return mav(&quot;brand.html&quot;);</span>
+    }
+
+    private ModelAndView mav(String page) {
+<span class="nc" id="L48">        ModelAndView mav = new ModelAndView(page);</span>
+<span class="nc" id="L49">        mav.addObject(&quot;info&quot;, new InfoData());</span>
+<span class="nc" id="L50">        mav.addObject(&quot;baseUrl&quot;, baseUrl);</span>
+<span class="nc" id="L51">        return mav;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

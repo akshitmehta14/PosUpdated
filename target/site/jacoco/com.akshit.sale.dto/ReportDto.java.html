@@ -4,18 +4,18 @@ import com.akshit.sale.model.SalesData;
 import com.akshit.sale.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.akshit.sale.util.StringUtil;
 import java.util.List;
 
 @Service
-<span class="nc" id="L11">public class ReportDto {</span>
+<span class="fc" id="L11">public class ReportDto {</span>
     @Autowired
     private ReportService reportservice;
 
-    public List&lt;SalesData&gt; salesgeneration(FilterForm form){
-<span class="nc" id="L16">        form.setBrand(StringUtil.toLowerCase(form.getBrand()));</span>
-<span class="nc" id="L17">        form.setCategory(StringUtil.toLowerCase(form.getCategory()));</span>
-<span class="nc" id="L18">        return reportservice.salesgeneration(form);</span>
+    public List&lt;SalesData&gt; generateSalesReport(FilterForm form){
+<span class="nc" id="L16">        form.setBrand(StringUtil.toLowerCaseTrim(form.getBrand()));</span>
+<span class="nc" id="L17">        form.setCategory(StringUtil.toLowerCaseTrim(form.getCategory()));</span>
+<span class="nc" id="L18">        return reportservice.generateSalesReport(form);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

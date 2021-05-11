@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sale</a> &gt; <a href="index.source.html" class="el_package">com.akshit.sale.dao</a> &gt; <span class="el_source">InventoryDao.java</span></div><h1>InventoryDao.java</h1><pre class="source lang-java linenums">package com.akshit.sale.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-
+import com.akshit.sale.pojo.Inventory;
 import org.springframework.stereotype.Repository;
 
-import com.akshit.sale.pojo.Inventory;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
-<span class="nc" id="L16">public class InventoryDao extends AbstractDao {</span>
+<span class="fc" id="L12">public class InventoryDao extends AbstractDao {</span>
 	
-<span class="nc" id="L18">	private static String select_all = &quot;select p from Inventory p&quot;;</span>
-<span class="nc" id="L19">	private static String select_id = &quot;select p from Inventory p where product_id=:id&quot;;</span>
-<span class="nc" id="L20">	private static String updatebyid = &quot;update Inventory set quantity = quantity - :quantity where product_id=:id&quot;;</span>
-<span class="nc" id="L21">	private static String updateinv = &quot;update Inventory set quantity = quantity + :quantity where product_id=:id&quot;;</span>
-<span class="nc" id="L22">	private static String setInventory = &quot;update Inventory set quantity = :quantity where product_id=:id&quot;;</span>
+<span class="fc" id="L14">	private static String SELECT_ALL = &quot;select p from Inventory p&quot;;</span>
+<span class="fc" id="L15">	private static String SELECT_ID = &quot;select p from Inventory p where product_id=:id&quot;;</span>
+<span class="fc" id="L16">	private static String UPDATE_BY_ID = &quot;update Inventory set quantity = quantity - :quantity where product_id=:id&quot;;</span>
+<span class="fc" id="L17">	private static String UPDATE_INV = &quot;update Inventory set quantity = quantity + :quantity where product_id=:id&quot;;</span>
+<span class="fc" id="L18">	private static String SET_INVENTORY = &quot;update Inventory set quantity = :quantity where product_id=:id&quot;;</span>
 	
 	public List&lt;Inventory&gt; getall() {
-<span class="nc" id="L25">		TypedQuery&lt;Inventory&gt; query = getQuery(select_all, Inventory.class);</span>
-<span class="nc" id="L26">		return query.getResultList();</span>
+<span class="fc" id="L21">		TypedQuery&lt;Inventory&gt; query = getQuery(SELECT_ALL, Inventory.class);</span>
+<span class="fc" id="L22">		return query.getResultList();</span>
 	}
 	
 	public void add(Inventory x) {
-<span class="nc" id="L30">		em().persist(x);</span>
-<span class="nc" id="L31">	}</span>
+<span class="fc" id="L26">		em().persist(x);</span>
+<span class="fc" id="L27">	}</span>
 	public Inventory select(int Id) { 
-<span class="nc" id="L33">		 TypedQuery&lt;Inventory&gt; query = getQuery(select_id, Inventory.class); </span>
-<span class="nc" id="L34">		 query.setParameter(&quot;id&quot;, Id); </span>
-<span class="nc" id="L35">		 return getSingle(query); </span>
+<span class="fc" id="L29">		 TypedQuery&lt;Inventory&gt; query = getQuery(SELECT_ID, Inventory.class);</span>
+<span class="fc" id="L30">		 query.setParameter(&quot;id&quot;, Id); </span>
+<span class="fc" id="L31">		 return getSingle(query); </span>
 	}
 	public void update(int id,int quantity){
-<span class="nc" id="L38">		em().createQuery(updateinv).setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
-<span class="nc" id="L39">	}</span>
+<span class="nc" id="L34">		em().createQuery(UPDATE_INV).</span>
+<span class="nc" id="L35">				setParameter(&quot;quantity&quot;,quantity).</span>
+<span class="nc" id="L36">				setParameter(&quot;id&quot;,id).</span>
+<span class="nc" id="L37">				executeUpdate();</span>
+<span class="nc" id="L38">	}</span>
 	public void updateinventory(int id,int quantity){
-<span class="nc" id="L41">		em().createQuery(updatebyid).setParameter(&quot;quantity&quot;,quantity).setParameter(&quot;id&quot;,id).executeUpdate();</span>
-<span class="nc" id="L42">	}</span>
+<span class="nc" id="L40">		em().createQuery(UPDATE_BY_ID).</span>
+<span class="nc" id="L41">				setParameter(&quot;quantity&quot;,quantity).</span>
+<span class="nc" id="L42">				setParameter(&quot;id&quot;,id).</span>
+<span class="nc" id="L43">				executeUpdate();</span>
+<span class="nc" id="L44">	}</span>
 	public void setInventory(int id,int quantity){
-<span class="nc" id="L44">		em().createQuery(setInventory).setParameter(&quot;id&quot;,id).setParameter(&quot;quantity&quot;,quantity).executeUpdate();</span>
-<span class="nc" id="L45">	}</span>
+<span class="nc" id="L46">		em().createQuery(SET_INVENTORY).</span>
+<span class="nc" id="L47">				setParameter(&quot;id&quot;,id).</span>
+<span class="nc" id="L48">				setParameter(&quot;quantity&quot;,quantity).</span>
+<span class="nc" id="L49">				executeUpdate();</span>
+<span class="nc" id="L50">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
