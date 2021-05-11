@@ -16,19 +16,10 @@ function updateProduct(event){
 	//Set the values to update
 	var $form = $("#product-edit-form");
 	var json = toJson($form);
-
-	$.ajax({
-	   url: url,
-	   type: 'PUT',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
-	});
+    successFx = function(response){
+    getProductList();
+    }
+    ajaxRequest(url,'PUT',json,successFx)
 
 	return false;
 }
@@ -36,14 +27,11 @@ function updateProduct(event){
 
 function getProductList(){
 	var url = getProductUrl();
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayProductList(data);
-	   },
-	   error: handleAjaxError
-	});
+	successFx = function(data){
+        displayProductList(data);
+        }
+    ajaxRequest(url,'GET',1,successFx)
+
 }
 
 
@@ -78,6 +66,7 @@ function uploadRows(){
 
 	var json = JSON.stringify(row);
 	var url = getProductUrl();
+
 
 	//Make ajax call
 	$.ajax({
@@ -126,14 +115,11 @@ function displayProductList(data){
 
 function displayEditProduct(id){
 	var url = getProductUrl() + "/" + id;
-	$.ajax({
-	   url: url,
-	   type: 'GET',
-	   success: function(data) {
-	   		displayProduct(data);
-	   },
-	   error: handleAjaxError
-	});
+	successFx = function(data){
+        displayProduct(data);
+        }
+        ajaxRequest(url,'GET',1,successFx)
+
 }
 
 function resetUploadDialog(){
@@ -171,19 +157,10 @@ function addProduct(event){
 	var $form = $("#product-form");
 	var json = toJson($form);
 	var url = getProductUrl();
-
-	$.ajax({
-	   url: url,
-	   type: 'POST',
-	   data: json,
-	   headers: {
-       	'Content-Type': 'application/json'
-       },
-	   success: function(response) {
-	   		getProductList();
-	   },
-	   error: handleAjaxError
-	});
+    successFx = function(response){
+        getProductList();
+        }
+    ajaxRequest(url,'POST',json,successFx)
 
 	return false;
 }
